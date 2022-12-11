@@ -22,7 +22,7 @@ Public Class Login
                 privileges = reader("privileges").ToString
             End While
 
-            If dtable.Rows(0)("privileges") = "ADMINISTRATOR" Or dtable.Rows(0)("privileges") = "USER" Then
+            If dtable.Rows(0)("privileges") = "ADMINISTRATOR" Or dtable.Rows(0)("privileges") = "USER" Or dtable.Rows(0)("privileges") = "OWNER" Then
                 MessageBox.Show("Login Confirmed. Logging in...", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Mainsystem.Show()
                 Hide()

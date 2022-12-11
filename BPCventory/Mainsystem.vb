@@ -257,7 +257,7 @@ Public Class Mainsystem
         '********************************************* DETERMINING PRIVILEGES **************************************************
         '***********************************************************************************************************************
         user_icon.Focus()
-        If Login.privileges = "ADMINISTRATOR" Then
+        If Login.privileges = "ADMINISTRATOR" Or Login.privileges = "OWNER" Then
             WelcomeLabel.Text = "Welcome! " + Login.privileges + " " + Login.lastname + ", " + Login.firstname + "."
         ElseIf Login.privileges = "USER" Then
             WelcomeLabel.Text = "Welcome! " + Login.privileges + " " + Login.lastname + ", " + Login.firstname + "."
@@ -461,10 +461,14 @@ Public Class Mainsystem
     End Sub
 
     Private Sub UserMngmntBttn_Click(sender As Object, e As EventArgs) Handles UserMngmntBttn.Click
-        CategoryLabel.Text = "USER MANAGEMENT"
-        UserManagementContent.BringToFront()
-        SideBar.BringToFront()
-        ClosingPanel.Enabled = True
+        If Login.privileges = "OWNER" Then
+            CategoryLabel.Text = "USER MANAGEMENT"
+            UserManagementContent.BringToFront()
+            SideBar.BringToFront()
+            ClosingPanel.Enabled = True
+        Else
+            MessageBox.Show("'USER MANAGEMENT' is only accessible to the 'OWNER'.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
     End Sub
 
     Private Sub AffliliatesBttn_Click(sender As Object, e As EventArgs) Handles AffliliatesBttn.Click

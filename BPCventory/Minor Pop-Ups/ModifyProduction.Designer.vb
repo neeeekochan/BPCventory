@@ -27,9 +27,6 @@ Partial Class ModifyProduction
         Me.EdtCmpntsSaveBttn = New System.Windows.Forms.Button()
         Me.CloseCompBttn = New System.Windows.Forms.Button()
         Me.ComponentsDGV = New System.Windows.Forms.DataGridView()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CompMatNameCB = New System.Windows.Forms.ComboBox()
         Me.CompProdNameCB = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -61,6 +58,10 @@ Partial Class ModifyProduction
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ProductionIDanp = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.EditComponentsContent.SuspendLayout()
         CType(Me.ComponentsDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,32 +117,13 @@ Partial Class ModifyProduction
         '
         Me.ComponentsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ComponentsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.ComponentsDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.Column1, Me.Column2})
+        Me.ComponentsDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.Column1, Me.Column2, Me.Column8})
         Me.ComponentsDGV.Location = New System.Drawing.Point(50, 212)
         Me.ComponentsDGV.Margin = New System.Windows.Forms.Padding(4)
         Me.ComponentsDGV.Name = "ComponentsDGV"
         Me.ComponentsDGV.RowHeadersVisible = False
         Me.ComponentsDGV.Size = New System.Drawing.Size(613, 231)
         Me.ComponentsDGV.TabIndex = 3
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Component #"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column1
-        '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column1.HeaderText = "Materials Needed"
-        Me.Column1.Name = "Column1"
-        '
-        'Column2
-        '
-        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column2.HeaderText = "Quantity"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Width = 90
         '
         'CompMatNameCB
         '
@@ -462,6 +444,32 @@ Partial Class ModifyProduction
         Me.ProductionIDanp.Size = New System.Drawing.Size(190, 22)
         Me.ProductionIDanp.TabIndex = 0
         '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Component #"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column1.HeaderText = "Materials Needed"
+        Me.Column1.Name = "Column1"
+        '
+        'Column2
+        '
+        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column2.HeaderText = "Quantity"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Width = 90
+        '
+        'Column8
+        '
+        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column8.HeaderText = "Delete"
+        Me.Column8.Name = "Column8"
+        Me.Column8.Width = 55
+        '
         'ModifyProduction
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -494,9 +502,6 @@ Partial Class ModifyProduction
     Friend WithEvents CompMatNameCB As ComboBox
     Friend WithEvents CompProdNameCB As ComboBox
     Friend WithEvents CloseCompBttn As Button
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents ProductionLogContent As Panel
     Friend WithEvents CloseCompBttn1 As Button
     Friend WithEvents Panel1 As Panel
@@ -526,4 +531,8 @@ Partial Class ModifyProduction
     Friend WithEvents AddToProductionBttn As Button
     Friend WithEvents EdtCmpntsSaveBttn As Button
     Friend WithEvents ResetBttn As Button
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewButtonColumn
 End Class

@@ -27,13 +27,11 @@ Partial Class ModifyProduction
         Me.EdtCmpntsSaveBttn = New System.Windows.Forms.Button()
         Me.CloseCompBttn = New System.Windows.Forms.Button()
         Me.ComponentsDGV = New System.Windows.Forms.DataGridView()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CompMatNameCB = New System.Windows.Forms.ComboBox()
         Me.CompProdNameCB = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ProductionLogContent = New System.Windows.Forms.Panel()
+        Me.ResetBttn = New System.Windows.Forms.Button()
         Me.SearchByDateBttn = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -60,6 +58,10 @@ Partial Class ModifyProduction
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ProductionIDanp = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.EditComponentsContent.SuspendLayout()
         CType(Me.ComponentsDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,32 +117,13 @@ Partial Class ModifyProduction
         '
         Me.ComponentsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ComponentsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.ComponentsDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.Column1, Me.Column2})
+        Me.ComponentsDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.Column1, Me.Column2, Me.Column8})
         Me.ComponentsDGV.Location = New System.Drawing.Point(50, 212)
         Me.ComponentsDGV.Margin = New System.Windows.Forms.Padding(4)
         Me.ComponentsDGV.Name = "ComponentsDGV"
         Me.ComponentsDGV.RowHeadersVisible = False
         Me.ComponentsDGV.Size = New System.Drawing.Size(613, 231)
         Me.ComponentsDGV.TabIndex = 3
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Component #"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column1
-        '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column1.HeaderText = "Materials Needed"
-        Me.Column1.Name = "Column1"
-        '
-        'Column2
-        '
-        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column2.HeaderText = "Quantity"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Width = 90
         '
         'CompMatNameCB
         '
@@ -179,6 +162,7 @@ Partial Class ModifyProduction
         'ProductionLogContent
         '
         Me.ProductionLogContent.BackColor = System.Drawing.Color.Snow
+        Me.ProductionLogContent.Controls.Add(Me.ResetBttn)
         Me.ProductionLogContent.Controls.Add(Me.SearchByDateBttn)
         Me.ProductionLogContent.Controls.Add(Me.Label2)
         Me.ProductionLogContent.Controls.Add(Me.Label1)
@@ -190,6 +174,20 @@ Partial Class ModifyProduction
         Me.ProductionLogContent.Name = "ProductionLogContent"
         Me.ProductionLogContent.Size = New System.Drawing.Size(730, 490)
         Me.ProductionLogContent.TabIndex = 39
+        '
+        'ResetBttn
+        '
+        Me.ResetBttn.BackColor = System.Drawing.Color.Gold
+        Me.ResetBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.ResetBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ResetBttn.Location = New System.Drawing.Point(431, 27)
+        Me.ResetBttn.Margin = New System.Windows.Forms.Padding(0)
+        Me.ResetBttn.Name = "ResetBttn"
+        Me.ResetBttn.Size = New System.Drawing.Size(61, 28)
+        Me.ResetBttn.TabIndex = 45
+        Me.ResetBttn.Text = "Reset"
+        Me.ResetBttn.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ResetBttn.UseVisualStyleBackColor = False
         '
         'SearchByDateBttn
         '
@@ -446,14 +444,40 @@ Partial Class ModifyProduction
         Me.ProductionIDanp.Size = New System.Drawing.Size(190, 22)
         Me.ProductionIDanp.TabIndex = 0
         '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Component #"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column1.HeaderText = "Materials Needed"
+        Me.Column1.Name = "Column1"
+        '
+        'Column2
+        '
+        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column2.HeaderText = "Quantity"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Width = 90
+        '
+        'Column8
+        '
+        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column8.HeaderText = "Delete"
+        Me.Column8.Name = "Column8"
+        Me.Column8.Width = 55
+        '
         'ModifyProduction
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.SandyBrown
         Me.ClientSize = New System.Drawing.Size(750, 512)
         Me.Controls.Add(Me.EditComponentsContent)
-        Me.Controls.Add(Me.ProductionLogContent)
         Me.Controls.Add(Me.AddtoNewProduceContent)
+        Me.Controls.Add(Me.ProductionLogContent)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "ModifyProduction"
@@ -478,9 +502,6 @@ Partial Class ModifyProduction
     Friend WithEvents CompMatNameCB As ComboBox
     Friend WithEvents CompProdNameCB As ComboBox
     Friend WithEvents CloseCompBttn As Button
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents ProductionLogContent As Panel
     Friend WithEvents CloseCompBttn1 As Button
     Friend WithEvents Panel1 As Panel
@@ -509,4 +530,9 @@ Partial Class ModifyProduction
     Friend WithEvents AddToProductionCloseBttn As Button
     Friend WithEvents AddToProductionBttn As Button
     Friend WithEvents EdtCmpntsSaveBttn As Button
+    Friend WithEvents ResetBttn As Button
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewButtonColumn
 End Class

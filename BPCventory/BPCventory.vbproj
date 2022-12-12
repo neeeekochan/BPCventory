@@ -265,6 +265,9 @@
     <EmbeddedResource Include="Minor Pop-Ups\ModifyProduction.resx">
       <DependentUpon>ModifyProduction.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Minor Pop-Ups\ModifySales.resx">
+      <DependentUpon>ModifySales.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Minor Pop-Ups\ModifyUser.resx">
       <DependentUpon>ModifyUser.vb</DependentUpon>
     </EmbeddedResource>

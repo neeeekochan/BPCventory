@@ -8,8 +8,25 @@ Public Class ModifyProduction
     Dim reader As MySqlDataReader
 
     Dim prodName, prodID As String
+    Dim rowcountofDGV, initRC As Integer
 
 #Region "LOADING"
+    Private Sub LoadLogs()
+        Try
+            cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log", connToAcc.openAccDB)
+            reader = cmd.ExecuteReader()
+            While reader.Read
+                ProductionLogDGV.Rows.Add(reader.Item("log_id").ToString, reader.Item("production_id").ToString,
+                                          reader.Item("datetime").ToString, reader.Item("quantity").ToString)
+            End While
+            reader.Close()
+            connToAcc.closeAccDB()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
+    End Sub
+
     Private Sub LoadProd()
         '/////////////////////////////////////
         '/// TRY FOR EDIT COMPONENTS
@@ -35,19 +52,9 @@ Public Class ModifyProduction
         '/////////////////////////////////////
         '/// TRY FOR LOAD PRODUCTION_LOG
         '/////////////////////////////////////
-        Try
-            cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log", connToAcc.openAccDB)
-            reader = cmd.ExecuteReader()
-            While reader.Read
-                ProductionLogDGV.Rows.Add(reader.Item("log_id").ToString, reader.Item("production_id").ToString,
-                                          reader.Item("datetime").ToString, reader.Item("quantity").ToString)
-            End While
-            reader.Close()
-            connToAcc.closeAccDB()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            connToAcc.closeAccDB()
-        End Try
+        LoadLogs()
+
+
 
         '/////////////////////////////////////
         '/// TRY FOR LOAD ADD TO NEW PRODUCTION
@@ -112,7 +119,7 @@ Public Class ModifyProduction
 
         reader = cmd.ExecuteReader()
         While reader.Read
-            ComponentsDGV.Rows.Add(reader.Item("component_id").ToString, reader.Item("material_name").ToString, reader.Item("quantity").ToString)
+            ComponentsDGV.Rows.Add(reader.Item("component_id").ToString, reader.Item("material_name").ToString, reader.Item("quantity").ToString, "DELETE")
             CompMatNameCB.Items.Add(String.Format("{0}-{1}", reader(0), reader(1)))
         End While
 
@@ -139,9 +146,17 @@ Public Class ModifyProduction
         Try
             DialogResult = MessageBox.Show("Do you want to proceed with these changes?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk)
             If DialogResult = DialogResult.Yes Then
-                For i As Integer = 0 To ComponentsDGV.Rows.Count - 2
 
-                    cmd = New MySqlCommand($"UPDATE components comp
+                For i As Integer = 0 To ComponentsDGV.Rows.Count - 2
+                    cmd = New MySqlCommand($"SELECT * FROM components WHERE component_id = 
+                            '" & ComponentsDGV.Rows(i).Cells(0).Value & "'", connToAcc.openAccDB)
+                    da = New MySqlDataAdapter(cmd)
+                    dtable.Clear()
+                    da.Fill(dtable)
+
+                    If dtable.Rows.Count > 0 Then
+                        connToAcc.closeAccDB()
+                        cmd = New MySqlCommand($"UPDATE components comp
                                         INNER JOIN materials mat
                                         ON mat.material_id = comp.material_id
                                         INNER JOIN make m
@@ -152,8 +167,24 @@ Public Class ModifyProduction
                                             comp.quantity = '" & ComponentsDGV.Rows(i).Cells(2).Value & "'
                                         WHERE pro.product_name = '" & prodName & "'
                                         AND comp.component_id = '" & ComponentsDGV.Rows(i).Cells(0).Value & "'", connToAcc.openAccDB)
-                    cmd.ExecuteScalar()
-                    connToAcc.closeAccDB()
+                        cmd.ExecuteNonQuery()
+                        connToAcc.closeAccDB()
+
+                    ElseIf dtable.Rows.Count < 1 Then
+                        connToAcc.closeAccDB()
+                        cmd = New MySqlCommand($"INSERT INTO components (production_id, material_id, quantity)
+                                            VALUES (
+                                                    (SELECT m.production_id FROM make m
+                                                    INNER JOIN products p
+                                                    ON m.product_id = p.product_id
+                                                    WHERE p.product_name = '" & prodName & "'), 
+                                                    (SELECT material_id FROM materials
+                                                    WHERE material_name = '" & ComponentsDGV.Rows(i).Cells(1).Value & "'), '" & ComponentsDGV.Rows(i).Cells(2).Value & "')", connToAcc.openAccDB)
+
+                        cmd.ExecuteNonQuery()
+                        connToAcc.closeAccDB()
+
+                    End If
                 Next
                 MessageBox.Show("Components successfully modified.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
@@ -163,6 +194,20 @@ Public Class ModifyProduction
             connToAcc.closeAccDB()
             ProductNameChanged()
         End Try
+    End Sub
+
+    Private Sub ComponentsDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles ComponentsDGV.CellClick
+        '//DELETING RECORDS
+        Dim userDelete As String = ComponentsDGV.Columns(e.ColumnIndex).HeaderText
+        If userDelete = "Delete" Then
+            If MsgBox("Delete this record?", vbYesNo + vbQuestion) = vbYes Then
+                cmd = New MySqlCommand($"DELETE FROM components WHERE component_id = '" & ComponentsDGV.CurrentRow.Cells(0).Value & "'", connToAcc.openAccDB)
+                cmd.ExecuteNonQuery()
+                connToAcc.closeAccDB()
+                MsgBox("Record has been successfully deleted.", vbInformation)
+                ProductNameChanged()
+            End If
+        End If
     End Sub
 #End Region
 
@@ -179,8 +224,8 @@ Public Class ModifyProduction
             cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log
                                     WHERE datetime BETWEEN @d1 AND @d2", connToAcc.openAccDB)
 
-            cmd.Parameters.Add("@d1", MySqlDbType.Date).Value = DateTimePicker1.Value
-            cmd.Parameters.Add("d2", MySqlDbType.Date).Value = DateTimePicker2.Value
+            cmd.Parameters.Add("@d1", MySqlDbType.DateTime).Value = DateTimePicker1.Value
+            cmd.Parameters.Add("d2", MySqlDbType.DateTime).Value = DateTimePicker2.Value
 
             reader = cmd.ExecuteReader()
             While reader.Read
@@ -194,6 +239,10 @@ Public Class ModifyProduction
             MsgBox(ex.Message)
             connToAcc.closeAccDB()
         End Try
+    End Sub
+
+    Private Sub ResetBttn_Click(sender As Object, e As EventArgs) Handles ResetBttn.Click
+        LoadLogs()
     End Sub
 #End Region
 

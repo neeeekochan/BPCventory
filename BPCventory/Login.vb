@@ -6,7 +6,7 @@ Public Class Login
     Dim dtable As New DataTable()
     Dim da As MySqlDataAdapter
     Dim reader As MySqlDataReader
-    Public lastname = "", firstname = "", privileges = ""
+    Public lastname = "", firstname = "", privileges = "", userID = ""
     Public Function TryingLogin(cmd As MySqlCommand)
         Try
             da = New MySqlDataAdapter(cmd)
@@ -16,12 +16,13 @@ Public Class Login
             reader = cmd.ExecuteReader
 
             While reader.Read
+                userID = reader("user_id").ToString
                 lastname = reader("lastname").ToString
                 firstname = reader("firstname").ToString
                 privileges = reader("privileges").ToString
             End While
 
-            If dtable.Rows(0)("privileges") = "ADMINISTRATOR" Or dtable.Rows(0)("privileges") = "USER" Then
+            If dtable.Rows(0)("privileges") = "ADMINISTRATOR" Or dtable.Rows(0)("privileges") = "USER" Or dtable.Rows(0)("privileges") = "OWNER" Then
                 MessageBox.Show("Login Confirmed. Logging in...", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Mainsystem.Show()
                 Hide()
@@ -63,7 +64,7 @@ Public Class Login
         If textusername.Text = "" Or textpassword.Text = "" Then
             MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
-            cmd = New MySqlCommand($"Select username,password,privileges,lastname,firstname FROM users WHERE username= '{textusername.Text}' AND password= '{textpassword.Text}'", connToAcc.openAccDB)
+            cmd = New MySqlCommand($"Select user_id, username,password,privileges,lastname,firstname FROM users WHERE username= '{textusername.Text}' AND password= '{textpassword.Text}'", connToAcc.openAccDB)
             TryingLogin(cmd)
         End If
 

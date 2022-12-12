@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1778
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BPCventory", "BPCventory\BPCventory.vbproj", "{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Debug|x86.ActiveCfg = Debug|x86
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Debug|x86.Build.0 = Debug|x86
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Release|x86.ActiveCfg = Release|x86
+		{DAE274A1-CFEA-4B80-8A32-ED26642A57EE}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4396842F-A848-49BA-9E3E-DB221AA98FAA}
+	EndGlobalSection
+EndGlobal

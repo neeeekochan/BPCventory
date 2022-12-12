@@ -143,8 +143,8 @@ Public Class AddNewRawMaterials
 
     Function AddNewRawMaterial(cmd As MySqlCommand)
         Try
-            If MaterialID.Text = "" Or MaterialName.Text = "" Or AverageCost.Text = "" Or InStock.Text = "" Or
-                Expected.Text = "" Or Committed.Text = "" Or Missing.Text = "" Or SupplierName.Text = "" Then
+            If MaterialID.Text = "Material ID" Or MaterialName.Text = "Material Name" Or AverageCost.Text = "Average Cost of Material" Or InStock.Text = "Quantity in Stock" Or
+                Expected.Text = "Expected to Arrive" Or Committed.Text = "Committed to Production" Or Missing.Text = "Missing Materials" Or SupplierName.Text = "" Then
                 MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 cmd.ExecuteNonQuery()
@@ -299,8 +299,8 @@ Public Class AddNewRawMaterials
     '//ADDING NEW RAW MATERIALS TO INVENTORY --------- REGARDLESS IF EXISTING OR NOT
     Private Sub AddNewMtrlBttn_Click(sender As Object, e As EventArgs) Handles AddNewMtrlBttn.Click
         Try
-            If MaterialID.Text = "" Or MaterialName.Text = "" Or AverageCost.Text = "" Or InStock.Text = "" Or
-                Expected.Text = "" Or Committed.Text = "" Or Missing.Text = "" Or SupplierName.Text = "" Then
+            If MaterialID.Text = "Material ID" Or MaterialName.Text = "Material Name" Or AverageCost.Text = "Average Cost of Material" Or InStock.Text = "Quantity in Stock" Or
+                Expected.Text = "Expected to Arrive" Or Committed.Text = "Committed to Production" Or Missing.Text = "Missing Materials" Or SupplierName.Text = "" Then
                 MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 If opt = 1 Then

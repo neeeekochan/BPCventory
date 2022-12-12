@@ -289,15 +289,20 @@ Public Class ModifyProduction
     End Sub
 
     Private Sub AddToProductionBttn_Click(sender As Object, e As EventArgs) Handles AddToProductionBttn.Click
-        cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
+        Try
+            cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
                             production_deadline = @setdate
                             WHERE production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
-        cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
-        cmd.ExecuteNonQuery()
-        connToAcc.closeAccDB()
-        LoadProd()
-        MessageBox.Show("Adding Materials to Production Success.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
+            cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
+            cmd.ExecuteNonQuery()
+            connToAcc.closeAccDB()
+            LoadProd()
+            MessageBox.Show("Adding Materials to Production Success.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
 
+    End Sub
 #End Region
 End Class

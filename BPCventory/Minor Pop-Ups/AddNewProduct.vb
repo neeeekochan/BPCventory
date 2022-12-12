@@ -1,16 +1,20 @@
 ﻿Public Class AddNewProduct
 
-    Function PresetDesc(Name As TextBox, Desc As TextBox, Quan As TextBox, BP As TextBox, SP As TextBox)
-        For Each txt In {Name, Desc, Quan, BP, SP}
+    Function PresetDesc(Name As TextBox, PrtNum As TextBox, PrdSize As TextBox, UL As TextBox, PrdDim As TextBox, AC As TextBox, SP As TextBox, Quan As TextBox)
+        For Each txt In {Name, PrtNum, PrdSize, UL, PrdDim, AC, SP, Quan}
             txt.Clear()
             txt.ForeColor = Color.Gray
         Next
         '-------------------- PRESET DESCRIPTION ------------------------------
         Name.Text = "Enter Product Name Here"
-        Desc.Text = "Product Description"
-        Quan.Text = "Quantity"
-        BP.Text = "Buying Price"
+        PartNumber.Text = "Part Number"
+        PrdSize.Text = "Size"
+        UL.Text = "Unit Length"
+        PrdDim.Text = "Dimensions"
         SP.Text = "Selling Price"
+        AC.Text = "Buying Price"
+        Quan.Text = "Quantity"
+
         '------------------------------------------------------'
 
         Return 0
@@ -20,17 +24,17 @@
         Mainsystem.Opacity = 1
         Mainsystem.Enabled = True
         Hide()
-        PresetDesc(ProductsName, ProductDescription, Quantity, BuyingPrice, SellingPrice)
+        PresetDesc(ProductsName, PartNumber, ProductSize, UnitLength, ProductDimension, BuyingPrice, SellingPrice, Quantity)
     End Sub
 
     Private Sub ClearAllBttn_Click(sender As Object, e As EventArgs) Handles ClearAllBttn.Click
         MessageBox.Show("All Fields Cleared", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        PresetDesc(ProductsName, ProductDescription, Quantity, BuyingPrice, SellingPrice)
+        PresetDesc(ProductsName, PartNumber, ProductSize, UnitLength, ProductDimension, BuyingPrice, SellingPrice, Quantity)
     End Sub
 
 
     '--------------------- TEXTBOX DESCRIPTION APPEARANCE AND DISAPPEARANCE --------------------
-    
+
     Private Sub ProductsName_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductsName.MouseClick
         If ProductsName.Text = "Enter Product Name Here" Then
             ProductsName.Clear()
@@ -45,17 +49,59 @@
         End If
     End Sub
 
-    Private Sub ProductDescription_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductDescription.MouseClick
-        If ProductDescription.Text = "Product Description" Then
-            ProductDescription.Clear()
-            ProductDescription.ForeColor = Color.Black
+    Private Sub PartNumber_MouseClick(sender As Object, e As MouseEventArgs) Handles PartNumber.MouseClick
+        If PartNumber.Text = "Part Number" Then
+            PartNumber.Clear()
+            PartNumber.ForeColor = Color.Black
         End If
     End Sub
 
-    Private Sub ProductDescription_Leave(sender As Object, e As EventArgs) Handles ProductDescription.Leave
-        If ProductDescription.Text = "" Then
-            ProductDescription.Text = "Product Description"
-            ProductDescription.ForeColor = Color.Gray
+    Private Sub PartNumber_Leave(sender As Object, e As EventArgs) Handles PartNumber.Leave
+        If PartNumber.Text = "" Then
+            PartNumber.Text = "Part Number"
+            PartNumber.ForeColor = Color.Gray
+        End If
+    End Sub
+
+    Private Sub ProductSize_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductSize.MouseClick
+        If ProductSize.Text = "Size" Then
+            ProductSize.Clear()
+            ProductSize.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub ProductSize_Leave(sender As Object, e As EventArgs) Handles ProductSize.Leave
+        If ProductSize.Text = "" Then
+            ProductSize.Text = "Size"
+            ProductSize.ForeColor = Color.Gray
+        End If
+    End Sub
+
+    Private Sub UnitLength_MouseClick(sender As Object, e As MouseEventArgs) Handles UnitLength.MouseClick
+        If UnitLength.Text = "Unit Length" Then
+            UnitLength.Clear()
+            UnitLength.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub UnitLength_Leave(sender As Object, e As EventArgs) Handles UnitLength.Leave
+        If UnitLength.Text = "" Then
+            UnitLength.Text = "Unit Length"
+            UnitLength.ForeColor = Color.Gray
+        End If
+    End Sub
+
+    Private Sub ProductDimension_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductDimension.MouseClick
+        If ProductDimension.Text = "Dimensions" Then
+            ProductDimension.Clear()
+            ProductDimension.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub ProductDimension_Leave(sender As Object, e As EventArgs) Handles ProductDimension.Leave
+        If ProductDimension.Text = "" Then
+            ProductDimension.Text = "Dimensions"
+            ProductDimension.ForeColor = Color.Gray
         End If
     End Sub
 

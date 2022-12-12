@@ -90,7 +90,22 @@ Public Class Mainsystem
         '//AMOUNT OF SALES (FOR THIS MONTH)
         '-?????
 
+        '///////////////////
+        '-------------------
+        '///////////////////
+
+        '//HIGHEST SELLING PRODUCTS
+        '?????
+
+        '//LATEST SALES
+        '?????
+
+        '//RECENTLY ADDED PRODUCTS
+        '?????
+
         '*************************** END OF DISPLAYING DASHBOARD VALUES ************************
+
+
 
 
         '*****************************************************************************************

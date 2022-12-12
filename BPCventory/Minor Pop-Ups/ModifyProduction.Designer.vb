@@ -27,6 +27,10 @@ Partial Class ModifyProduction
         Me.EdtCmpntsSaveBttn = New System.Windows.Forms.Button()
         Me.CloseCompBttn = New System.Windows.Forms.Button()
         Me.ComponentsDGV = New System.Windows.Forms.DataGridView()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.CompMatNameCB = New System.Windows.Forms.ComboBox()
         Me.CompProdNameCB = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -58,10 +62,6 @@ Partial Class ModifyProduction
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ProductionIDanp = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column8 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.EditComponentsContent.SuspendLayout()
         CType(Me.ComponentsDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,6 +124,32 @@ Partial Class ModifyProduction
         Me.ComponentsDGV.RowHeadersVisible = False
         Me.ComponentsDGV.Size = New System.Drawing.Size(613, 231)
         Me.ComponentsDGV.TabIndex = 3
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Component #"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column1.HeaderText = "Materials Needed"
+        Me.Column1.Name = "Column1"
+        '
+        'Column2
+        '
+        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column2.HeaderText = "Quantity"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Width = 90
+        '
+        'Column8
+        '
+        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column8.HeaderText = "Delete"
+        Me.Column8.Name = "Column8"
+        Me.Column8.Width = 55
         '
         'CompMatNameCB
         '
@@ -261,6 +287,8 @@ Partial Class ModifyProduction
         '
         'ProductionLogDGV
         '
+        Me.ProductionLogDGV.AllowUserToAddRows = False
+        Me.ProductionLogDGV.AllowUserToDeleteRows = False
         Me.ProductionLogDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ProductionLogDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4, Me.Column5, Me.Column6, Me.Column7})
         Me.ProductionLogDGV.Location = New System.Drawing.Point(3, 32)
@@ -444,40 +472,14 @@ Partial Class ModifyProduction
         Me.ProductionIDanp.Size = New System.Drawing.Size(190, 22)
         Me.ProductionIDanp.TabIndex = 0
         '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Component #"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column1
-        '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column1.HeaderText = "Materials Needed"
-        Me.Column1.Name = "Column1"
-        '
-        'Column2
-        '
-        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column2.HeaderText = "Quantity"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Width = 90
-        '
-        'Column8
-        '
-        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column8.HeaderText = "Delete"
-        Me.Column8.Name = "Column8"
-        Me.Column8.Width = 55
-        '
         'ModifyProduction
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.SandyBrown
         Me.ClientSize = New System.Drawing.Size(750, 512)
+        Me.Controls.Add(Me.ProductionLogContent)
         Me.Controls.Add(Me.EditComponentsContent)
         Me.Controls.Add(Me.AddtoNewProduceContent)
-        Me.Controls.Add(Me.ProductionLogContent)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "ModifyProduction"

@@ -47,9 +47,20 @@ Public Class Mainsystem
         Return 0
     End Function
 
+    Public Sub ExeDGV(ByVal mysqlcomm As MySqlCommand, DGV As DataGridView)
+        Using reader As MySqlDataReader = mysqlcomm.ExecuteReader()
+            If reader.Read Then
+                DGV.Rows.Add(reader.Item(0).ToString, reader.Item(1).ToString)
+            End If
+        End Using
+
+        connToAcc.closeAccDB()
+    End Sub
+
     Public Function ExeDashboard(ByVal sqlcomm As MySqlCommand)
         Dim returnval As Integer
-        Using reader As MySqlDataReader = cmd.ExecuteReader
+
+        Using reader As MySqlDataReader = sqlcomm.ExecuteReader
             If reader.Read Then
                 returnval = reader.GetInt32(0).ToString
             End If
@@ -98,7 +109,17 @@ Public Class Mainsystem
         '?????
 
         '//LATEST SALES
-        '?????
+        Try
+            cmd = New MySqlCommand($"SELECT DISTINCT p.product_name, SUM(s.sale_quantity)QTY FROM sales_details s
+                                    INNER JOIN products p
+                                    ON s.product_id = p.product_id
+                                    GROUP BY p.product_name
+                                    ORDER BY sale_details_id DESC LIMIT 0, 5", connToAcc.openAccDB)
+            ExeDGV(cmd, LatestSalesDGV)
+        Catch ex As Exception
+            connToAcc.closeAccDB()
+            MsgBox(ex.Message)
+        End Try
 
         '//RECENTLY ADDED PRODUCTS
         '?????

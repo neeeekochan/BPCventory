@@ -12,6 +12,7 @@ Public Class ModifyProduction
 
 #Region "LOADING"
     Private Sub LoadLogs()
+        ProductionLogDGV.Rows.Clear()
         Try
             cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log", connToAcc.openAccDB)
             reader = cmd.ExecuteReader()

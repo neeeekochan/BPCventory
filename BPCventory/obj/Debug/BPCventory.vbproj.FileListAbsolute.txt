@@ -1,0 +1,188 @@
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\BPCventory.exe.config
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\BPCventory.exe
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\BPCventory.pdb
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\BPCventory.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\Google.Protobuf.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\MySql.Data.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Buffers.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Memory.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\ZstdNet.dll
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\Google.Protobuf.pdb
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\Google.Protobuf.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\MySql.Data.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Buffers.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Memory.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.DashboardPage.resources
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.Login.resources
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.Resources.resources
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.GenerateResource.cache
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CoreCompileInputs.cache
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CopyComplete
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.exe
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.xml
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.pdb
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.vbprojAssemblyReference.cache
+C:\Users\Niko\Desktop\THESIS\BPCventory\BPCventory\obj\Debug\BPCventory.SalesReport.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.config
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.manifest
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.application
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.pdb
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.MySql.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MessagingToolkit.QRCode.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\QRCoder.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\ZstdNet.dll
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.pdb
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Mainsystem.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Login.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewProduct.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewRawMaterials.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyAffiliates.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyUser.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ScanQR.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Resources.resources
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.GenerateResource.cache
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CoreCompileInputs.cache
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe.manifest
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.application
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CopyComplete
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.xml
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.pdb
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbprojAssemblyReference.cache
+C:\Users\Mecca Caye\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyProduction.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.config
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.manifest
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.application
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.pdb
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.MySql.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MessagingToolkit.QRCode.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\QRCoder.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\ZstdNet.dll
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.pdb
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbprojAssemblyReference.cache
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Mainsystem.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Login.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewProduct.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewRawMaterials.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyAffiliates.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyProduction.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyUser.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ScanQR.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Resources.resources
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.GenerateResource.cache
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CoreCompileInputs.cache
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe.manifest
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.application
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CopyComplete
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.xml
+C:\Users\kenji\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.pdb
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.config
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe.manifest
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.application
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.exe
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.pdb
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BPCventory.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Devart.Data.MySql.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MessagingToolkit.QRCode.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\QRCoder.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\ZstdNet.dll
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.pdb
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\Google.Protobuf.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\MySql.Data.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Buffers.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Memory.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Mainsystem.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Login.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewProduct.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.AddNewRawMaterials.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyAffiliates.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyProduction.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifySales.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ModifyUser.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.ScanQR.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.Resources.resources
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.GenerateResource.cache
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CoreCompileInputs.cache
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe.manifest
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.application
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbproj.CopyComplete
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.exe
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.xml
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.pdb
+C:\Users\Niko\Desktop\THESIS (BPCventory Inventory System)\BPCventory\BPCventory\obj\Debug\BPCventory.vbprojAssemblyReference.cache

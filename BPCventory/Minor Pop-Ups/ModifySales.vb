@@ -36,8 +36,8 @@ Public Class ModifySales
     End Sub
 
     Private Sub AddSaleCloseBttn_Click(sender As Object, e As EventArgs) Handles AddSaleCloseBttn.Click
-        Me.Close()
         Mainsystem.Show()
+        Me.Close()
     End Sub
 
     Private Sub AddSaleDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AddSaleDGV.CellClick
@@ -140,7 +140,6 @@ Public Class ModifySales
         ElseIf AddSaleDGV.Rows.Count > 0 Then
             DialogResult = MessageBox.Show("Save Changes?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             If DialogResult.Yes Then
-                'RichTextBox1.AppendText(Login.userID & vbNewLine)
 
                 '////////////////////////////////////////
                 '///// INPUTTING IN SALES -- CATCHING THE SALES ID
@@ -167,6 +166,15 @@ Public Class ModifySales
 
                     cmd.ExecuteNonQuery()
                     connToAcc.closeAccDB()
+
+
+                    cmd = New MySqlCommand($"UPDATE products p
+                                            INNER JOIN sales_details s
+                                            ON p.product_id = s.product_id
+                                            SET in_stock = (p.in_stock - s.sale_quantity)  WHERE p.product_id = '" & prod_id & "'", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+
                 Next
                 MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Mainsystem.Load_Records()

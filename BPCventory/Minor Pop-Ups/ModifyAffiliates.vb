@@ -58,6 +58,7 @@ Public Class ModifyAffiliates
             Else
                 cmd.ExecuteNonQuery()
                 MsgBox("Data Inputted Successfully.")
+                connToAcc.closeAccDB()
                 ResetModif()
                 Mainsystem.Show()
                 Mainsystem.Load_Records()
@@ -65,6 +66,7 @@ Public Class ModifyAffiliates
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
+            connToAcc.closeAccDB()
         End Try
         Return 0
     End Function

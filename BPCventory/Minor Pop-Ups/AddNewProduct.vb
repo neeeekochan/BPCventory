@@ -185,7 +185,7 @@ Public Class AddNewProduct
             MessageBox.Show("Adding new product successful.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
             connToAcc.closeAccDB()
 
-            '-------------------------
+            '-------------------------\
             '// INSERT TO PRODUCTION
             '-------------------------
             cmd = New MySqlCommand($"INSERT INTO make (product_id, quantity, production_deadline, status)
@@ -195,9 +195,9 @@ Public Class AddNewProduct
             connToAcc.closeAccDB()
             '-------------------------
 
+            Me.Hide()
             Mainsystem.Load_Records()
             Mainsystem.Show()
-            Me.Close()
 
         Catch ex As Exception
             MsgBox(ex.Message)

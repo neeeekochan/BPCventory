@@ -1222,9 +1222,8 @@ Public Class Mainsystem
     '***********************************************************************************************************************
 
     Private Sub AddNewProductBttn_Click(sender As Object, e As EventArgs) Handles AddNewProductBttn.Click
-        Me.Opacity = 0.75
         AddNewProduct.Show()
-        Me.Enabled = False
+        Me.Hide()
     End Sub
 
     '// SEARCH DGV FOR ITEMS IN PRODUCTS --------------------------

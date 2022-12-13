@@ -195,7 +195,7 @@ Public Class AddNewProduct
             connToAcc.closeAccDB()
             '-------------------------
 
-            Me.Hide()
+            Me.Close()
             Mainsystem.Load_Records()
             Mainsystem.Show()
 

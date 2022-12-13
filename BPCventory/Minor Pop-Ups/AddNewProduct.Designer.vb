@@ -25,7 +25,7 @@ Partial Class AddNewProduct
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AddNewProduct))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.AddProdBttn = New System.Windows.Forms.Button()
         Me.ProductsName = New System.Windows.Forms.TextBox()
         Me.PartNumber = New System.Windows.Forms.TextBox()
         Me.Quantity = New System.Windows.Forms.TextBox()
@@ -50,17 +50,17 @@ Partial Class AddNewProduct
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'Button1
+        'AddProdBttn
         '
-        Me.Button1.BackColor = System.Drawing.Color.IndianRed
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(26, 376)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(130, 45)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Add Product"
-        Me.ToolTip1.SetToolTip(Me.Button1, "Add Product ")
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.AddProdBttn.BackColor = System.Drawing.Color.IndianRed
+        Me.AddProdBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddProdBttn.Location = New System.Drawing.Point(26, 376)
+        Me.AddProdBttn.Name = "AddProdBttn"
+        Me.AddProdBttn.Size = New System.Drawing.Size(130, 45)
+        Me.AddProdBttn.TabIndex = 1
+        Me.AddProdBttn.Text = "Add Product"
+        Me.ToolTip1.SetToolTip(Me.AddProdBttn, "Add Product ")
+        Me.AddProdBttn.UseVisualStyleBackColor = False
         '
         'ProductsName
         '
@@ -194,7 +194,7 @@ Partial Class AddNewProduct
         Me.Controls.Add(Me.Quantity)
         Me.Controls.Add(Me.PartNumber)
         Me.Controls.Add(Me.ProductsName)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.AddProdBttn)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "AddNewProduct"
@@ -207,7 +207,7 @@ Partial Class AddNewProduct
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents AddProdBttn As Button
     Friend WithEvents ProductsName As TextBox
     Friend WithEvents PartNumber As TextBox
     Friend WithEvents Quantity As TextBox

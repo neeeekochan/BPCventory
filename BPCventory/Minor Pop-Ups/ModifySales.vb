@@ -174,6 +174,7 @@ Public Class ModifySales
                 Next
                 MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Mainsystem.Load_Records()
+                Mainsystem.Show()
                 Me.Close()
             End If
         End If

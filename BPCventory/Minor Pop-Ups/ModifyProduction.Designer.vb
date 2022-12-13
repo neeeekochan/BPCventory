@@ -477,9 +477,9 @@ Partial Class ModifyProduction
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.SandyBrown
         Me.ClientSize = New System.Drawing.Size(750, 512)
-        Me.Controls.Add(Me.ProductionLogContent)
-        Me.Controls.Add(Me.EditComponentsContent)
         Me.Controls.Add(Me.AddtoNewProduceContent)
+        Me.Controls.Add(Me.EditComponentsContent)
+        Me.Controls.Add(Me.ProductionLogContent)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "ModifyProduction"

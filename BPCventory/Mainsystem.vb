@@ -48,13 +48,12 @@ Public Class Mainsystem
     End Function
 
     Public Sub ExeDGV(ByVal mysqlcomm As MySqlCommand, DGV As DataGridView)
-        Using reader As MySqlDataReader = mysqlcomm.ExecuteReader()
-            If reader.Read Then
-                DGV.Rows.Add(reader.Item(0).ToString, reader.Item(1).ToString)
-            End If
-        End Using
-
+        reader = mysqlcomm.ExecuteReader()
+        While reader.Read
+            DGV.Rows.Add(reader.Item(0).ToString, reader.Item(1).ToString)
+        End While
         connToAcc.closeAccDB()
+
     End Sub
 
     Public Function ExeDashboard(ByVal sqlcomm As MySqlCommand)

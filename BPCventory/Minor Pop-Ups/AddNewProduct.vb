@@ -1,4 +1,12 @@
-﻿Public Class AddNewProduct
+﻿Imports System.Text
+Imports MySql.Data.MySqlClient
+
+Public Class AddNewProduct
+    Dim connToAcc As New accountsConn
+    Dim cmd As New MySqlCommand
+    Dim dtable As New DataTable()
+    Dim da As MySqlDataAdapter
+    Dim reader As MySqlDataReader
 
     Function PresetDesc(Name As TextBox, PrtNum As TextBox, PrdSize As TextBox, UL As TextBox, PrdDim As TextBox, AC As TextBox, SP As TextBox, Quan As TextBox)
         For Each txt In {Name, PrtNum, PrdSize, UL, PrdDim, AC, SP, Quan}
@@ -145,6 +153,57 @@
             SellingPrice.Text = "Selling Price"
             SellingPrice.ForeColor = Color.Gray
         End If
+    End Sub
+
+    '//////////////////////////
+    '/// ADDING NEW PRODUCT
+    '//////////////////////////
+    Private Sub AddProdBttn_Click(sender As Object, e As EventArgs) Handles AddProdBttn.Click
+        Dim prodID As String = ""
+
+        If ProductsName.Text = "Enter Product Name Here" Or PartNumber.Text = "Part Number" Or ProductSize.Text = "Size" Or UnitLength.Text = "Unit Length" Or
+            ProductDimension.Text = "Dimensions" Or SellingPrice.Text = "Selling Price" Or BuyingPrice.Text = "Buying Price" Or Quantity.Text = "Quantity" Then
+            For Each txt In {ProductsName, PartNumber, ProductSize, UnitLength, ProductDimension, SellingPrice, BuyingPrice, Quantity}
+                If txt.Text = "" Then
+                    MessageBox.Show("All fields are required.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Exit Sub
+                End If
+            Next
+            MessageBox.Show("All fields are required.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Try
+            cmd = New MySqlCommand($"INSERT INTO products(product_name, part_number, product_size, unit_length, product_dimension,
+                                                        sale_price, average_cost, profit, in_stock, expected, ordered) 
+                                VALUES ('{ProductsName.Text}', '{PartNumber.Text}', '{ProductSize.Text}', '{UnitLength.Text}',
+                                                        '{ProductDimension.Text}', '{SellingPrice.Text}', '{BuyingPrice.Text}', 0,'{Quantity.Text}', 0, 0); SELECT @@IDENTITY as ID;", connToAcc.openAccDB)
+            reader = cmd.ExecuteReader()
+            While reader.Read
+                prodID = reader.Item(0)
+            End While
+            MessageBox.Show("Adding new product successful.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            connToAcc.closeAccDB()
+
+            '-------------------------
+            '// INSERT TO PRODUCTION
+            '-------------------------
+            cmd = New MySqlCommand($"INSERT INTO make (product_id, quantity, production_deadline, status)
+                                    VALUES('" & prodID & "', 0, @datetime, 'incomplete')", connToAcc.openAccDB)
+            cmd.Parameters.Add("@datetime", MySqlDbType.DateTime).Value = DateTime.Now
+            cmd.ExecuteNonQuery()
+            connToAcc.closeAccDB()
+            '-------------------------
+
+            Mainsystem.Load_Records()
+            Mainsystem.Show()
+            Me.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        connToAcc.closeAccDB()
+        End Try
+
     End Sub
 
     '----------------------------------------------------------------------------

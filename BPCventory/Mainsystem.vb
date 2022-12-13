@@ -232,11 +232,16 @@ Public Class Mainsystem
 
 
         '//SALES
-        cmd = New MySqlCommand($"SELECT sales_id,sales_date,user_id,customer_id from sales", connToAcc.openAccDB)
+        cmd = New MySqlCommand($"SELECT sales_id, sales_date, u.lastname, u.firstname, c.company_name
+                                FROM sales s
+                                INNER JOIN users u
+                                ON s.user_id = u.user_id
+                                INNER JOIN customer c
+                                ON s.customer_id = c.customer_id", connToAcc.openAccDB)
         reader = cmd.ExecuteReader
         While reader.Read
             SalesDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
-                              reader.Item("user_id").ToString, reader.Item("customer_id").ToString, "DELETE")
+                              reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("company_name").ToString, "DELETE")
         End While
         reader.Close()
         connToAcc.closeAccDB()
@@ -1369,5 +1374,41 @@ Public Class Mainsystem
     Private Sub ManageSalesBttn_Click(sender As Object, e As EventArgs) Handles ManageSalesBttn.Click
         Me.Hide()
         ModifySales.Show()
+    End Sub
+
+    Private Sub SalesSearchbox_KeyUp(sender As Object, e As KeyEventArgs) Handles SalesSearchbox.KeyUp
+        Try
+            If SalesSearchbox.Text = "" Then
+                dtable.Clear()
+                SalesSearchDGV.Rows.Clear()
+            Else
+                dtable.Clear()
+                SalesSearchDGV.Rows.Clear()
+
+                cmd = New MySqlCommand($"SELECT sales_id, sales_date, u.lastname, c.company_name 
+                                        FROM sales s
+                                        INNER JOIN users u
+                                        ON u.user_id = s.user_id
+                                        INNER JOIN customer c
+                                        ON s.customer_id = c.customer_id
+                                        WHERE s.sales_id LIKE '" & SalesSearchbox.Text & "%' OR u.lastname LIKE '" & SalesSearchbox.Text & "%' OR c.company_name LIKE '" & SalesSearchbox.Text & "%'", connToAcc.openAccDB)
+
+                reader = cmd.ExecuteReader
+                While reader.Read
+                    SalesSearchDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
+                                               reader.Item("lastname").ToString, reader.Item("company_name").ToString)
+                End While
+                reader.Close()
+                connToAcc.closeAccDB()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ClearSalesSearchBttn_Click(sender As Object, e As EventArgs) Handles ClearSalesSearchBttn.Click
+        SalesSearchDGV.Rows.Clear()
+        SalesSearchbox.Clear()
     End Sub
 End Class

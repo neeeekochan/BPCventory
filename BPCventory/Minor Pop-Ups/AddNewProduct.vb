@@ -197,7 +197,7 @@ Public Class AddNewProduct
 
             Mainsystem.Load_Records()
             Mainsystem.Show()
-            Me.Close()
+            Me.Hide()
 
         Catch ex As Exception
             MsgBox(ex.Message)

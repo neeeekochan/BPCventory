@@ -131,8 +131,9 @@ Public Class Mainsystem
         '*****************************************************************************************
         '***************************LOAD ALL DATA*************************************************
 
+        '________________________________________________________________________________________________________________
         '//USER MANAGEMENT
-        For Each DGV In {UsersDGV, UserGrpDGV, CustomerDGV, SupplierDGV, RawMaterialsDGV, ProductsDGV, SalesDGV, DailySalesDGV}
+        For Each DGV In {UsersDGV, UserGrpDGV, CustomerDGV, SupplierDGV, RawMaterialsDGV, ProductsDGV, SalesDGV, AllSalesDGV}
             DGV.Rows.Clear()
         Next
 
@@ -154,6 +155,7 @@ Public Class Mainsystem
         connToAcc.closeAccDB()
 
 
+        '________________________________________________________________________________________________________________
         '//AFFILIATES
         cmd = New MySqlCommand($"SELECT customer_id,company_name,email,contact_no FROM customer", connToAcc.openAccDB)
 
@@ -175,6 +177,7 @@ Public Class Mainsystem
         connToAcc.closeAccDB()
 
 
+        '________________________________________________________________________________________________________________
         '//RAW MATERIALS
         cmd = New MySqlCommand($"SELECT m.material_id, m.material_name, m.average_cost, m.in_stock, m.expected, m.committed, m.missing, s.company_name
                                  FROM materials m 
@@ -192,6 +195,7 @@ Public Class Mainsystem
         connToAcc.closeAccDB()
 
 
+        '________________________________________________________________________________________________________________
         '//PRODUCTION
         '// COMBOBOX OF PRODUCTION
         ProductionID.Items.Clear()
@@ -211,7 +215,7 @@ Public Class Mainsystem
         '---------------------------------------=--------------------------
 
 
-
+        '________________________________________________________________________________________________________________
         '//PRODUCTS
         cmd = New MySqlCommand($"SELECT product_id,product_name,part_number,product_size,unit_length,
                                 product_dimension,sale_price,average_cost,profit,in_stock,expected,
@@ -231,33 +235,32 @@ Public Class Mainsystem
         connToAcc.closeAccDB()
 
 
+        '________________________________________________________________________________________________________________
         '//SALES
-        cmd = New MySqlCommand($"SELECT sales_id,sales_date,user_id,customer_id from sales", connToAcc.openAccDB)
+        cmd = New MySqlCommand($"SELECT sales_id, sales_date, u.lastname, u.firstname, c.company_name
+                                FROM sales s
+                                INNER JOIN users u
+                                ON s.user_id = u.user_id
+                                INNER JOIN customer c
+                                ON s.customer_id = c.customer_id
+                                ORDER BY sales_date DESC", connToAcc.openAccDB)
         reader = cmd.ExecuteReader
         While reader.Read
             SalesDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
-                              reader.Item("user_id").ToString, reader.Item("customer_id").ToString, "DELETE")
+                                      reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("company_name").ToString, "DELETE")
         End While
+
         reader.Close()
         connToAcc.closeAccDB()
 
-
+        '________________________________________________________________________________________________________________
         '//SALES DETAILS
-        cmd = New MySqlCommand($"SELECT sales_details.sale_details_id, sales.sales_id, sales.sales_date,
-                                sales_details.product_id, sales_details.sale_quantity, sales_details.total
-                                FROM sales RIGHT JOIN sales_details ON sales.sales_id = sales_details.sales_id
-                                ORDER BY `sales_details`.`sale_details_id` DESC", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            DailySalesDGV.Rows.Add(reader.Item("sale_details_id").ToString, reader.Item("sales_id").ToString,
-                                   reader.Item("sales_date").ToString, reader.Item("product_id").ToString,
-                                   reader.Item("sale_quantity").ToString, reader.Item("total").ToString, "DELETE")
-        End While
-        reader.Close()
-        connToAcc.closeAccDB()
+        LoadingAllSales(DailySaleBttn)
+
 
 
         '***************************END OF LOAD ALL DATA******************************************
+        '*****************************************************************************************
         '*****************************************************************************************
     End Sub
 
@@ -1222,9 +1225,8 @@ Public Class Mainsystem
     '***********************************************************************************************************************
 
     Private Sub AddNewProductBttn_Click(sender As Object, e As EventArgs) Handles AddNewProductBttn.Click
-        Me.Opacity = 0.75
         AddNewProduct.Show()
-        Me.Enabled = False
+        Me.Hide()
     End Sub
 
     '// SEARCH DGV FOR ITEMS IN PRODUCTS --------------------------
@@ -1308,12 +1310,104 @@ Public Class Mainsystem
 #End Region
 
 
+#Region "SALES CONTENT"
+    '***********************************************************************************************************************
+    '***********************************************************************************************************************
+    '-------------------------------------------- SALES CONTENT ------------------------------------------------------------
+    '***********************************************************************************************************************
+    '***********************************************************************************************************************
+    Private Sub GenRepSalesBttn_Click(sender As Object, e As EventArgs) Handles GenRepSalesBttn.Click
+        GRepBttnChecker = "Sales"
+
+        PrintPreviewDialog1.Document = PrintDocument1
+        PrintDocument1.DefaultPageSettings.Landscape = True
+        PrintPreviewDialog1.PrintPreviewControl.Zoom = 1
+        PrintPreviewDialog1.ShowDialog()
+    End Sub
+
+    Private Sub ManageSalesBttn_Click(sender As Object, e As EventArgs) Handles ManageSalesBttn.Click
+        Me.Hide()
+        ModifySales.Show()
+    End Sub
+
+    Private Sub SalesSearchbox_KeyUp(sender As Object, e As KeyEventArgs) Handles SalesSearchbox.KeyUp
+        Try
+            If SalesSearchbox.Text = "" Then
+                dtable.Clear()
+                SalesSearchDGV.Rows.Clear()
+            Else
+                dtable.Clear()
+                SalesSearchDGV.Rows.Clear()
+
+                cmd = New MySqlCommand($"SELECT sales_id, sales_date, u.lastname, c.company_name 
+                                        FROM sales s
+                                        INNER JOIN users u
+                                        ON u.user_id = s.user_id
+                                        INNER JOIN customer c
+                                        ON s.customer_id = c.customer_id
+                                        WHERE s.sales_id LIKE '" & SalesSearchbox.Text & "%' OR u.lastname LIKE '" & SalesSearchbox.Text & "%' OR c.company_name LIKE '" & SalesSearchbox.Text & "%'", connToAcc.openAccDB)
+
+                reader = cmd.ExecuteReader
+                While reader.Read
+                    SalesSearchDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
+                                               reader.Item("lastname").ToString, reader.Item("company_name").ToString)
+                End While
+                reader.Close()
+                connToAcc.closeAccDB()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ClearSalesSearchBttn_Click(sender As Object, e As EventArgs) Handles ClearSalesSearchBttn.Click
+        SalesSearchDGV.Rows.Clear()
+        SalesSearchbox.Clear()
+    End Sub
+#End Region
+
+
 #Region "SALES REPORT CONTENT"
     '***********************************************************************************************************************
     '***********************************************************************************************************************
     '------------------------------------- SALES REPORT CONTENT ------------------------------------------------------------
     '***********************************************************************************************************************
     '***********************************************************************************************************************
+    Private Sub LoadingAllSales(ByVal btn As Button)
+        AllSalesDGV.Rows.Clear()
+
+        Try
+            If btn Is DailySaleBttn Then
+                cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
+                                SD.product_id, SD.sale_quantity, SD.total
+                                FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
+                                ORDER BY s.sales_date DESC", connToAcc.openAccDB)
+
+            ElseIf btn Is MonthlySaleBttn Then
+                cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
+                                SD.product_id, SD.sale_quantity, SD.total
+                                FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
+                                WHERE YEAR(s.sales_date) = 2022
+                                AND MONTH(CURRENT_TIMESTAMP) = extract(MONTH FROM s.sales_date)
+                                ORDER BY s.sales_date DESC", connToAcc.openAccDB)
+            End If
+
+            reader = cmd.ExecuteReader
+            While reader.Read
+                AllSalesDGV.Rows.Add(reader.Item("sale_details_id").ToString, reader.Item("sales_id").ToString,
+                                       reader.Item("sales_date").ToString, reader.Item("product_id").ToString,
+                                       reader.Item("sale_quantity").ToString, reader.Item("total").ToString, "DELETE")
+            End While
+            reader.Close()
+            connToAcc.closeAccDB()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
+
+    End Sub
 
     Private Sub SaleByDateRangeBttn_Click(sender As Object, e As EventArgs) Handles SaleByDateRangeBttn.Click
         DateRangeContent.Visible = True
@@ -1327,11 +1421,11 @@ Public Class Mainsystem
     End Sub
 
     Private Sub DailySaleBttn_Click(sender As Object, e As EventArgs) Handles DailySaleBttn.Click
-        DailySalesContent.BringToFront()
+        LoadingAllSales(DailySaleBttn)
     End Sub
 
     Private Sub MonthlySaleBttn_Click(sender As Object, e As EventArgs) Handles MonthlySaleBttn.Click
-        MonthlySalesContent.BringToFront()
+        LoadingAllSales(MonthlySaleBttn)
     End Sub
 
 
@@ -1351,24 +1445,4 @@ Public Class Mainsystem
     '***********************************************************************************************************************
 #End Region
 
-
-
-    '***********************************************************************************************************************
-    '***********************************************************************************************************************
-    '-------------------------------------------- SALES CONTENT ------------------------------------------------------------
-    '***********************************************************************************************************************
-    '***********************************************************************************************************************
-    Private Sub GenRepSalesBttn_Click(sender As Object, e As EventArgs) Handles GenRepSalesBttn.Click
-        GRepBttnChecker = "Sales"
-
-        PrintPreviewDialog1.Document = PrintDocument1
-        PrintDocument1.DefaultPageSettings.Landscape = True
-        PrintPreviewDialog1.PrintPreviewControl.Zoom = 1
-        PrintPreviewDialog1.ShowDialog()
-    End Sub
-
-    Private Sub ManageSalesBttn_Click(sender As Object, e As EventArgs) Handles ManageSalesBttn.Click
-        Me.Hide()
-        ModifySales.Show()
-    End Sub
 End Class

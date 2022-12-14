@@ -36,8 +36,8 @@ Public Class ModifySales
     End Sub
 
     Private Sub AddSaleCloseBttn_Click(sender As Object, e As EventArgs) Handles AddSaleCloseBttn.Click
-        Me.Close()
         Mainsystem.Show()
+        Me.Close()
     End Sub
 
     Private Sub AddSaleDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AddSaleDGV.CellClick
@@ -140,16 +140,12 @@ Public Class ModifySales
         ElseIf AddSaleDGV.Rows.Count > 0 Then
             DialogResult = MessageBox.Show("Save Changes?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             If DialogResult.Yes Then
-                'RichTextBox1.AppendText(Login.userID & vbNewLine)
 
                 '////////////////////////////////////////
                 '///// INPUTTING IN SALES -- CATCHING THE SALES ID
-                Dim datetime As Date = DateTime.Now
-
                 cmd = New MySqlCommand($"INSERT INTO sales ( user_id, customer_id)
                                             VALUES ( '" & Login.userID & "', '" & custID & "'); select @@identity as ID;", connToAcc.openAccDB)
 
-                'cmd.Parameters.Add("@saledate", MySqlDbType.DateTime).Value = datetime
 
                 Using reader = cmd.ExecuteReader()
                     If reader.Read Then
@@ -164,13 +160,21 @@ Public Class ModifySales
 
                     Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
                     prod_id = names(0)
-                    'RichTextBox1.AppendText("SALEID: " & saleID & vbNewLine & prod_id & vbNewLine & "QTY:" & AddSaleDGV.Rows(i).Cells(1).Value & vbNewLine & "Total:" & AddSaleDGV.Rows(i).Cells(2).Value & "////////////////" & vbNewLine)
 
                     cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
                                                 VALUES('" & saleID & "', '" & prod_id & "', '" & AddSaleDGV.Rows(i).Cells(1).Value & "', '" & AddSaleDGV.Rows(i).Cells(2).Value & "')", connToAcc.openAccDB)
 
                     cmd.ExecuteNonQuery()
                     connToAcc.closeAccDB()
+
+
+                    cmd = New MySqlCommand($"UPDATE products p
+                                            INNER JOIN sales_details s
+                                            ON p.product_id = s.product_id
+                                            SET in_stock = (p.in_stock - s.sale_quantity)  WHERE p.product_id = '" & prod_id & "'", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+
                 Next
                 MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Mainsystem.Load_Records()

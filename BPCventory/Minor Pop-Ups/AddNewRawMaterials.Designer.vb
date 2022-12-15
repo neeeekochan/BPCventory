@@ -181,6 +181,7 @@ Partial Class AddNewRawMaterials
         '
         'MaterialID
         '
+        Me.MaterialID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.MaterialID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MaterialID.ForeColor = System.Drawing.Color.Gray
         Me.MaterialID.FormattingEnabled = True
@@ -188,7 +189,6 @@ Partial Class AddNewRawMaterials
         Me.MaterialID.Name = "MaterialID"
         Me.MaterialID.Size = New System.Drawing.Size(370, 24)
         Me.MaterialID.TabIndex = 23
-        Me.MaterialID.Text = "Material ID"
         Me.Tips.SetToolTip(Me.MaterialID, "Raw Material Unique ID/Barcode")
         '
         'ExpectedNUD
@@ -199,7 +199,6 @@ Partial Class AddNewRawMaterials
         Me.ExpectedNUD.Size = New System.Drawing.Size(120, 22)
         Me.ExpectedNUD.TabIndex = 24
         Me.Tips.SetToolTip(Me.ExpectedNUD, "Add Quantity of the Expected Amount of Materials arriving.")
-        Me.ExpectedNUD.Visible = False
         '
         'Tips
         '
@@ -226,7 +225,6 @@ Partial Class AddNewRawMaterials
         Me.LabelQty.Size = New System.Drawing.Size(64, 18)
         Me.LabelQty.TabIndex = 25
         Me.LabelQty.Text = "Add Qty:"
-        Me.LabelQty.Visible = False
         '
         'TextBox1
         '

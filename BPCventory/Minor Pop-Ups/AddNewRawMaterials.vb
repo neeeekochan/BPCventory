@@ -100,8 +100,8 @@ Public Class AddNewRawMaterials
 
                     opt = 2
                     SupplierName.Enabled = False
-                    ExpectedNUD.Visible = True
-                    LabelQty.Visible = True
+                    'ExpectedNUD.Visible = True
+                    'LabelQty.Visible = True
                     AddToQuantityNUD.Enabled = True
 
                     For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
@@ -114,7 +114,7 @@ Public Class AddNewRawMaterials
                     MaterialName.Text = "Material Name"
                     AverageCost.Text = "Average Cost of Material"
                     InStock.Text = "0"
-                    Expected.Text = "Expected to Arrive"
+                    Expected.Text = "0"
                     Committed.Text = "0"
                     Missing.Text = "0"
                     SupplierName.Text = "Supplier of Materials"
@@ -122,8 +122,8 @@ Public Class AddNewRawMaterials
 
                     opt = 1
                     SupplierName.Enabled = True
-                    ExpectedNUD.Visible = True
-                    LabelQty.Visible = True
+                    'ExpectedNUD.Visible = True
+                    'LabelQty.Visible = True
                     AddToQuantityNUD.Enabled = True
 
                     For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}

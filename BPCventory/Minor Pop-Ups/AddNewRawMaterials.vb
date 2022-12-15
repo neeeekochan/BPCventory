@@ -31,6 +31,7 @@ Public Class AddNewRawMaterials
             connToAcc.closeAccDB()
 
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox("Error sa Load")
         End Try
 
@@ -338,6 +339,7 @@ Public Class AddNewRawMaterials
                             Exit Sub
                         End If
                     Catch ex As Exception
+                        connToAcc.closeAccDB()
                         MsgBox(ex.Message)
                     End Try
 
@@ -358,6 +360,7 @@ Public Class AddNewRawMaterials
                 AddNewRawMaterial(cmd)
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox("Error sa Button Add/Update")
         End Try
     End Sub

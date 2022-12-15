@@ -29,10 +29,9 @@ Public Class AddNewProduct
     End Function
 
     Private Sub CancelBttn_Click(sender As Object, e As EventArgs) Handles CancelBttn.Click
-        Mainsystem.Opacity = 1
-        Mainsystem.Enabled = True
-        Hide()
         PresetDesc(ProductsName, PartNumber, ProductSize, UnitLength, ProductDimension, BuyingPrice, SellingPrice, Quantity)
+        Mainsystem.Show()
+        Hide()
     End Sub
 
     Private Sub ClearAllBttn_Click(sender As Object, e As EventArgs) Handles ClearAllBttn.Click

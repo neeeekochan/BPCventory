@@ -139,7 +139,7 @@ Partial Class ModifyAffiliates
         Me.UpdateCustomerBttn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green
         Me.UpdateCustomerBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.UpdateCustomerBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UpdateCustomerBttn.Location = New System.Drawing.Point(430, 18)
+        Me.UpdateCustomerBttn.Location = New System.Drawing.Point(430, 20)
         Me.UpdateCustomerBttn.Name = "UpdateCustomerBttn"
         Me.UpdateCustomerBttn.Size = New System.Drawing.Size(118, 44)
         Me.UpdateCustomerBttn.TabIndex = 23
@@ -185,9 +185,10 @@ Partial Class ModifyAffiliates
         Me.textaffiliateid.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.textaffiliateid.Location = New System.Drawing.Point(12, 123)
         Me.textaffiliateid.Name = "textaffiliateid"
+        Me.textaffiliateid.ReadOnly = True
         Me.textaffiliateid.Size = New System.Drawing.Size(274, 15)
         Me.textaffiliateid.TabIndex = 24
-        Me.ToolTip1.SetToolTip(Me.textaffiliateid, "Enter Supplier ID")
+        Me.ToolTip1.SetToolTip(Me.textaffiliateid, "The system automatically generates an ID.")
         '
         'textcompanyname
         '
@@ -226,7 +227,7 @@ Partial Class ModifyAffiliates
         Me.AddCustomerBttn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green
         Me.AddCustomerBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.AddCustomerBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddCustomerBttn.Location = New System.Drawing.Point(430, 18)
+        Me.AddCustomerBttn.Location = New System.Drawing.Point(430, 20)
         Me.AddCustomerBttn.Name = "AddCustomerBttn"
         Me.AddCustomerBttn.Size = New System.Drawing.Size(118, 44)
         Me.AddCustomerBttn.TabIndex = 28
@@ -279,7 +280,7 @@ Partial Class ModifyAffiliates
         Me.AddSupplierBttn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green
         Me.AddSupplierBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.AddSupplierBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddSupplierBttn.Location = New System.Drawing.Point(430, 15)
+        Me.AddSupplierBttn.Location = New System.Drawing.Point(430, 20)
         Me.AddSupplierBttn.Name = "AddSupplierBttn"
         Me.AddSupplierBttn.Size = New System.Drawing.Size(118, 44)
         Me.AddSupplierBttn.TabIndex = 33
@@ -294,7 +295,7 @@ Partial Class ModifyAffiliates
         Me.UpdateSupplierBttn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green
         Me.UpdateSupplierBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.UpdateSupplierBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UpdateSupplierBttn.Location = New System.Drawing.Point(430, 17)
+        Me.UpdateSupplierBttn.Location = New System.Drawing.Point(430, 20)
         Me.UpdateSupplierBttn.Name = "UpdateSupplierBttn"
         Me.UpdateSupplierBttn.Size = New System.Drawing.Size(118, 44)
         Me.UpdateSupplierBttn.TabIndex = 32
@@ -317,11 +318,11 @@ Partial Class ModifyAffiliates
         Me.Controls.Add(Me.ModifCustLabel)
         Me.Controls.Add(Me.AddNewCustLabel)
         Me.Controls.Add(Me.AddCustomerBttn)
+        Me.Controls.Add(Me.UpdateCustomerBttn)
         Me.Controls.Add(Me.textcontno)
         Me.Controls.Add(Me.textemail)
         Me.Controls.Add(Me.textcompanyname)
         Me.Controls.Add(Me.textaffiliateid)
-        Me.Controls.Add(Me.UpdateCustomerBttn)
         Me.Controls.Add(Me.CancelBttn)
         Me.Controls.Add(Me.ClearAllBttn)
         Me.Controls.Add(Me.Label5)

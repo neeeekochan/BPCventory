@@ -53,6 +53,7 @@ Public Class ModifyUser
                 End If
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -76,6 +77,7 @@ Public Class ModifyUser
                 End If
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub

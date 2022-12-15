@@ -46,6 +46,7 @@ Public Class Mainsystem
             reader.Close()
             connToAcc.closeAccDB()
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
         Return 0
@@ -113,6 +114,7 @@ Public Class Mainsystem
 
         '//LATEST SALES
         Try
+            LatestSalesDGV.Rows.Clear()
             cmd = New MySqlCommand($"SELECT DISTINCT p.product_name, SUM(s.sale_quantity)QTY FROM sales_details s
                                     INNER JOIN products p
                                     ON s.product_id = p.product_id
@@ -593,6 +595,7 @@ Public Class Mainsystem
                 ModifyUser.UpdateBttn.BringToFront()
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -624,6 +627,7 @@ Public Class Mainsystem
 
             connToAcc.closeAccDB()
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
 
@@ -693,6 +697,7 @@ Public Class Mainsystem
                 ModifyAffiliates.textaffiliateid.Enabled = False
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -715,6 +720,7 @@ Public Class Mainsystem
 
             connToAcc.closeAccDB()
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
 
@@ -766,6 +772,7 @@ Public Class Mainsystem
                 ModifyAffiliates.textaffiliateid.Enabled = False
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -787,6 +794,7 @@ Public Class Mainsystem
 
             connToAcc.closeAccDB()
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
 
@@ -882,6 +890,7 @@ Public Class Mainsystem
                 End If
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -1058,7 +1067,7 @@ Public Class Mainsystem
                     Dim names() As String = ProductionID.Text.ToString.Split(New Char() {"-"c})
                     prod_id = names(0)
                 Catch ex As Exception
-
+                    connToAcc.closeAccDB()
                 End Try
                 '// CMD FOR PRODUCTION -- COMBOBOXES -----------------------------------------------------
                 cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline, m.status
@@ -1263,6 +1272,7 @@ Public Class Mainsystem
             End If
 
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -1362,6 +1372,7 @@ Public Class Mainsystem
             End If
 
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub

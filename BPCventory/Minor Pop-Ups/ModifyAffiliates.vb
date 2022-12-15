@@ -53,7 +53,7 @@ Public Class ModifyAffiliates
 
     Function AddingToDBCustomerSupplier(cmd As MySqlCommand)
         Try
-            If textaffiliateid.Text = "" Or textcompanyname.Text = "" Or textemail.Text = "" Or textcontno.Text = "" Then
+            If textcompanyname.Text = "" Or textemail.Text = "" Or textcontno.Text = "" Then
                 MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 cmd.ExecuteNonQuery()
@@ -73,7 +73,7 @@ Public Class ModifyAffiliates
 
     Function UpdatingToDBCustomerSupplier(cmd As MySqlCommand)
         Try
-            If textaffiliateid.Text = "" Or textcompanyname.Text = "" Or textemail.Text = "" Or textcontno.Text = "" Then
+            If textcompanyname.Text = "" Or textemail.Text = "" Or textcontno.Text = "" Then
                 MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 cmd.ExecuteNonQuery()
@@ -84,6 +84,7 @@ Public Class ModifyAffiliates
                 Me.Close()
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
         Return 0
@@ -91,8 +92,8 @@ Public Class ModifyAffiliates
 
     '//FOR CUSTOMER ////
     Private Sub AddCustomerBttn_Click(sender As Object, e As EventArgs) Handles AddCustomerBttn.Click
-        cmd = New MySqlCommand($"INSERT INTO customer
-                VALUES ('" & textaffiliateid.Text & "', '" & textcompanyname.Text & "', '" & textemail.Text & "', '" & textcontno.Text & "')", connToAcc.openAccDB)
+        cmd = New MySqlCommand($"INSERT INTO customer (company_name, email, contact_no)
+                VALUES ('" & textcompanyname.Text & "', '" & textemail.Text & "', '" & textcontno.Text & "')", connToAcc.openAccDB)
 
         AddingToDBCustomerSupplier(cmd)
     End Sub
@@ -108,8 +109,8 @@ Public Class ModifyAffiliates
 
     '//FOR SUPPLIER ////
     Private Sub AddSupplierBttn_Click(sender As Object, e As EventArgs) Handles AddSupplierBttn.Click
-        cmd = New MySqlCommand($"INSERT INTO supplier
-                VALUES ('" & textaffiliateid.Text & "', '" & textcompanyname.Text & "', '" & textemail.Text & "', '" & textcontno.Text & "')", connToAcc.openAccDB)
+        cmd = New MySqlCommand($"INSERT INTO supplier (company_name, email, contact_no)
+                VALUES ('" & textcompanyname.Text & "', '" & textemail.Text & "', '" & textcontno.Text & "')", connToAcc.openAccDB)
 
         AddingToDBCustomerSupplier(cmd)
     End Sub

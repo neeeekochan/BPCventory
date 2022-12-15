@@ -188,7 +188,8 @@ Public Class ModifyProduction
                     End If
                 Next
 
-                cmd = New MySqlCommand($"UPDATE products SET average_cost = (
+                Try
+                    cmd = New MySqlCommand($"UPDATE products SET average_cost = (
                                             SELECT SUM(mat.average_cost*comp.quantity)
                                             FROM components comp
                                             INNER JOIN materials mat
@@ -196,9 +197,14 @@ Public Class ModifyProduction
                                             INNER JOIN make
                                             ON make.production_id = comp.production_id
                                             WHERE make.product_id = '" & prodID & "' )
-                                            WHERE product_id = '" & prodID & "'", connToAcc.openAccDB)
-                cmd.ExecuteNonQuery()
-                connToAcc.closeAccDB()
+                                            WHERE product_id = '" & prodID & "';
+                                            UPDATE products SET profit = sale_price - average_cost WHERE product_id = '" & prodID & "';", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+                Catch ex As Exception
+                    connToAcc.closeAccDB()
+                    MsgBox(ex.Message)
+                End Try
 
                 MessageBox.Show("Components successfully modified.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
@@ -281,25 +287,25 @@ Public Class ModifyProduction
     End Sub
 
     Private Sub ProdNameANP_Changed()
-        'Try
-        cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline
+        Try
+            cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline
                                 FROM make m
                                 INNER JOIN products p
                                 on m.product_id = p.product_id
                                 WHERE m.production_id =  '" & ProdNameANP.Text & "'", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader()
+            reader = cmd.ExecuteReader()
 
-        While reader.Read
-            ProductionIDanp.Text = reader.Item("production_id")
-            qtyANP.Text = reader.Item("quantity")
-            ProdDeadlineADP.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
-        End While
-        reader.Close()
+            While reader.Read
+                ProductionIDanp.Text = reader.Item("production_id")
+                qtyANP.Text = reader.Item("quantity")
+                ProdDeadlineADP.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
+            End While
+            reader.Close()
+            connToAcc.closeAccDB()
+        Catch ex As Exception
+            MsgBox(ex.Message)
         connToAcc.closeAccDB()
-        'Catch ex As Exception
-        'MsgBox(ex.Message)
-        'connToAcc.closeAccDB()
-        'End Try
+        End Try
     End Sub
 
     Private Sub AddToProductionBttn_Click(sender As Object, e As EventArgs) Handles AddToProductionBttn.Click

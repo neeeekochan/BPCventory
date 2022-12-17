@@ -166,7 +166,7 @@ Public Class ModifyProduction
                                         ON pro.product_id = m.product_id
                                         SET comp.material_id = (SELECT material_id FROM materials WHERE material_name = '" & ComponentsDGV.Rows(i).Cells(1).Value & "'),
                                             comp.quantity = '" & ComponentsDGV.Rows(i).Cells(2).Value & "'
-                                        WHERE pro.product_name = '" & prodName & "'
+                                        WHERE pro.product_id = '" & prodID & "'
                                         AND comp.component_id = '" & ComponentsDGV.Rows(i).Cells(0).Value & "'", connToAcc.openAccDB)
                         cmd.ExecuteNonQuery()
                         connToAcc.closeAccDB()
@@ -187,9 +187,29 @@ Public Class ModifyProduction
 
                     End If
                 Next
+
+                Try
+                    cmd = New MySqlCommand($"UPDATE products SET average_cost = (
+                                            SELECT SUM(mat.average_cost*comp.quantity)
+                                            FROM components comp
+                                            INNER JOIN materials mat
+                                            ON mat.material_id = comp.material_id
+                                            INNER JOIN make
+                                            ON make.production_id = comp.production_id
+                                            WHERE make.product_id = '" & prodID & "' )
+                                            WHERE product_id = '" & prodID & "';
+                                            UPDATE products SET profit = sale_price - average_cost WHERE product_id = '" & prodID & "';", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+                Catch ex As Exception
+                    connToAcc.closeAccDB()
+                    MsgBox(ex.Message)
+                End Try
+
                 MessageBox.Show("Components successfully modified.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
             ProductNameChanged()
+            Mainsystem.Load_Records()
         Catch ex As Exception
             MessageBox.Show("Incorrect input. The component doesn't exist or values inputted in the wrong column.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             connToAcc.closeAccDB()
@@ -267,36 +287,64 @@ Public Class ModifyProduction
     End Sub
 
     Private Sub ProdNameANP_Changed()
-        'Try
-        cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline
+        Try
+            cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline
                                 FROM make m
                                 INNER JOIN products p
                                 on m.product_id = p.product_id
                                 WHERE m.production_id =  '" & ProdNameANP.Text & "'", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader()
+            reader = cmd.ExecuteReader()
 
-        While reader.Read
-            ProductionIDanp.Text = reader.Item("production_id")
-            qtyANP.Text = reader.Item("quantity")
-            ProdDeadlineADP.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
-        End While
-        reader.Close()
+            While reader.Read
+                ProductionIDanp.Text = reader.Item("production_id")
+                qtyANP.Text = reader.Item("quantity")
+                ProdDeadlineADP.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
+            End While
+            reader.Close()
+            connToAcc.closeAccDB()
+        Catch ex As Exception
+            MsgBox(ex.Message)
         connToAcc.closeAccDB()
-        'Catch ex As Exception
-        'MsgBox(ex.Message)
-        'connToAcc.closeAccDB()
-        'End Try
+        End Try
     End Sub
 
     Private Sub AddToProductionBttn_Click(sender As Object, e As EventArgs) Handles AddToProductionBttn.Click
         Try
+            '///////////////////////////
+            '// ADDING QUANTITIES TO PRODUCTION
+            '//////////////////////////
             cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
                             production_deadline = @setdate
                             WHERE production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
             cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
             cmd.ExecuteNonQuery()
             connToAcc.closeAccDB()
+
+
+            '///////////////////////////
+            '// ADDING COMMITTED TO MATERIALS
+            '//////////////////////////
+            cmd = New MySqlCommand($"UPDATE materials m
+                                    INNER JOIN components comp
+                                    on m.material_id = comp.material_id
+                                    INNER JOIN make
+                                    on make.production_id = comp.production_id
+                                    SET m.committed = m.committed + (make.quantity*comp.quantity)
+                                    WHERE make.production_id =  '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
+            cmd.ExecuteNonQuery()
+            connToAcc.closeAccDB()
+
+            '///////////////////////////
+            '// ADDING COMMITTED TO MATERIALS
+            '//////////////////////////
+            cmd = New MySqlCommand($"UPDATE products SET expected = '" & qtyANP.Text & "'
+                                    WHERE product_id = (SELECT product_id FROM make WHERE production_id = '" & ProductionIDanp.Text & "')", connToAcc.openAccDB)
+            cmd.ExecuteNonQuery()
+            connToAcc.closeAccDB()
+
             LoadProd()
+            Mainsystem.Load_Records()
+
             MessageBox.Show("Adding Materials to Production Success.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             MsgBox(ex.Message)

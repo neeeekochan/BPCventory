@@ -240,6 +240,7 @@ Partial Class Mainsystem
         Me.Label26 = New System.Windows.Forms.Label()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
         Me.SalesReportContent = New System.Windows.Forms.Panel()
+        Me.SENDTEXTBTN = New System.Windows.Forms.Button()
         Me.AllSalesContent = New System.Windows.Forms.Panel()
         Me.AllSalesDGV = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn26 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -302,6 +303,7 @@ Partial Class Mainsystem
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.NavBar.SuspendLayout()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.user_icon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2282,6 +2284,7 @@ Partial Class Mainsystem
         'SalesReportContent
         '
         Me.SalesReportContent.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.SalesReportContent.Controls.Add(Me.SENDTEXTBTN)
         Me.SalesReportContent.Controls.Add(Me.AllSalesContent)
         Me.SalesReportContent.Controls.Add(Me.DailySaleBttn)
         Me.SalesReportContent.Controls.Add(Me.MonthlySaleBttn)
@@ -2291,6 +2294,15 @@ Partial Class Mainsystem
         Me.SalesReportContent.Name = "SalesReportContent"
         Me.SalesReportContent.Size = New System.Drawing.Size(1120, 566)
         Me.SalesReportContent.TabIndex = 17
+        '
+        'SENDTEXTBTN
+        '
+        Me.SENDTEXTBTN.Location = New System.Drawing.Point(453, 14)
+        Me.SENDTEXTBTN.Name = "SENDTEXTBTN"
+        Me.SENDTEXTBTN.Size = New System.Drawing.Size(123, 42)
+        Me.SENDTEXTBTN.TabIndex = 35
+        Me.SENDTEXTBTN.Text = "TEXT"
+        Me.SENDTEXTBTN.UseVisualStyleBackColor = True
         '
         'AllSalesContent
         '
@@ -2955,6 +2967,7 @@ Partial Class Mainsystem
         'ProductionContent
         '
         Me.ProductionContent.BackColor = System.Drawing.Color.Wheat
+        Me.ProductionContent.Controls.Add(Me.Button1)
         Me.ProductionContent.Controls.Add(Me.ProductionDL)
         Me.ProductionContent.Controls.Add(Me.AddToProduce)
         Me.ProductionContent.Controls.Add(Me.ProductionStatus)
@@ -3027,17 +3040,26 @@ Partial Class Mainsystem
         Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
         Me.PrintPreviewDialog1.Visible = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(540, 15)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(128, 48)
+        Me.Button1.TabIndex = 39
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Mainsystem
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1180, 788)
+        Me.Controls.Add(Me.ProductionContent)
+        Me.Controls.Add(Me.UserManagementContent)
         Me.Controls.Add(Me.SalesReportContent)
         Me.Controls.Add(Me.SalesContent)
-        Me.Controls.Add(Me.ProductionContent)
         Me.Controls.Add(Me.ProductsContent)
         Me.Controls.Add(Me.DashboardContent)
-        Me.Controls.Add(Me.UserManagementContent)
         Me.Controls.Add(Me.AffiliatesContent)
         Me.Controls.Add(Me.SideBar)
         Me.Controls.Add(Me.NavBar)
@@ -3359,4 +3381,6 @@ Partial Class Mainsystem
     Friend WithEvents Column45 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn38 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewButtonColumn4 As DataGridViewButtonColumn
+    Friend WithEvents SENDTEXTBTN As Button
+    Friend WithEvents Button1 As Button
 End Class

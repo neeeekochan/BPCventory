@@ -31,6 +31,7 @@ Public Class AddNewRawMaterials
             connToAcc.closeAccDB()
 
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox("Error sa Load")
         End Try
 
@@ -100,8 +101,8 @@ Public Class AddNewRawMaterials
 
                     opt = 2
                     SupplierName.Enabled = False
-                    ExpectedNUD.Visible = True
-                    LabelQty.Visible = True
+                    'ExpectedNUD.Visible = True
+                    'LabelQty.Visible = True
                     AddToQuantityNUD.Enabled = True
 
                     For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
@@ -114,7 +115,7 @@ Public Class AddNewRawMaterials
                     MaterialName.Text = "Material Name"
                     AverageCost.Text = "Average Cost of Material"
                     InStock.Text = "0"
-                    Expected.Text = "Expected to Arrive"
+                    Expected.Text = "0"
                     Committed.Text = "0"
                     Missing.Text = "0"
                     SupplierName.Text = "Supplier of Materials"
@@ -122,8 +123,8 @@ Public Class AddNewRawMaterials
 
                     opt = 1
                     SupplierName.Enabled = True
-                    ExpectedNUD.Visible = True
-                    LabelQty.Visible = True
+                    'ExpectedNUD.Visible = True
+                    'LabelQty.Visible = True
                     AddToQuantityNUD.Enabled = True
 
                     For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
@@ -338,6 +339,7 @@ Public Class AddNewRawMaterials
                             Exit Sub
                         End If
                     Catch ex As Exception
+                        connToAcc.closeAccDB()
                         MsgBox(ex.Message)
                     End Try
 
@@ -358,6 +360,7 @@ Public Class AddNewRawMaterials
                 AddNewRawMaterial(cmd)
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox("Error sa Button Add/Update")
         End Try
     End Sub

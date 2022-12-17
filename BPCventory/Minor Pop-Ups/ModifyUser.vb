@@ -42,7 +42,7 @@ Public Class ModifyUser
                     cmd = New MySqlCommand($"INSERT INTO users
                     VALUES ('', '" & textfname.Text & "', '" & textlname.Text & "', '" & textuname.Text & "', '" & textpass1.Text & "',
                             '" & textage.Text & "', '" & textemail.Text & "', '" & textMN.Text & "', '" & textpriv.Text & "',
-                            sha1('" & textrandom & "'))", connToAcc.openAccDB)
+                            '" & textrandom & "')", connToAcc.openAccDB)
                     cmd.ExecuteNonQuery()
                     MsgBox("Data Inputted Successfully.")
                     MessageBox.Show("Copy and save your unique key(IMPORTANT)." & vbCrLf & textrandom, "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -53,6 +53,7 @@ Public Class ModifyUser
                 End If
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -76,6 +77,7 @@ Public Class ModifyUser
                 End If
             End If
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
     End Sub

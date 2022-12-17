@@ -141,45 +141,55 @@ Public Class ModifySales
             DialogResult = MessageBox.Show("Save Changes?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             If DialogResult.Yes Then
 
-                '////////////////////////////////////////
-                '///// INPUTTING IN SALES -- CATCHING THE SALES ID
-                cmd = New MySqlCommand($"INSERT INTO sales ( user_id, customer_id)
+                Try
+                    '////////////////////////////////////////
+                    '///// INPUTTING IN SALES -- CATCHING THE SALES ID
+                    cmd = New MySqlCommand($"INSERT INTO sales ( user_id, customer_id)
                                             VALUES ( '" & Login.userID & "', '" & custID & "'); select @@identity as ID;", connToAcc.openAccDB)
 
-
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read Then
-                        saleID = reader.Item("ID")
-                    End If
-                End Using
-                connToAcc.closeAccDB()
-
-                '////////////////////////////////////////
-                '////// INPUTTING IN SALES REPORTcxc
-                For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
-
-                    Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
-                    prod_id = names(0)
-
-                    cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
-                                                VALUES('" & saleID & "', '" & prod_id & "', '" & AddSaleDGV.Rows(i).Cells(1).Value & "', '" & AddSaleDGV.Rows(i).Cells(2).Value & "')", connToAcc.openAccDB)
-
-                    cmd.ExecuteNonQuery()
+                    Using reader = cmd.ExecuteReader()
+                        If reader.Read Then
+                            saleID = reader.Item("ID")
+                        End If
+                    End Using
                     connToAcc.closeAccDB()
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                    connToAcc.closeAccDB()
+                End Try
 
+                Try
+                    '////////////////////////////////////////
+                    '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
+                    For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
 
-                    cmd = New MySqlCommand($"UPDATE products p
+                        Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
+                        prod_id = names(0)
+
+                        cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
+                                                VALUES('" & saleID & "', '" & prod_id & "', '" & AddSaleDGV.Rows(i).Cells(1).Value & "', '" & AddSaleDGV.Rows(i).Cells(2).Value & "'); select @@identity as SID;", connToAcc.openAccDB)
+
+                        cmd.ExecuteNonQuery()
+                        connToAcc.closeAccDB()
+
+                        cmd = New MySqlCommand($"UPDATE products p
                                             INNER JOIN sales_details s
                                             ON p.product_id = s.product_id
-                                            SET in_stock = (p.in_stock - s.sale_quantity)  WHERE p.product_id = '" & prod_id & "'", connToAcc.openAccDB)
-                    cmd.ExecuteNonQuery()
-                    connToAcc.closeAccDB()
+                                            SET p.in_stock = p.in_stock - s.sale_quantity  WHERE s.sales_id = '" & saleID & "' AND p.product_id = '" & prod_id & "'", connToAcc.openAccDB)
+                        cmd.ExecuteNonQuery()
+                        connToAcc.closeAccDB()
 
-                Next
+                    Next
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                    connToAcc.closeAccDB()
+                End Try
+
                 MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Mainsystem.Load_Records()
-                Mainsystem.Show()
-                Me.Close()
+                    Mainsystem.Load_Records()
+                    Mainsystem.Show()
+                    Me.Close()
+
             End If
         End If
     End Sub

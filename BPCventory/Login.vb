@@ -29,6 +29,7 @@ Public Class Login
             End If
 
         Catch ex As Exception
+            connToAcc.closeAccDB()
             MessageBox.Show("Incorrect username or password!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
 

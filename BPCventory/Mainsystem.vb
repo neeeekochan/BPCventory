@@ -324,6 +324,8 @@ Public Class Mainsystem
         DashboardContent.BringToFront()
         SideBar.BringToFront()
         Load_Records()
+
+        GetHighestSellingroducts()
     End Sub
 
 
@@ -1440,6 +1442,19 @@ Public Class Mainsystem
         LoadingAllSales(DailySaleBttn)
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        SalesPrediction.ShowDialog()
+
+    End Sub
+
     Private Sub MonthlySaleBttn_Click(sender As Object, e As EventArgs) Handles MonthlySaleBttn.Click
         LoadingAllSales(MonthlySaleBttn)
     End Sub
@@ -1465,6 +1480,43 @@ Public Class Mainsystem
         Dim number = "+639282393885"
         Dim txtsender = "BPCventory"
         'sms.SendMsg(msg, number, txtsender)
+    End Sub
+
+    Private Sub GetHighestSellingroducts()
+        Dim Data = New DataTable()
+
+        Dim SQL = "SELECT P.product_id
+	                   , P.product_name
+	                   , SUM(SD.sale_quantity) sold_count
+	                FROM products P 
+                    LEFT JOIN sales_details SD
+    	                ON P.product_id = SD.product_id
+                    GROUP BY product_id
+                    ORDER BY SUM(SD.sale_quantity) DESC
+                    LIMIT 5"
+
+        Using Connection As New MySqlConnection
+            Connection.ConnectionString = "server=localhost;uid=root;password=;database=dt; Convert Zero Datetime=true;"
+            Connection.Open()
+
+            Using Command As New MySqlCommand
+                Command.CommandText = SQL
+                Command.Connection = Connection
+
+                Using Adapter As New MySqlDataAdapter
+                    Adapter.SelectCommand = Command
+                    Adapter.Fill(Data)
+                End Using
+            End Using
+        End Using
+
+        HighestSellingDGV.DataSource = Data
+
+        HighestSellingDGV.Columns(0).HeaderText = "Product ID"
+        HighestSellingDGV.Columns(1).HeaderText = "Product Name"
+        HighestSellingDGV.Columns(2).HeaderText = "Sold Quantity"
+
+
     End Sub
 #End Region
 

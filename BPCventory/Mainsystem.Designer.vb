@@ -240,6 +240,7 @@ Partial Class Mainsystem
         Me.Label26 = New System.Windows.Forms.Label()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
         Me.SalesReportContent = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SENDTEXTBTN = New System.Windows.Forms.Button()
         Me.AllSalesContent = New System.Windows.Forms.Panel()
         Me.AllSalesDGV = New System.Windows.Forms.DataGridView()
@@ -295,7 +296,9 @@ Partial Class Mainsystem
         Me.ProductName4Prod = New System.Windows.Forms.TextBox()
         Me.EditCompProdctnBttn = New System.Windows.Forms.Button()
         Me.PrdctnLogBttn = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.ProductionContent = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.ProductionDL = New System.Windows.Forms.DateTimePicker()
         Me.ProductionStatus = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -303,7 +306,6 @@ Partial Class Mainsystem
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.NavBar.SuspendLayout()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.user_icon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -712,6 +714,8 @@ Partial Class Mainsystem
         '
         'HighestSellingDGV
         '
+        Me.HighestSellingDGV.AllowUserToAddRows = False
+        Me.HighestSellingDGV.AllowUserToDeleteRows = False
         Me.HighestSellingDGV.BackgroundColor = System.Drawing.Color.Snow
         Me.HighestSellingDGV.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised
         Me.HighestSellingDGV.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken
@@ -731,6 +735,7 @@ Partial Class Mainsystem
         Me.HighestSellingDGV.Location = New System.Drawing.Point(14, 237)
         Me.HighestSellingDGV.Name = "HighestSellingDGV"
         Me.HighestSellingDGV.RowHeadersVisible = False
+        Me.HighestSellingDGV.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.HighestSellingDGV.RowTemplate.Height = 24
         Me.HighestSellingDGV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.HighestSellingDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -2284,6 +2289,7 @@ Partial Class Mainsystem
         'SalesReportContent
         '
         Me.SalesReportContent.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.SalesReportContent.Controls.Add(Me.Button3)
         Me.SalesReportContent.Controls.Add(Me.SENDTEXTBTN)
         Me.SalesReportContent.Controls.Add(Me.AllSalesContent)
         Me.SalesReportContent.Controls.Add(Me.DailySaleBttn)
@@ -2295,9 +2301,22 @@ Partial Class Mainsystem
         Me.SalesReportContent.Size = New System.Drawing.Size(1120, 566)
         Me.SalesReportContent.TabIndex = 17
         '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.Gold
+        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Location = New System.Drawing.Point(581, 13)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(120, 45)
+        Me.Button3.TabIndex = 36
+        Me.Button3.Text = "SALES PREDICTION"
+        Me.Button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button3.UseVisualStyleBackColor = False
+        '
         'SENDTEXTBTN
         '
-        Me.SENDTEXTBTN.Location = New System.Drawing.Point(453, 14)
+        Me.SENDTEXTBTN.Location = New System.Drawing.Point(447, 14)
         Me.SENDTEXTBTN.Name = "SENDTEXTBTN"
         Me.SENDTEXTBTN.Size = New System.Drawing.Size(123, 42)
         Me.SENDTEXTBTN.TabIndex = 35
@@ -2964,9 +2983,24 @@ Partial Class Mainsystem
         Me.ToolTipRawMaterials.SetToolTip(Me.PrdctnLogBttn, "Logs of previous completed production.")
         Me.PrdctnLogBttn.UseVisualStyleBackColor = False
         '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.Gold
+        Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Location = New System.Drawing.Point(547, 11)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(135, 45)
+        Me.Button2.TabIndex = 40
+        Me.Button2.Text = "SALES PREDICTION"
+        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ToolTipRawMaterials.SetToolTip(Me.Button2, "Add a new batch headed to production.")
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'ProductionContent
         '
         Me.ProductionContent.BackColor = System.Drawing.Color.Wheat
+        Me.ProductionContent.Controls.Add(Me.Button2)
         Me.ProductionContent.Controls.Add(Me.Button1)
         Me.ProductionContent.Controls.Add(Me.ProductionDL)
         Me.ProductionContent.Controls.Add(Me.AddToProduce)
@@ -2983,6 +3017,15 @@ Partial Class Mainsystem
         Me.ProductionContent.Name = "ProductionContent"
         Me.ProductionContent.Size = New System.Drawing.Size(1120, 564)
         Me.ProductionContent.TabIndex = 31
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(293, 10)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(128, 48)
+        Me.Button1.TabIndex = 39
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'ProductionDL
         '
@@ -3040,26 +3083,17 @@ Partial Class Mainsystem
         Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
         Me.PrintPreviewDialog1.Visible = False
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(540, 15)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(128, 48)
-        Me.Button1.TabIndex = 39
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Mainsystem
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1180, 788)
+        Me.Controls.Add(Me.DashboardContent)
+        Me.Controls.Add(Me.SalesReportContent)
         Me.Controls.Add(Me.ProductionContent)
         Me.Controls.Add(Me.UserManagementContent)
-        Me.Controls.Add(Me.SalesReportContent)
         Me.Controls.Add(Me.SalesContent)
         Me.Controls.Add(Me.ProductsContent)
-        Me.Controls.Add(Me.DashboardContent)
         Me.Controls.Add(Me.AffiliatesContent)
         Me.Controls.Add(Me.SideBar)
         Me.Controls.Add(Me.NavBar)
@@ -3383,4 +3417,6 @@ Partial Class Mainsystem
     Friend WithEvents DataGridViewButtonColumn4 As DataGridViewButtonColumn
     Friend WithEvents SENDTEXTBTN As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class

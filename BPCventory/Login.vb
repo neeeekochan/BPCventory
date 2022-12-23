@@ -14,8 +14,8 @@ Public Class Login
     End Sub
 
     Public Function TryingLogin(cmd As MySqlCommand)
-        Try
-            da = New MySqlDataAdapter(cmd)
+        'Try
+        da = New MySqlDataAdapter(cmd)
 
             dtable.Clear()
             da.Fill(dtable)
@@ -45,10 +45,11 @@ Public Class Login
                 MessageBox.Show("Incorrect username or password!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
-        Catch ex As Exception
-            connToAcc.closeAccDB()
-            MessageBox.Show("Incorrect username or password!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End Try
+        'Catch ex As Exception
+        connToAcc.closeAccDB()
+        'MessageBox.Show("Incorrect username or password!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '  MsgBox(ex.Message)
+        'End Try
 
         Return 0
     End Function

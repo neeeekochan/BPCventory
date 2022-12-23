@@ -240,7 +240,7 @@ Partial Class Mainsystem
         Me.Label26 = New System.Windows.Forms.Label()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
         Me.SalesReportContent = New System.Windows.Forms.Panel()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.SalesPredBttn = New System.Windows.Forms.Button()
         Me.SENDTEXTBTN = New System.Windows.Forms.Button()
         Me.AllSalesContent = New System.Windows.Forms.Panel()
         Me.AllSalesDGV = New System.Windows.Forms.DataGridView()
@@ -2289,7 +2289,7 @@ Partial Class Mainsystem
         'SalesReportContent
         '
         Me.SalesReportContent.BackColor = System.Drawing.Color.MediumSeaGreen
-        Me.SalesReportContent.Controls.Add(Me.Button3)
+        Me.SalesReportContent.Controls.Add(Me.SalesPredBttn)
         Me.SalesReportContent.Controls.Add(Me.SENDTEXTBTN)
         Me.SalesReportContent.Controls.Add(Me.AllSalesContent)
         Me.SalesReportContent.Controls.Add(Me.DailySaleBttn)
@@ -2301,18 +2301,18 @@ Partial Class Mainsystem
         Me.SalesReportContent.Size = New System.Drawing.Size(1120, 566)
         Me.SalesReportContent.TabIndex = 17
         '
-        'Button3
+        'SalesPredBttn
         '
-        Me.Button3.BackColor = System.Drawing.Color.Gold
-        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(581, 13)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(120, 45)
-        Me.Button3.TabIndex = 36
-        Me.Button3.Text = "SALES PREDICTION"
-        Me.Button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button3.UseVisualStyleBackColor = False
+        Me.SalesPredBttn.BackColor = System.Drawing.Color.Gold
+        Me.SalesPredBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.SalesPredBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SalesPredBttn.Location = New System.Drawing.Point(581, 13)
+        Me.SalesPredBttn.Name = "SalesPredBttn"
+        Me.SalesPredBttn.Size = New System.Drawing.Size(120, 45)
+        Me.SalesPredBttn.TabIndex = 36
+        Me.SalesPredBttn.Text = "SALES PREDICTION"
+        Me.SalesPredBttn.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.SalesPredBttn.UseVisualStyleBackColor = False
         '
         'SENDTEXTBTN
         '
@@ -3088,8 +3088,8 @@ Partial Class Mainsystem
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1180, 788)
-        Me.Controls.Add(Me.DashboardContent)
         Me.Controls.Add(Me.SalesReportContent)
+        Me.Controls.Add(Me.DashboardContent)
         Me.Controls.Add(Me.ProductionContent)
         Me.Controls.Add(Me.UserManagementContent)
         Me.Controls.Add(Me.SalesContent)
@@ -3418,5 +3418,5 @@ Partial Class Mainsystem
     Friend WithEvents SENDTEXTBTN As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents SalesPredBttn As Button
 End Class

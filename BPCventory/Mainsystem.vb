@@ -270,12 +270,11 @@ Public Class Mainsystem
         '*****************************************************************************************
     End Sub
 
-    Public Function RandGen()
-        Dim validchars As String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+"
+    Public Function RandGen(Optional ByVal validchars As String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+", Optional ByVal strlngth As Integer = 20)
 
         Dim sb As New StringBuilder()
         Dim rand As New Random()
-        For i As Integer = 1 To 20
+        For i As Integer = 1 To strlngth
             Dim idx As Integer = rand.Next(0, validchars.Length)
             Dim randomChar As Char = validchars(idx)
             sb.Append(randomChar)
@@ -1442,17 +1441,8 @@ Public Class Mainsystem
         LoadingAllSales(DailySaleBttn)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub SalesPredBttn_Click(sender As Object, e As EventArgs) Handles SalesPredBttn.Click
         SalesPrediction.ShowDialog()
-
     End Sub
 
     Private Sub MonthlySaleBttn_Click(sender As Object, e As EventArgs) Handles MonthlySaleBttn.Click
@@ -1483,9 +1473,8 @@ Public Class Mainsystem
     End Sub
 
     Private Sub GetHighestSellingroducts()
-        Dim Data = New DataTable()
 
-        Dim SQL = "SELECT P.product_id
+        cmd = New MySqlCommand("SELECT P.product_id
 	                   , P.product_name
 	                   , SUM(SD.sale_quantity) sold_count
 	                FROM products P 
@@ -1493,24 +1482,14 @@ Public Class Mainsystem
     	                ON P.product_id = SD.product_id
                     GROUP BY product_id
                     ORDER BY SUM(SD.sale_quantity) DESC
-                    LIMIT 5"
+                    LIMIT 5", connToAcc.openAccDB)
 
-        Using Connection As New MySqlConnection
-            Connection.ConnectionString = "server=localhost;uid=root;password=;database=dt; Convert Zero Datetime=true;"
-            Connection.Open()
-
-            Using Command As New MySqlCommand
-                Command.CommandText = SQL
-                Command.Connection = Connection
-
-                Using Adapter As New MySqlDataAdapter
-                    Adapter.SelectCommand = Command
-                    Adapter.Fill(Data)
-                End Using
-            End Using
+        Using da = New MySqlDataAdapter(cmd)
+            dtable.Clear()
+            da.Fill(dtable)
         End Using
 
-        HighestSellingDGV.DataSource = Data
+        HighestSellingDGV.DataSource = dtable
 
         HighestSellingDGV.Columns(0).HeaderText = "Product ID"
         HighestSellingDGV.Columns(1).HeaderText = "Product Name"

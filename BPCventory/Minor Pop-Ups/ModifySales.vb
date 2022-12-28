@@ -7,8 +7,9 @@ Public Class ModifySales
     Dim dtable As New DataTable()
     Dim da As MySqlDataAdapter
     Dim reader As MySqlDataReader
+    Dim SmsSender As New TextMessage
 
-    Dim prod_id, options, prod_name, saleID As String
+    Dim custName, prod_id, options, prod_name, saleID As String
     Dim custID, saleprice, rownum As Integer
 
 
@@ -80,6 +81,7 @@ Public Class ModifySales
     Private Sub CustNameCB_TextChanged(sender As Object, e As EventArgs) Handles CustNameCB.TextChanged
         Dim names() As String = CustNameCB.Text.ToString.Split(New Char() {"-"c})
         custID = names(0)
+        custName = names(1)
     End Sub
 
     Private Sub Prodnamechanged()
@@ -123,7 +125,11 @@ Public Class ModifySales
         If ProdQtyTB.Text = "" Then
             ProdQtyTB.Text = 0
         Else
-            TotalTB.Text = Convert.ToInt32(ProdQtyTB.Text) * saleprice
+            Try
+                TotalTB.Text = Convert.ToInt32(ProdQtyTB.Text) * saleprice
+            Catch ex As Exception
+                ProdQtyTB.Text = ""
+            End Try
         End If
     End Sub
 
@@ -131,6 +137,10 @@ Public Class ModifySales
     '////////
     '//FINALIZING THE PURCHASE
     '///////
+
+    Public purchasemsgnotif = ""
+    Dim totalspent As Integer
+
     Private Sub DoneSaleBttn_Click(sender As Object, e As EventArgs) Handles DoneSalesBttn.Click
         If AddSaleDGV.Rows.Count <= 0 Then
             MessageBox.Show("There are no inputted purchases.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -153,6 +163,12 @@ Public Class ModifySales
                         End If
                     End Using
                     connToAcc.closeAccDB()
+
+                    '// SMS NOTIF TO OWNER -----------------------------------------------------
+                    purchasemsgnotif = "OPERATED BY: " + Login.lastname + vbCrLf +
+                        "SALE ID: " + saleID + vbCrLf +
+                        "Customer '" + custName + "' ordered: " + vbCrLf
+
                 Catch ex As Exception
                     MsgBox(ex.Message)
                     connToAcc.closeAccDB()
@@ -161,14 +177,21 @@ Public Class ModifySales
                 Try
                     '////////////////////////////////////////
                     '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
+                    Dim strbuilder As New System.Text.StringBuilder()
                     For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
 
                         Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
                         prod_id = names(0)
+                        prod_name = names(1)
+
+                        '///// APPENDING PURCHASE TO TXT MSG ---------------------------------------
+                        'purchasemsgnotif = purchasemsgnotif & prod_name & " qty: " & AddSaleDGV.Rows(i).Cells(1).Value & "x  ---" & AddSaleDGV.Rows(i).Cells(2).Value & vbCrLf
+                        strbuilder.Append(prod_name & " qty: " & AddSaleDGV.Rows(i).Cells(1).Value & "x ₱" & AddSaleDGV.Rows(i).Cells(2).Value & vbNewLine)
+                        '---------------------------------------------------------------------------
+                        totalspent += AddSaleDGV.Rows(i).Cells(2).Value
 
                         cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
                                                 VALUES('" & saleID & "', '" & prod_id & "', '" & AddSaleDGV.Rows(i).Cells(1).Value & "', '" & AddSaleDGV.Rows(i).Cells(2).Value & "'); select @@identity as SID;", connToAcc.openAccDB)
-
                         cmd.ExecuteNonQuery()
                         connToAcc.closeAccDB()
 
@@ -180,17 +203,31 @@ Public Class ModifySales
                         connToAcc.closeAccDB()
 
                     Next
+                    purchasemsgnotif = purchasemsgnotif & strbuilder.ToString & "End of transaction."
+
+
+                    MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MsgBox(purchasemsgnotif)
+                    SmsSender.SendSMS(purchasemsgnotif, Login.mobilenum, )
+
+                    Mainsystem.Load_Records()
+                    Mainsystem.Show()
+                    Me.Close()
+
                 Catch ex As Exception
                     MsgBox(ex.Message)
                     connToAcc.closeAccDB()
                 End Try
 
-                MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Mainsystem.Load_Records()
-                    Mainsystem.Show()
-                    Me.Close()
-
+            ElseIf DialogResult = vbNo Then
+                Mainsystem.Show()
+                Me.Close()
             End If
         End If
+    End Sub
+
+    '// ASCI CHECKS ///////////////////////
+    Private Sub ProdQtyTB_KeyPress(sender As Object, e As KeyPressEventArgs) Handles ProdQtyTB.KeyPress
+        Mainsystem.AsciiCheck(e)
     End Sub
 End Class

@@ -63,6 +63,9 @@ Public Class ModifyUser
             If textfname.Text = "" Or textuname.Text = "" Or textpass1.Text = "" Or textMN.Text = "" Or
                     textemail.Text = "" Or textage.Text = "" Or textpass2.Text = "" Or textlname.Text = "" Then
                 MessageBox.Show("All fields are required!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ElseIf textMN.Text.Length > 12 And textMN.Text.Length < 10 Then
+                MessageBox.Show("Invalid Mobile Number.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 If textpass1.Text = textpass2.Text Then
                     cmd = New MySqlCommand($"UPDATE users SET firstname = '" & textfname.Text & "', lastname = '" & textlname.Text & "',
@@ -90,5 +93,15 @@ Public Class ModifyUser
             textpass1.PasswordChar = "*"
             textpass2.PasswordChar = "*"
         End If
+    End Sub
+
+
+    '/////////// ASCII CHECKS //////////////
+    Private Sub textMN_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textMN.KeyPress
+        Mainsystem.AsciiCheck(e)
+    End Sub
+
+    Private Sub textage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textage.KeyPress
+        Mainsystem.AsciiCheck(e)
     End Sub
 End Class

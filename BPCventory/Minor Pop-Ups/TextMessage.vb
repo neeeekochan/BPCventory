@@ -4,7 +4,7 @@ Imports System.IO
 Public Class TextMessage
     Dim globalsms As String
 
-    Public Function SendSMS(msg As String, num As String, Optional sender As String = "BPCVentory")
+    Public Function SendSMS(msg As String, Optional num As String = "09760247407", Optional sender As String = "BPCVentory")
         Dim Serialport1 = New System.IO.Ports.SerialPort() With {
                 .PortName = "COM9",
                 .BaudRate = 9600,
@@ -17,13 +17,13 @@ Public Class TextMessage
             .NewLine = vbCrLf
         }
         globalsms = "Sent By: " & sender &
-            vbNewLine & vbNewLine & msg &
-            vbNewLine & vbNewLine
+            vbNewLine & msg &
+            vbNewLine
 
         Try
             Serialport1.Open()
         Catch ex As Exception
-            MsgBox("The modem with the port '" & Serialport1.PortName & "'is not plugged in!!" & vbCrLf & "Please plug the modem and try again.")
+            MsgBox("The modem with the port '" & Serialport1.PortName & "' is not plugged in!!" & vbCrLf & "Please plug the modem and try again.")
         End Try
 
         If Serialport1.IsOpen() = True Then

@@ -9,7 +9,8 @@ Public Class Mainsystem
     Dim dtable As New DataTable()
     Dim da As MySqlDataAdapter
     Dim reader As MySqlDataReader
-    Dim sms As New TextMessage
+    Dim SmsSender As New TextMessage
+
     Dim count = 0, prodqty = 0, compqty = 0, counting = 0
     Dim datestart As Date
     Dim dateend As Date
@@ -17,6 +18,13 @@ Public Class Mainsystem
     Dim GRepBttnChecker As String, prod_id = ""
 #End Region
 
+    Public Sub AsciiCheck(ByVal e As KeyPressEventArgs)
+        If Asc(e.KeyChar) <> 8 Then
+            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
 
     Function StockCheck(ByVal cmd As MySqlCommand, DGV As DataGridView)
         '// ------- IN STOCK, NOT ACTIVE, OUT OF STOCK // RAW MATERIALS // PRODUCTS ------------
@@ -57,6 +65,7 @@ Public Class Mainsystem
         While reader.Read
             DGV.Rows.Add(reader.Item(0).ToString, reader.Item(1).ToString)
         End While
+        reader.Close()
         connToAcc.closeAccDB()
 
     End Sub
@@ -103,15 +112,22 @@ Public Class Mainsystem
         ProductsAmount.Text = ExeDashboard(cmd)
 
         '//AMOUNT OF SALES (FOR THIS MONTH)
-        '-?????
+        cmd = New MySqlCommand($"SELECT SUM(sales_details.total) ALL_SALES
+                                FROM sales_details
+                                INNER JOIN sales
+                                ON sales.sales_id = sales_details.sales_id
+                                WHERE MONTH (CURRENT_TIMESTAMP) = EXTRACT(MONTH FROM SALES.sales_date)", connToAcc.openAccDB)
+        SalesAmount.Text = "₱ " & ExeDashboard(cmd)
 
         '///////////////////
         '-------------------
         '///////////////////
 
+        '////////////////////////////////////////////
         '//HIGHEST SELLING PRODUCTS
-        '?????
+        GetHighestSellingroducts()
 
+        '////////////////////////////////////////////
         '//LATEST SALES
         Try
             LatestSalesDGV.Rows.Clear()
@@ -119,15 +135,23 @@ Public Class Mainsystem
                                     INNER JOIN products p
                                     ON s.product_id = p.product_id
                                     GROUP BY p.product_name
-                                    ORDER BY sale_details_id DESC LIMIT 0, 5", connToAcc.openAccDB)
+                                    ORDER BY sale_details_id DESC LIMIT 0, 8", connToAcc.openAccDB)
             ExeDGV(cmd, LatestSalesDGV)
         Catch ex As Exception
             connToAcc.closeAccDB()
             MsgBox(ex.Message)
         End Try
 
+        '////////////////////////////////////////////
         '//RECENTLY ADDED PRODUCTS
-        '?????
+        Try
+            RecentlyAddedDGV.Rows.Clear()
+            cmd = New MySqlCommand($"SELECT product_id, product_name FROM products ORDER BY product_id DESC LIMIT 0,8", connToAcc.openAccDB)
+            ExeDGV(cmd, RecentlyAddedDGV)
+        Catch ex As Exception
+            connToAcc.closeAccDB()
+            MsgBox(ex.Message)
+        End Try
 
         '*************************** END OF DISPLAYING DASHBOARD VALUES ************************
 
@@ -323,8 +347,6 @@ Public Class Mainsystem
         DashboardContent.BringToFront()
         SideBar.BringToFront()
         Load_Records()
-
-        GetHighestSellingroducts()
     End Sub
 
 
@@ -1342,7 +1364,7 @@ Public Class Mainsystem
     End Sub
 
     Private Sub ManageSalesBttn_Click(sender As Object, e As EventArgs) Handles ManageSalesBttn.Click
-        Me.Hide()
+        Hide()
         ModifySales.Show()
     End Sub
 
@@ -1465,13 +1487,13 @@ Public Class Mainsystem
     '***********************************************************************************************************************
     '***********************************************************************************************************************
 
-    Private Sub SENDTEXTBTN_Click(sender As Object, e As EventArgs) Handles SENDTEXTBTN.Click
-        Dim msg = "Awit mitchie"
-        Dim number = "+639282393885"
-        Dim txtsender = "BPCventory"
-        'sms.SendMsg(msg, number, txtsender)
-    End Sub
 
+#Region "FORECASTING"
+    '***********************************************************************************************************************
+    '***********************************************************************************************************************
+    '---------------------------------------------- FORECASTING ------------------------------------------------------------
+    '***********************************************************************************************************************
+    '***********************************************************************************************************************
     Private Sub GetHighestSellingroducts()
 
         cmd = New MySqlCommand("SELECT P.product_id
@@ -1495,8 +1517,14 @@ Public Class Mainsystem
         HighestSellingDGV.Columns(1).HeaderText = "Product Name"
         HighestSellingDGV.Columns(2).HeaderText = "Sold Quantity"
 
+        connToAcc.closeAccDB()
 
     End Sub
+
+    '******************************************** END OF FORECASTING *******************************************************
+    '***********************************************************************************************************************
+    '***********************************************************************************************************************
+#End Region
 #End Region
 
 End Class

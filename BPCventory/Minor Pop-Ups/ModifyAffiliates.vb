@@ -122,7 +122,11 @@ Public Class ModifyAffiliates
         UpdatingToDBCustomerSupplier(cmd)
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
+
+
+    '//ASCII CHECK ////
+    Private Sub textcontno_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textcontno.KeyPress
+        Mainsystem.AsciiCheck(e, "numbers")
     End Sub
 End Class

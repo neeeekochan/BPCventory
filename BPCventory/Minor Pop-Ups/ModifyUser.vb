@@ -98,10 +98,18 @@ Public Class ModifyUser
 
     '/////////// ASCII CHECKS //////////////
     Private Sub textMN_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textMN.KeyPress
-        Mainsystem.AsciiCheck(e)
+        Mainsystem.AsciiCheck(e, "numbers")
     End Sub
 
     Private Sub textage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textage.KeyPress
-        Mainsystem.AsciiCheck(e)
+        Mainsystem.AsciiCheck(e, "numbers")
+    End Sub
+
+    Private Sub textfname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textfname.KeyPress
+        Mainsystem.AsciiCheck(e, "texts")
+    End Sub
+
+    Private Sub textlname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textlname.KeyPress
+        Mainsystem.AsciiCheck(e, "texts")
     End Sub
 End Class

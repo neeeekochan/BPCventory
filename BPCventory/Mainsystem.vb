@@ -18,12 +18,21 @@ Public Class Mainsystem
     Dim GRepBttnChecker As String, prod_id = ""
 #End Region
 
-    Public Sub AsciiCheck(ByVal e As KeyPressEventArgs)
-        If Asc(e.KeyChar) <> 8 Then
-            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
-                e.Handled = True
-            End If
-        End If
+    Public Sub AsciiCheck(ByVal e As KeyPressEventArgs, type As String)
+        Select Case type
+            Case "texts"
+                If Asc(e.KeyChar) <> 8 Then
+                    If Asc(e.KeyChar) < 65 Or Asc(e.KeyChar) > 122 Then
+                        e.Handled = True
+                    End If
+                End If
+            Case "numbers"
+                If Asc(e.KeyChar) <> 8 Then
+                    If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                        e.Handled = True
+                    End If
+                End If
+        End Select
     End Sub
 
     Function StockCheck(ByVal cmd As MySqlCommand, DGV As DataGridView)

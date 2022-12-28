@@ -64,10 +64,8 @@ Public Class ModifySales
             If options = "EXISTING" Then
                 AddSaleDGV.Rows(rownum).Cells(1).Value = ProdQtyTB.Text
                 AddSaleDGV.Rows(rownum).Cells(2).Value = TotalTB.Text
-                'RichTextBox1.AppendText("EXISTING - ADDBTTN" & vbNewLine & "/////////////////" & vbNewLine)
             Else
                 AddSaleDGV.Rows.Add(Convert.ToString(ProdNameCB.Text), Convert.ToString(ProdQtyTB.Text), Convert.ToString(TotalTB.Text), "Delete")
-                'RichTextBox1.AppendText("NOT - ADDBTTN" & vbNewLine & "/////////////////" & vbNewLine)
                 For Each TB In {ProdQtyTB, TotalTB}
                     TB.Clear()
                 Next
@@ -215,7 +213,7 @@ Public Class ModifySales
                     Me.Close()
 
                 Catch ex As Exception
-                    MsgBox(ex.Message)
+                    MessageBox.Show("Insufficient resources. Refer to the Products window to verify amount of available stocks of desired product.", "Unable to proceed with purchase", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     connToAcc.closeAccDB()
                 End Try
 
@@ -226,8 +224,9 @@ Public Class ModifySales
         End If
     End Sub
 
+
     '// ASCI CHECKS ///////////////////////
     Private Sub ProdQtyTB_KeyPress(sender As Object, e As KeyPressEventArgs) Handles ProdQtyTB.KeyPress
-        Mainsystem.AsciiCheck(e)
+        Mainsystem.AsciiCheck(e, "numbers")
     End Sub
 End Class

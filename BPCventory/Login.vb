@@ -35,6 +35,7 @@ Public Class Login
 
                 '// SENDING OTP TO THE MOBILE NUMBER
                 OTPPanel.BringToFront()
+                MaskedTextBox1.Focus()
                 OTP = Mainsystem.RandGen(1234567890, 6)
                 Label2.Text = OTP
 

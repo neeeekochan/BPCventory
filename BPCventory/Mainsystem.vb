@@ -125,7 +125,8 @@ Public Class Mainsystem
                                 FROM sales_details
                                 INNER JOIN sales
                                 ON sales.sales_id = sales_details.sales_id
-                                WHERE MONTH (CURRENT_TIMESTAMP) = EXTRACT(MONTH FROM SALES.sales_date)", connToAcc.openAccDB)
+                                WHERE YEAR(sales.sales_date) = EXTRACT(YEAR FROM CURRENT_TIMESTAMP)
+                                AND MONTH (sales.sales_date) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)", connToAcc.openAccDB)
         SalesAmount.Text = "₱ " & ExeDashboard(cmd)
 
         '///////////////////
@@ -1431,7 +1432,7 @@ Public Class Mainsystem
                 cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
                                 SD.product_id, SD.sale_quantity, SD.total
                                 FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
-                                WHERE YEAR(s.sales_date) = 2022
+                                WHERE YEAR(s.sales_date) = EXTRACT(YEAR from CURRENT_TIMESTAMP)
                                 AND MONTH(CURRENT_TIMESTAMP) = extract(MONTH FROM s.sales_date)
                                 ORDER BY s.sales_date DESC", connToAcc.openAccDB)
             End If

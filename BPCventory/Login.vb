@@ -40,6 +40,7 @@ Public Class Login
                 Label2.Text = OTP
 
                 otpmsg = OTP & " is your authentication code. For your protection, do not share this code with anyone."
+
                 Try
                     'SmsSender.SendSMS(otpmsg, mobilenum, )
                 Catch ex As Exception
@@ -65,6 +66,7 @@ Public Class Login
             MessageBox.Show("Login Confirmed. Logging in...", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Mainsystem.Show()
             OTPPanel.SendToBack()
+            MaskedTextBox1.ResetText()
             Hide()
         Else
             MessageBox.Show("Incorrect inputted OTP. Try again later.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)

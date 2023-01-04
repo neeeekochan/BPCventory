@@ -62,83 +62,77 @@ Public Class AddNewRawMaterials
     End Function
 
     Private Sub M_IDKeyUpIndexChanged()
-        If MaterialID.Text = "" Then
-            Overwrite()
-            PictureBox1.Focus()
-            Exit Sub
-        Else
-            Try
-                cmd = New MySqlCommand($"SELECT materials.material_id, materials.material_name, materials.average_cost,
+        Try
+            cmd = New MySqlCommand($"SELECT materials.material_id, materials.material_name, materials.average_cost,
                                     materials.in_stock, materials.expected, materials.committed, materials.missing,
                                     supplier.supplier_id, supplier.company_name
                                     FROM materials
                                     INNER JOIN supplier ON materials.supplier_id = supplier.supplier_id
                                     WHERE materials.material_id = '" & MaterialID.Text & "'", connToAcc.openAccDB)
-                da = New MySqlDataAdapter(cmd)
+            da = New MySqlDataAdapter(cmd)
 
-                dtable.Clear()
-                da.Fill(dtable)
+            dtable.Clear()
+            da.Fill(dtable)
 
-                If dtable.Rows.Count > 0 Then
-                    MaterialName.Text = dtable.Rows(0).Item("material_name")
+            If dtable.Rows.Count > 0 Then
+                MaterialName.Text = dtable.Rows(0).Item("material_name")
 
-                    AverageCost.Text = dtable.Rows(0).Item("average_cost")
-                    InStock.Text = dtable.Rows(0).Item("in_stock")
-                    Expected.Text = dtable.Rows(0).Item("expected")
-                    Committed.Text = dtable.Rows(0).Item("committed")
-                    Missing.Text = dtable.Rows(0).Item("missing")
-                    SupplierName.Text = (String.Format("{0}-{1}", dtable.Rows(0).Item("supplier_id"), dtable.Rows(0).Item("company_name")))
+                AverageCost.Text = dtable.Rows(0).Item("average_cost")
+                InStock.Text = dtable.Rows(0).Item("in_stock")
+                Expected.Text = dtable.Rows(0).Item("expected")
+                Committed.Text = dtable.Rows(0).Item("committed")
+                Missing.Text = dtable.Rows(0).Item("missing")
+                SupplierName.Text = (String.Format("{0}-{1}", dtable.Rows(0).Item("supplier_id"), dtable.Rows(0).Item("company_name")))
 
-                    '//EXPECTED AND INSTOCK IS PUT INTO VAR AS INT --------------------------
+                '//EXPECTED AND INSTOCK IS PUT INTO VAR AS INT --------------------------
 
-                    expectedInt = Convert.ToInt32(Expected.Text)
-                    instockInt = Convert.ToInt32(InStock.Text)
+                expectedInt = Convert.ToInt32(Expected.Text)
+                instockInt = Convert.ToInt32(InStock.Text)
 
-                    '// ------------------------------------------
-                    MaterialIDval = dtable.Rows(0).Item("material_id")
-                    CompanyNameval = dtable.Rows(0).Item("company_name")
-                    AddToQuantityNUD.Value = 0
+                '// ------------------------------------------
+                MaterialIDval = dtable.Rows(0).Item("material_id")
+                CompanyNameval = dtable.Rows(0).Item("company_name")
+                AddToQuantityNUD.Value = 0
 
-                    opt = 2
-                    SupplierName.Enabled = False
-                    'ExpectedNUD.Visible = True
-                    'LabelQty.Visible = True
-                    AddToQuantityNUD.Enabled = True
+                opt = 2
+                SupplierName.Enabled = False
+                'ExpectedNUD.Visible = True
+                'LabelQty.Visible = True
+                AddToQuantityNUD.Enabled = True
 
-                    For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
-                        fcolor.ForeColor = Color.Black
-                    Next
+                For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
+                    fcolor.ForeColor = Color.Black
+                Next
 
-                ElseIf dtable.Rows.Count = 0 Then
-                    '// PRESET EXCLUDING THE MATERIAL ID
+            ElseIf dtable.Rows.Count = 0 Then
+                '// PRESET EXCLUDING THE MATERIAL ID
 
-                    MaterialName.Text = "Material Name"
-                    AverageCost.Text = "Average Cost of Material"
-                    InStock.Text = "0"
-                    Expected.Text = "0"
-                    Committed.Text = "0"
-                    Missing.Text = "0"
-                    SupplierName.Text = "Supplier of Materials"
-                    AddToQuantityNUD.Value = 0
+                MaterialName.Text = "Material Name"
+                AverageCost.Text = "Average Cost of Material"
+                InStock.Text = "0"
+                Expected.Text = "0"
+                Committed.Text = "0"
+                Missing.Text = "0"
+                SupplierName.Text = "Supplier of Materials"
+                AddToQuantityNUD.Value = 0
 
-                    opt = 1
-                    SupplierName.Enabled = True
-                    'ExpectedNUD.Visible = True
-                    'LabelQty.Visible = True
-                    AddToQuantityNUD.Enabled = True
+                opt = 1
+                SupplierName.Enabled = True
+                'ExpectedNUD.Visible = True
+                'LabelQty.Visible = True
+                AddToQuantityNUD.Enabled = True
 
-                    For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
-                        fcolor.ForeColor = Color.Gray
-                    Next
+                For Each fcolor In {MaterialName, AverageCost, InStock, Expected, Committed, Missing, SupplierName}
+                    fcolor.ForeColor = Color.Gray
+                Next
 
-                End If
+            End If
 
-                connToAcc.closeAccDB()
-            Catch ex As Exception
-                MsgBox("Error sa MID")
-                connToAcc.closeAccDB()
-            End Try
-        End If
+            connToAcc.closeAccDB()
+        Catch ex As Exception
+            MessageBox.Show("Choose from all the given Material ID's, or leave blank. (New Material ID's are auto-generated.)", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            connToAcc.closeAccDB()
+        End Try
 
     End Sub
 
@@ -380,10 +374,6 @@ Public Class AddNewRawMaterials
     End Sub
 
     '//DETERMINING WHETHER THE PRODUCT IS EXISTING OR NOT
-    Private Sub MaterialID_KeyUp(sender As Object, e As KeyEventArgs) Handles MaterialID.KeyUp
-        M_IDKeyUpIndexChanged()
-    End Sub
-
     Private Sub MaterialID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles MaterialID.SelectedIndexChanged
         M_IDKeyUpIndexChanged()
     End Sub
@@ -396,8 +386,8 @@ Public Class AddNewRawMaterials
         M_IDKeyUpIndexChanged()
     End Sub
 
-    Private Sub InStock_TextChanged(sender As Object, e As EventArgs) Handles InStock.TextChanged
-
+    Private Sub MaterialID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaterialID.KeyPress
+        e.Handled = True
     End Sub
 
     '// --- ADDING TO THE CURRENT STOCK ON HAND
@@ -405,25 +395,46 @@ Public Class AddNewRawMaterials
         TextBox1.Focus()
     End Sub
 
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        TextBox1.Focus()
+    End Sub
+
     Private Sub Textbox1_KeyUp(sender As Object, e As EventArgs) Handles TextBox1.KeyUp
-        Dim allowed As String = ("123456789")
+        Dim allowed As String = ("1234567890")
+
         For Each c As Char In TextBox1.Text
             If allowed.Contains(c) = False Then
                 TextBox1.Text = TextBox1.Text.Remove(TextBox1.SelectionStart - 1, 1)
                 TextBox1.Select(TextBox1.Text.Count, 0)
             End If
         Next
-        If TextBox1.Text.Length = 6 Then
-            If MaterialIDval = TextBox1.Text Then
-                AddToQuantityNUD.Value += 1
-                TextBox1.Clear()
-            Else
-                MaterialID.Text = TextBox1.Text
-                AddToQuantityNUD.Value = 0
-            End If
+
+        If TextBox1.TextLength = 5 Then
+            For Each item In MaterialID.Items
+                If TextBox1.Text = Val(item).ToString Then
+                    MaterialID.Text = item
+                    AddToQuantityNUD.Value += 1
+                End If
+            Next
+
+            TextBox1.Clear()
         End If
+
+
+        'If TextBox1.Text.Length = 6 Then
+        '    If MaterialIDval = TextBox1.Text Then
+        '        AddToQuantityNUD.Value += 1
+        '        TextBox1.Clear()
+        '    Else
+        '        MaterialID.Text = TextBox1.Text
+        '        AddToQuantityNUD.Value = 0
+        '    End If
+        'End If
     End Sub
 
+    Private Sub AddToQuantityNUD_Leave(sender As Object, e As EventArgs) Handles AddToQuantityNUD.Leave
+        TextBox1.Clear()
+    End Sub
     '----------------------------------------------------------------------------
     '----------------------------------------------------------------------------
 End Class

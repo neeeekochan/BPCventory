@@ -1245,19 +1245,16 @@ Public Class Mainsystem
     '///////////////////////////
 
     Private Sub EditCompProdctnBttn_Click(sender As Object, e As EventArgs) Handles EditCompProdctnBttn.Click
-        Me.Hide()
         ModifyProduction.Show()
         ModifyProduction.EditComponentsContent.BringToFront()
     End Sub
 
     Private Sub AddToProduce_Click(sender As Object, e As EventArgs) Handles AddToProduce.Click
-        Me.Hide()
         ModifyProduction.Show()
         ModifyProduction.AddtoNewProduceContent.BringToFront()
     End Sub
 
     Private Sub PrdctnLogBttn_Click(sender As Object, e As EventArgs) Handles PrdctnLogBttn.Click
-        Me.Hide()
         ModifyProduction.Show()
         ModifyProduction.ProductionLogContent.BringToFront()
     End Sub
@@ -1272,7 +1269,6 @@ Public Class Mainsystem
 
     Private Sub AddNewProductBttn_Click(sender As Object, e As EventArgs) Handles AddNewProductBttn.Click
         AddNewProduct.Show()
-        Me.Hide()
     End Sub
 
     '// SEARCH DGV FOR ITEMS IN PRODUCTS --------------------------
@@ -1373,7 +1369,6 @@ Public Class Mainsystem
     End Sub
 
     Private Sub ManageSalesBttn_Click(sender As Object, e As EventArgs) Handles ManageSalesBttn.Click
-        Hide()
         ModifySales.Show()
     End Sub
 

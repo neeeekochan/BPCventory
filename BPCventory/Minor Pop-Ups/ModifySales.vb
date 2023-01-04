@@ -14,6 +14,7 @@ Public Class ModifySales
 
 
     Private Sub ModifySales_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ProdNameCB.Focus()
         '//////////
         '/// LOAD CUSTNAMECB - CUSTOMER NAMES
         '//////////
@@ -34,6 +35,10 @@ Public Class ModifySales
         End While
         reader.Close()
         connToAcc.closeAccDB()
+    End Sub
+
+    Private Sub ModifySales_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
+        Close()
     End Sub
 
     Private Sub AddSaleCloseBttn_Click(sender As Object, e As EventArgs) Handles AddSaleCloseBttn.Click
@@ -113,6 +118,29 @@ Public Class ModifySales
             End If
         End Using
         connToAcc.closeAccDB()
+    End Sub
+
+    Private Sub ProdNameCB_KeyUp(sender As Object, e As KeyEventArgs) Handles ProdNameCB.KeyUp
+        Dim allowed As String = ("1234567890")
+
+        For Each c As Char In ProdNameCB.Text
+            If allowed.Contains(c) = False Then
+                ProdNameCB.Text = ProdNameCB.Text.Remove(ProdNameCB.SelectionStart - 1, 1)
+                ProdNameCB.Select(ProdNameCB.Text.Count, 0)
+            End If
+        Next
+
+        If ProdNameCB.Text.Length = 5 Then
+            For Each item In ProdNameCB.Items
+                If ProdNameCB.Text = Val(item).ToString Then
+                    ProdNameCB.ResetText()
+                    ProdNameCB.Text = item
+                    Prodnamechanged()
+                    Label5.Focus()
+                    Exit For
+                End If
+            Next
+        End If
     End Sub
 
     Private Sub ProdNameCB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProdNameCB.SelectedIndexChanged

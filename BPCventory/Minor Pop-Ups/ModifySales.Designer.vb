@@ -69,13 +69,13 @@ Partial Class ModifySales
         '
         'ProdNameCB
         '
-        Me.ProdNameCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ProdNameCB.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.ProdNameCB.FormattingEnabled = True
         Me.ProdNameCB.Location = New System.Drawing.Point(31, 107)
         Me.ProdNameCB.Name = "ProdNameCB"
         Me.ProdNameCB.Size = New System.Drawing.Size(216, 24)
         Me.ProdNameCB.TabIndex = 33
+        Me.ToolTip1.SetToolTip(Me.ProdNameCB, "Click here to input/scan desired item barcode.")
         '
         'CustNameCB
         '

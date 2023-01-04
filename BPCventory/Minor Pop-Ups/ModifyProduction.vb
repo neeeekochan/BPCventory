@@ -28,6 +28,10 @@ Public Class ModifyProduction
         End Try
     End Sub
 
+    Private Sub ModifyProduction_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
+        Me.Close()
+    End Sub
+
     Private Sub LoadProd()
         '/////////////////////////////////////
         '/// TRY FOR EDIT COMPONENTS
@@ -305,7 +309,7 @@ Public Class ModifyProduction
             connToAcc.closeAccDB()
         Catch ex As Exception
             MsgBox(ex.Message)
-        connToAcc.closeAccDB()
+            connToAcc.closeAccDB()
         End Try
     End Sub
 

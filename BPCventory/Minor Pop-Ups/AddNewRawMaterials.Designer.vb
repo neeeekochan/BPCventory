@@ -210,7 +210,6 @@ Partial Class AddNewRawMaterials
         Me.AddToQuantityNUD.Location = New System.Drawing.Point(390, 264)
         Me.AddToQuantityNUD.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
         Me.AddToQuantityNUD.Name = "AddToQuantityNUD"
-        Me.AddToQuantityNUD.ReadOnly = True
         Me.AddToQuantityNUD.Size = New System.Drawing.Size(88, 22)
         Me.AddToQuantityNUD.TabIndex = 26
         Me.Tips.SetToolTip(Me.AddToQuantityNUD, "Click to Add Quantity to the Current Stock")
@@ -228,7 +227,7 @@ Partial Class AddNewRawMaterials
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(403, 263)
+        Me.TextBox1.Location = New System.Drawing.Point(403, 264)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(52, 22)
         Me.TextBox1.TabIndex = 28

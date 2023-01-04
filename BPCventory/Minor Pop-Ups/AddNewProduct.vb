@@ -8,6 +8,10 @@ Public Class AddNewProduct
     Dim da As MySqlDataAdapter
     Dim reader As MySqlDataReader
 
+    Private Sub AddNewProduct_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
+        Close()
+    End Sub
+
     Function PresetDesc(Name As TextBox, PrtNum As TextBox, PrdSize As TextBox, UL As TextBox, PrdDim As TextBox, AC As TextBox, SP As TextBox, Quan As TextBox)
         For Each txt In {Name, PrtNum, PrdSize, UL, PrdDim, AC, SP, Quan}
             txt.Clear()
@@ -200,7 +204,7 @@ Public Class AddNewProduct
 
         Catch ex As Exception
             MsgBox(ex.Message)
-        connToAcc.closeAccDB()
+            connToAcc.closeAccDB()
         End Try
 
     End Sub

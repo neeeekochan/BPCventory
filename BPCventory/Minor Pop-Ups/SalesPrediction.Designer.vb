@@ -110,9 +110,9 @@ Partial Class SalesPrediction
         Me.Label1.Location = New System.Drawing.Point(31, 36)
         Me.Label1.Name = "Label1"
         Me.Label1.Padding = New System.Windows.Forms.Padding(5, 5, 10, 5)
-        Me.Label1.Size = New System.Drawing.Size(365, 49)
+        Me.Label1.Size = New System.Drawing.Size(400, 49)
         Me.Label1.TabIndex = 6
-        Me.Label1.Text = "SALES PREDICTION"
+        Me.Label1.Text = "SALES FORECASTING"
         '
         'Chart1
         '

@@ -7,14 +7,15 @@ Public Class ModifySales
     Dim dtable As New DataTable()
     Dim da As MySqlDataAdapter
     Dim reader As MySqlDataReader
+
     Dim SmsSender As New TextMessage
 
     Dim custName, prod_id, options, prod_name, saleID As String
     Dim custID, saleprice, rownum As Integer
+    Dim totalspent As Double
 
 
     Private Sub ModifySales_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ProdNameCB.Focus()
         '//////////
         '/// LOAD CUSTNAMECB - CUSTOMER NAMES
         '//////////
@@ -35,10 +36,6 @@ Public Class ModifySales
         End While
         reader.Close()
         connToAcc.closeAccDB()
-    End Sub
-
-    Private Sub ModifySales_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
-        Close()
     End Sub
 
     Private Sub AddSaleCloseBttn_Click(sender As Object, e As EventArgs) Handles AddSaleCloseBttn.Click
@@ -69,8 +66,10 @@ Public Class ModifySales
             If options = "EXISTING" Then
                 AddSaleDGV.Rows(rownum).Cells(1).Value = ProdQtyTB.Text
                 AddSaleDGV.Rows(rownum).Cells(2).Value = TotalTB.Text
+                'RichTextBox1.AppendText("EXISTING - ADDBTTN" & vbNewLine & "/////////////////" & vbNewLine)
             Else
                 AddSaleDGV.Rows.Add(Convert.ToString(ProdNameCB.Text), Convert.ToString(ProdQtyTB.Text), Convert.ToString(TotalTB.Text), "Delete")
+                'RichTextBox1.AppendText("NOT - ADDBTTN" & vbNewLine & "/////////////////" & vbNewLine)
                 For Each TB In {ProdQtyTB, TotalTB}
                     TB.Clear()
                 Next
@@ -120,29 +119,6 @@ Public Class ModifySales
         connToAcc.closeAccDB()
     End Sub
 
-    Private Sub ProdNameCB_KeyUp(sender As Object, e As KeyEventArgs) Handles ProdNameCB.KeyUp
-        Dim allowed As String = ("1234567890")
-
-        For Each c As Char In ProdNameCB.Text
-            If allowed.Contains(c) = False Then
-                ProdNameCB.Text = ProdNameCB.Text.Remove(ProdNameCB.SelectionStart - 1, 1)
-                ProdNameCB.Select(ProdNameCB.Text.Count, 0)
-            End If
-        Next
-
-        If ProdNameCB.Text.Length = 5 Then
-            For Each item In ProdNameCB.Items
-                If ProdNameCB.Text = Val(item).ToString Then
-                    ProdNameCB.ResetText()
-                    ProdNameCB.Text = item
-                    Prodnamechanged()
-                    Label5.Focus()
-                    Exit For
-                End If
-            Next
-        End If
-    End Sub
-
     Private Sub ProdNameCB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProdNameCB.SelectedIndexChanged
         Prodnamechanged()
     End Sub
@@ -151,21 +127,20 @@ Public Class ModifySales
         If ProdQtyTB.Text = "" Then
             ProdQtyTB.Text = 0
         Else
-            Try
-                TotalTB.Text = Convert.ToInt32(ProdQtyTB.Text) * saleprice
-            Catch ex As Exception
-                ProdQtyTB.Text = ""
-            End Try
+            TotalTB.Text = Convert.ToInt32(ProdQtyTB.Text) * saleprice
         End If
+    End Sub
+
+    Private Sub ProdQtyTB_Keypress(sender As Object, e As KeyPressEventArgs) Handles ProdQtyTB.KeyPress
+        Mainsystem.AsciiCheck(e, "numbers")
     End Sub
 
 
     '////////
     '//FINALIZING THE PURCHASE
     '///////
-
-    Public purchasemsgnotif = ""
-    Dim totalspent As Integer
+    Dim textmsgbuild = New System.Text.StringBuilder()
+    Dim builtsms As String
 
     Private Sub DoneSaleBttn_Click(sender As Object, e As EventArgs) Handles DoneSalesBttn.Click
         If AddSaleDGV.Rows.Count <= 0 Then
@@ -190,34 +165,29 @@ Public Class ModifySales
                     End Using
                     connToAcc.closeAccDB()
 
-                    '// SMS NOTIF TO OWNER -----------------------------------------------------
-                    purchasemsgnotif = "OPERATED BY: " + Login.lastname + vbCrLf +
-                        "SALE ID: " + saleID + vbCrLf +
-                        "Customer '" + custName + "' ordered: " + vbCrLf
+                    '/// SMS NOTIF TO OWNER  ---------------------------------------------------
+                    textmsgbuild.append("OPERATED BY: " & Login.lastname & vbNewLine &
+                                        "SALE ID: " & saleID & vbNewLine &
+                                        "Customer '" & custName & "' ordered: " & vbNewLine & vbNewLine)
+                    '---------------------------------------------------------------------------
 
                 Catch ex As Exception
                     MsgBox(ex.Message)
                     connToAcc.closeAccDB()
                 End Try
 
-                Try
-                    '////////////////////////////////////////
-                    '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
-                    Dim strbuilder As New System.Text.StringBuilder()
-                    For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
+                'Try
+                '////////////////////////////////////////
+                '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
+                For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
 
-                        Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
+
+                    Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
                         prod_id = names(0)
-                        prod_name = names(1)
-
-                        '///// APPENDING PURCHASE TO TXT MSG ---------------------------------------
-                        'purchasemsgnotif = purchasemsgnotif & prod_name & " qty: " & AddSaleDGV.Rows(i).Cells(1).Value & "x  ---" & AddSaleDGV.Rows(i).Cells(2).Value & vbCrLf
-                        strbuilder.Append(prod_name & " qty: " & AddSaleDGV.Rows(i).Cells(1).Value & "x ₱" & AddSaleDGV.Rows(i).Cells(2).Value & vbNewLine)
-                        '---------------------------------------------------------------------------
-                        totalspent += AddSaleDGV.Rows(i).Cells(2).Value
 
                         cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
                                                 VALUES('" & saleID & "', '" & prod_id & "', '" & AddSaleDGV.Rows(i).Cells(1).Value & "', '" & AddSaleDGV.Rows(i).Cells(2).Value & "'); select @@identity as SID;", connToAcc.openAccDB)
+
                         cmd.ExecuteNonQuery()
                         connToAcc.closeAccDB()
 
@@ -228,33 +198,42 @@ Public Class ModifySales
                         cmd.ExecuteNonQuery()
                         connToAcc.closeAccDB()
 
-                    Next
-                    purchasemsgnotif = purchasemsgnotif & strbuilder.ToString & "End of transaction."
+                        '///// APPENDING PURCHASE TO TXT MSG ---------------------------------------
+                        textmsgbuild.append(prod_name & " qty: " & AddSaleDGV.Rows(i).Cells(1).Value & "x  ---" & AddSaleDGV.Rows(i).Cells(2).Value & " // ")
+                        '---------------------------------------------------------------------------
+                        totalspent += AddSaleDGV.Rows(i).Cells(2).Value
+
+                    MsgBox(textmsgbuild.ToString)
+                    SmsSender.SendSMS(textmsgbuild.ToString, ,)
+                    textmsgbuild.Clear()
+                Next
 
 
-                    MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    MsgBox(purchasemsgnotif)
-                    SmsSender.SendSMS(purchasemsgnotif, Login.mobilenum, )
+                MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Mainsystem.Load_Records()
+                '// SEPARATING TRANSACTION MESSAGE INTO 150 CHARACTER TEXT -----------------------------
+
+                'Dim strings As New List(Of String)
+                'builtsms = textmsgbuild.ToString
+
+                'For i As Integer = 0 To builtsms.Length Step 120
+                '    strings.Add(builtsms.Substring(i))
+                '    SmsSender.SendSMS(strings.ToString, ,)
+                'Next
+
+                '---------------------------------------------------------------------------------------
+
+
+                Mainsystem.Load_Records()
                     Mainsystem.Show()
                     Me.Close()
 
-                Catch ex As Exception
-                    MessageBox.Show("Insufficient resources. Refer to the Products window to verify amount of available stocks of desired product.", "Unable to proceed with purchase", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    connToAcc.closeAccDB()
-                End Try
+                'Catch ex As Exception
+                '    MsgBox(ex.Message)
+                '    connToAcc.closeAccDB()
+                'End Try
 
-            ElseIf DialogResult = vbNo Then
-                Mainsystem.Show()
-                Me.Close()
             End If
         End If
-    End Sub
-
-
-    '// ASCI CHECKS ///////////////////////
-    Private Sub ProdQtyTB_KeyPress(sender As Object, e As KeyPressEventArgs) Handles ProdQtyTB.KeyPress
-        Mainsystem.AsciiCheck(e, "numbers")
     End Sub
 End Class

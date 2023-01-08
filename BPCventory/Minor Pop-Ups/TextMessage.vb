@@ -5,6 +5,7 @@ Public Class TextMessage
     Dim globalsms As String
 
     Public Function SendSMS(msg As String, Optional num As String = "09760247407", Optional sender As String = "BPCVentory")
+        Threading.Thread.Sleep(5000)
         Dim Serialport1 = New System.IO.Ports.SerialPort() With {
                 .PortName = "COM9",
                 .BaudRate = 9600,
@@ -17,8 +18,7 @@ Public Class TextMessage
             .NewLine = vbCrLf
         }
         globalsms = "Sent By: " & sender &
-            vbNewLine & msg &
-            vbNewLine
+            vbNewLine & msg
 
         Try
             Serialport1.Open()

@@ -14,7 +14,7 @@ Public Class ModifyProduction
     Private Sub LoadLogs()
         ProductionLogDGV.Rows.Clear()
         Try
-            cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log", connToAcc.openAccDB)
+            cmd = New MySqlCommand($"SELECT log_id, production_id, datetime, quantity FROM production_log ORDER BY log_id DESC", connToAcc.openAccDB)
             reader = cmd.ExecuteReader()
             While reader.Read
                 ProductionLogDGV.Rows.Add(reader.Item("log_id").ToString, reader.Item("production_id").ToString,
@@ -26,10 +26,6 @@ Public Class ModifyProduction
             MsgBox(ex.Message)
             connToAcc.closeAccDB()
         End Try
-    End Sub
-
-    Private Sub ModifyProduction_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
-        Me.Close()
     End Sub
 
     Private Sub LoadProd()
@@ -65,7 +61,6 @@ Public Class ModifyProduction
         '/// TRY FOR LOAD ADD TO NEW PRODUCTION
         '/////////////////////////////////////
         Try
-            ProdDeadlineADP.Value = Date.Now
             cmd = New MySqlCommand($"SELECT make.production_id, products.product_name, make.quantity, make.production_deadline, make.status
                                 FROM make 
                                 INNER JOIN products
@@ -316,6 +311,17 @@ Public Class ModifyProduction
     Private Sub AddToProductionBttn_Click(sender As Object, e As EventArgs) Handles AddToProductionBttn.Click
         Try
             '///////////////////////////
+            '// ADDING QUANTITIES TO PRODUCTION
+            '//////////////////////////
+            cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
+                            production_deadline = @setdate
+                            WHERE production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
+            cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
+            cmd.ExecuteNonQuery()
+            connToAcc.closeAccDB()
+
+
+            '///////////////////////////
             '// ADDING COMMITTED TO MATERIALS
             '//////////////////////////
             cmd = New MySqlCommand($"UPDATE materials m
@@ -323,53 +329,28 @@ Public Class ModifyProduction
                                     on m.material_id = comp.material_id
                                     INNER JOIN make
                                     on make.production_id = comp.production_id
-                                    SET m.committed = m.committed + ('" & qtyANP.Text & "' * comp.quantity)
+                                    SET m.committed = m.committed + (make.quantity*comp.quantity)
                                     WHERE make.production_id =  '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
             cmd.ExecuteNonQuery()
             connToAcc.closeAccDB()
-            Try
-                '///////////////////////////
-                '// ADDING QUANTITIES TO PRODUCTION
-                '//////////////////////////
-                cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
-                            production_deadline = @setdate
-                            WHERE production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
-                cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
-                cmd.ExecuteNonQuery()
-                connToAcc.closeAccDB()
-                Try
-                    '///////////////////////////
-                    '// ADDING COMMITTED TO PRODUCTS
-                    '//////////////////////////
-                    cmd = New MySqlCommand($"UPDATE products SET expected = '" & qtyANP.Text & "'
+
+            '///////////////////////////
+            '// ADDING COMMITTED TO MATERIALS
+            '//////////////////////////
+            cmd = New MySqlCommand($"UPDATE products SET expected = '" & qtyANP.Text & "'
                                     WHERE product_id = (SELECT product_id FROM make WHERE production_id = '" & ProductionIDanp.Text & "')", connToAcc.openAccDB)
-                    cmd.ExecuteNonQuery()
-                    connToAcc.closeAccDB()
-
-                    LoadProd()
-                    Mainsystem.Load_Records()
-
-                    MessageBox.Show("Adding Materials to Production Success.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Catch ex As Exception
-                    MessageBox.Show("Unable to complete Production, check for current material stock and try again.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    connToAcc.closeAccDB()
-                    Exit Sub
-                End Try
-
-
-            Catch ex As Exception
-                MessageBox.Show("Unable to add quantities subject for production, check current stock of desired product or try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                connToAcc.closeAccDB()
-                Exit Sub
-            End Try
-
-
-        Catch ex As Exception
-            MessageBox.Show("Insufficient resources. Check the 'Materials' Window for more information about the current stock, or lessen the quantity subject to production.", "Unable to Send to Production", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmd.ExecuteNonQuery()
             connToAcc.closeAccDB()
-            Exit Sub
-        End Try
 
+            LoadProd()
+            Mainsystem.Load_Records()
+            Me.Close()
+
+            MessageBox.Show("Adding Materials to Production Success.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
 
     End Sub
 #End Region

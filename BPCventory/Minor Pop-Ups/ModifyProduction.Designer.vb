@@ -43,11 +43,6 @@ Partial Class ModifyProduction
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.CloseCompBttn1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.ProductionLogDGV = New System.Windows.Forms.DataGridView()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AddtoNewProduceContent = New System.Windows.Forms.Panel()
         Me.AddToProductionBttn = New System.Windows.Forms.Button()
         Me.AddToProductionCloseBttn = New System.Windows.Forms.Button()
@@ -62,13 +57,18 @@ Partial Class ModifyProduction
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ProductionIDanp = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.ProductionLogDGV = New System.Windows.Forms.DataGridView()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EditComponentsContent.SuspendLayout()
         CType(Me.ComponentsDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ProductionLogContent.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AddtoNewProduceContent.SuspendLayout()
+        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'EditComponentsContent
@@ -285,45 +285,6 @@ Partial Class ModifyProduction
         Me.Panel1.Size = New System.Drawing.Size(698, 402)
         Me.Panel1.TabIndex = 40
         '
-        'ProductionLogDGV
-        '
-        Me.ProductionLogDGV.AllowUserToAddRows = False
-        Me.ProductionLogDGV.AllowUserToDeleteRows = False
-        Me.ProductionLogDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.ProductionLogDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4, Me.Column5, Me.Column6, Me.Column7})
-        Me.ProductionLogDGV.Location = New System.Drawing.Point(3, 32)
-        Me.ProductionLogDGV.Name = "ProductionLogDGV"
-        Me.ProductionLogDGV.RowHeadersVisible = False
-        Me.ProductionLogDGV.RowTemplate.Height = 24
-        Me.ProductionLogDGV.Size = New System.Drawing.Size(692, 355)
-        Me.ProductionLogDGV.TabIndex = 0
-        '
-        'Column4
-        '
-        Me.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column4.HeaderText = "Log ID"
-        Me.Column4.Name = "Column4"
-        Me.Column4.Width = 78
-        '
-        'Column5
-        '
-        Me.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column5.HeaderText = "Production ID"
-        Me.Column5.Name = "Column5"
-        '
-        'Column6
-        '
-        Me.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column6.HeaderText = "Date / Time"
-        Me.Column6.Name = "Column6"
-        '
-        'Column7
-        '
-        Me.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column7.HeaderText = "Quantity"
-        Me.Column7.Name = "Column7"
-        Me.Column7.Width = 90
-        '
         'AddtoNewProduceContent
         '
         Me.AddtoNewProduceContent.BackColor = System.Drawing.Color.Snow
@@ -472,6 +433,45 @@ Partial Class ModifyProduction
         Me.ProductionIDanp.Size = New System.Drawing.Size(190, 22)
         Me.ProductionIDanp.TabIndex = 0
         '
+        'ProductionLogDGV
+        '
+        Me.ProductionLogDGV.AllowUserToAddRows = False
+        Me.ProductionLogDGV.AllowUserToDeleteRows = False
+        Me.ProductionLogDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ProductionLogDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4, Me.Column5, Me.Column6, Me.Column7})
+        Me.ProductionLogDGV.Location = New System.Drawing.Point(3, 24)
+        Me.ProductionLogDGV.Name = "ProductionLogDGV"
+        Me.ProductionLogDGV.RowHeadersVisible = False
+        Me.ProductionLogDGV.RowTemplate.Height = 24
+        Me.ProductionLogDGV.Size = New System.Drawing.Size(692, 355)
+        Me.ProductionLogDGV.TabIndex = 1
+        '
+        'Column4
+        '
+        Me.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column4.HeaderText = "Log ID"
+        Me.Column4.Name = "Column4"
+        Me.Column4.Width = 78
+        '
+        'Column5
+        '
+        Me.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column5.HeaderText = "Production ID"
+        Me.Column5.Name = "Column5"
+        '
+        'Column6
+        '
+        Me.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column6.HeaderText = "Date / Time"
+        Me.Column6.Name = "Column6"
+        '
+        'Column7
+        '
+        Me.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column7.HeaderText = "Quantity"
+        Me.Column7.Name = "Column7"
+        Me.Column7.Width = 90
+        '
         'ModifyProduction
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -491,9 +491,9 @@ Partial Class ModifyProduction
         Me.ProductionLogContent.ResumeLayout(False)
         Me.ProductionLogContent.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AddtoNewProduceContent.ResumeLayout(False)
         Me.AddtoNewProduceContent.PerformLayout()
+        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -507,11 +507,6 @@ Partial Class ModifyProduction
     Friend WithEvents ProductionLogContent As Panel
     Friend WithEvents CloseCompBttn1 As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents ProductionLogDGV As DataGridView
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents SearchByDateBttn As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
@@ -537,4 +532,9 @@ Partial Class ModifyProduction
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column8 As DataGridViewButtonColumn
+    Friend WithEvents ProductionLogDGV As DataGridView
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
 End Class

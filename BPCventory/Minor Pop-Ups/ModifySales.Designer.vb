@@ -42,7 +42,6 @@ Partial Class ModifySales
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.Panel1.SuspendLayout()
         CType(Me.AddSaleDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -256,7 +255,7 @@ Partial Class ModifySales
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Orange
-        Me.ClientSize = New System.Drawing.Size(779, 316)
+        Me.ClientSize = New System.Drawing.Size(779, 331)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -290,5 +289,4 @@ Partial Class ModifySales
     Friend WithEvents CustNameCB As ComboBox
     Friend WithEvents ProdNameCB As ComboBox
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents SerialPort1 As IO.Ports.SerialPort
 End Class

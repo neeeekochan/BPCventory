@@ -4,6 +4,7 @@
         Dim x As Integer = 50
         Dim y As Integer = 50
 
+
         'draw headers
         Dim ja As Integer = 0
         Do While (ja < DGV.Columns.Count - 1)
@@ -21,6 +22,7 @@
         Loop
         x = 50
         y = (y + DGV.ColumnHeadersHeight)
+    
         'draw rows
         For Each row As DataGridViewRow In DGV.Rows
             Dim j = 0

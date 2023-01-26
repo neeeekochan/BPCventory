@@ -43,32 +43,30 @@ Partial Class ModifyProduction
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.CloseCompBttn1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.AddtoNewProduceContent = New System.Windows.Forms.Panel()
-        Me.AddToProductionBttn = New System.Windows.Forms.Button()
-        Me.AddToProductionCloseBttn = New System.Windows.Forms.Button()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.ProdDeadlineADP = New System.Windows.Forms.DateTimePicker()
-        Me.qtyANP = New System.Windows.Forms.TextBox()
-        Me.ProdNameANP = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.ProductionIDanp = New System.Windows.Forms.TextBox()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.ProductionLogDGV = New System.Windows.Forms.DataGridView()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AddtoNewProduceContent = New System.Windows.Forms.Panel()
+        Me.CompWindowDGV = New System.Windows.Forms.DataGridView()
+        Me.AddToProductionBttn = New System.Windows.Forms.Button()
+        Me.AddToProductionCloseBttn = New System.Windows.Forms.Button()
+        Me.ProdDeadlineADP = New System.Windows.Forms.DateTimePicker()
+        Me.qtyANP = New System.Windows.Forms.TextBox()
+        Me.ProdNameANP = New System.Windows.Forms.ComboBox()
+        Me.ProductionIDanp = New System.Windows.Forms.TextBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.EditComponentsContent.SuspendLayout()
         CType(Me.ComponentsDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ProductionLogContent.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.AddtoNewProduceContent.SuspendLayout()
         CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AddtoNewProduceContent.SuspendLayout()
+        CType(Me.CompWindowDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'EditComponentsContent
@@ -285,154 +283,6 @@ Partial Class ModifyProduction
         Me.Panel1.Size = New System.Drawing.Size(698, 402)
         Me.Panel1.TabIndex = 40
         '
-        'AddtoNewProduceContent
-        '
-        Me.AddtoNewProduceContent.BackColor = System.Drawing.Color.Snow
-        Me.AddtoNewProduceContent.Controls.Add(Me.AddToProductionBttn)
-        Me.AddtoNewProduceContent.Controls.Add(Me.AddToProductionCloseBttn)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label8)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label7)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label6)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label5)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label4)
-        Me.AddtoNewProduceContent.Controls.Add(Me.ProdDeadlineADP)
-        Me.AddtoNewProduceContent.Controls.Add(Me.qtyANP)
-        Me.AddtoNewProduceContent.Controls.Add(Me.ProdNameANP)
-        Me.AddtoNewProduceContent.Controls.Add(Me.Label3)
-        Me.AddtoNewProduceContent.Controls.Add(Me.ProductionIDanp)
-        Me.AddtoNewProduceContent.Location = New System.Drawing.Point(10, 10)
-        Me.AddtoNewProduceContent.Name = "AddtoNewProduceContent"
-        Me.AddtoNewProduceContent.Size = New System.Drawing.Size(730, 490)
-        Me.AddtoNewProduceContent.TabIndex = 39
-        '
-        'AddToProductionBttn
-        '
-        Me.AddToProductionBttn.BackColor = System.Drawing.Color.Gold
-        Me.AddToProductionBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
-        Me.AddToProductionBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddToProductionBttn.Location = New System.Drawing.Point(338, 425)
-        Me.AddToProductionBttn.Margin = New System.Windows.Forms.Padding(4)
-        Me.AddToProductionBttn.Name = "AddToProductionBttn"
-        Me.AddToProductionBttn.Size = New System.Drawing.Size(142, 37)
-        Me.AddToProductionBttn.TabIndex = 40
-        Me.AddToProductionBttn.Text = "ADD"
-        Me.AddToProductionBttn.UseVisualStyleBackColor = False
-        '
-        'AddToProductionCloseBttn
-        '
-        Me.AddToProductionCloseBttn.BackColor = System.Drawing.Color.Gold
-        Me.AddToProductionCloseBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
-        Me.AddToProductionCloseBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddToProductionCloseBttn.Location = New System.Drawing.Point(505, 425)
-        Me.AddToProductionCloseBttn.Margin = New System.Windows.Forms.Padding(4)
-        Me.AddToProductionCloseBttn.Name = "AddToProductionCloseBttn"
-        Me.AddToProductionCloseBttn.Size = New System.Drawing.Size(142, 37)
-        Me.AddToProductionCloseBttn.TabIndex = 39
-        Me.AddToProductionCloseBttn.Text = "CLOSE"
-        Me.AddToProductionCloseBttn.UseVisualStyleBackColor = False
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.Gold
-        Me.Label8.Font = New System.Drawing.Font("Roboto", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(58, 338)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Padding = New System.Windows.Forms.Padding(5)
-        Me.Label8.Size = New System.Drawing.Size(162, 27)
-        Me.Label8.TabIndex = 9
-        Me.Label8.Text = "Deadline of Production:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.BackColor = System.Drawing.Color.Gold
-        Me.Label7.Font = New System.Drawing.Font("Roboto", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(58, 242)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Padding = New System.Windows.Forms.Padding(5)
-        Me.Label7.Size = New System.Drawing.Size(75, 27)
-        Me.Label7.TabIndex = 8
-        Me.Label7.Text = "Quantity:"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Gold
-        Me.Label6.Font = New System.Drawing.Font("Roboto", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(58, 148)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Padding = New System.Windows.Forms.Padding(5)
-        Me.Label6.Size = New System.Drawing.Size(111, 27)
-        Me.Label6.TabIndex = 7
-        Me.Label6.Text = "Product Name:"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Roboto", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(25, 70)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(96, 17)
-        Me.Label5.TabIndex = 6
-        Me.Label5.Text = "Production ID:"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.DarkGoldenrod
-        Me.Label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Label4.Font = New System.Drawing.Font("Roboto Medium", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(12, 13)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Padding = New System.Windows.Forms.Padding(5, 5, 400, 5)
-        Me.Label4.Size = New System.Drawing.Size(635, 33)
-        Me.Label4.TabIndex = 5
-        Me.Label4.Text = "Add New to Production"
-        '
-        'ProdDeadlineADP
-        '
-        Me.ProdDeadlineADP.Location = New System.Drawing.Point(61, 381)
-        Me.ProdDeadlineADP.Name = "ProdDeadlineADP"
-        Me.ProdDeadlineADP.Size = New System.Drawing.Size(285, 22)
-        Me.ProdDeadlineADP.TabIndex = 4
-        '
-        'qtyANP
-        '
-        Me.qtyANP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.qtyANP.Location = New System.Drawing.Point(61, 278)
-        Me.qtyANP.Name = "qtyANP"
-        Me.qtyANP.Size = New System.Drawing.Size(104, 22)
-        Me.qtyANP.TabIndex = 3
-        '
-        'ProdNameANP
-        '
-        Me.ProdNameANP.FormattingEnabled = True
-        Me.ProdNameANP.Location = New System.Drawing.Point(61, 181)
-        Me.ProdNameANP.Name = "ProdNameANP"
-        Me.ProdNameANP.Size = New System.Drawing.Size(340, 24)
-        Me.ProdNameANP.TabIndex = 2
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 107)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(558, 17)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "---------------------------------------------------------------------------------" &
-    "-----------------------------"
-        '
-        'ProductionIDanp
-        '
-        Me.ProductionIDanp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ProductionIDanp.Location = New System.Drawing.Point(127, 65)
-        Me.ProductionIDanp.Name = "ProductionIDanp"
-        Me.ProductionIDanp.ReadOnly = True
-        Me.ProductionIDanp.Size = New System.Drawing.Size(190, 22)
-        Me.ProductionIDanp.TabIndex = 0
-        '
         'ProductionLogDGV
         '
         Me.ProductionLogDGV.AllowUserToAddRows = False
@@ -472,6 +322,102 @@ Partial Class ModifyProduction
         Me.Column7.Name = "Column7"
         Me.Column7.Width = 90
         '
+        'AddtoNewProduceContent
+        '
+        Me.AddtoNewProduceContent.BackColor = System.Drawing.Color.Snow
+        Me.AddtoNewProduceContent.Controls.Add(Me.CompWindowDGV)
+        Me.AddtoNewProduceContent.Controls.Add(Me.AddToProductionBttn)
+        Me.AddtoNewProduceContent.Controls.Add(Me.AddToProductionCloseBttn)
+        Me.AddtoNewProduceContent.Controls.Add(Me.ProdDeadlineADP)
+        Me.AddtoNewProduceContent.Controls.Add(Me.qtyANP)
+        Me.AddtoNewProduceContent.Controls.Add(Me.ProdNameANP)
+        Me.AddtoNewProduceContent.Controls.Add(Me.ProductionIDanp)
+        Me.AddtoNewProduceContent.Controls.Add(Me.PictureBox2)
+        Me.AddtoNewProduceContent.Location = New System.Drawing.Point(10, 10)
+        Me.AddtoNewProduceContent.Name = "AddtoNewProduceContent"
+        Me.AddtoNewProduceContent.Size = New System.Drawing.Size(730, 490)
+        Me.AddtoNewProduceContent.TabIndex = 39
+        '
+        'CompWindowDGV
+        '
+        Me.CompWindowDGV.AllowUserToAddRows = False
+        Me.CompWindowDGV.AllowUserToDeleteRows = False
+        Me.CompWindowDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.CompWindowDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders
+        Me.CompWindowDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.CompWindowDGV.Location = New System.Drawing.Point(16, 280)
+        Me.CompWindowDGV.Name = "CompWindowDGV"
+        Me.CompWindowDGV.RowTemplate.Height = 24
+        Me.CompWindowDGV.Size = New System.Drawing.Size(699, 194)
+        Me.CompWindowDGV.TabIndex = 42
+        '
+        'AddToProductionBttn
+        '
+        Me.AddToProductionBttn.BackColor = System.Drawing.Color.Gold
+        Me.AddToProductionBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.AddToProductionBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddToProductionBttn.Location = New System.Drawing.Point(549, 16)
+        Me.AddToProductionBttn.Margin = New System.Windows.Forms.Padding(4)
+        Me.AddToProductionBttn.Name = "AddToProductionBttn"
+        Me.AddToProductionBttn.Size = New System.Drawing.Size(79, 37)
+        Me.AddToProductionBttn.TabIndex = 40
+        Me.AddToProductionBttn.Text = "ADD"
+        Me.AddToProductionBttn.UseVisualStyleBackColor = False
+        '
+        'AddToProductionCloseBttn
+        '
+        Me.AddToProductionCloseBttn.BackColor = System.Drawing.Color.Gold
+        Me.AddToProductionCloseBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
+        Me.AddToProductionCloseBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddToProductionCloseBttn.Location = New System.Drawing.Point(636, 16)
+        Me.AddToProductionCloseBttn.Margin = New System.Windows.Forms.Padding(4)
+        Me.AddToProductionCloseBttn.Name = "AddToProductionCloseBttn"
+        Me.AddToProductionCloseBttn.Size = New System.Drawing.Size(79, 37)
+        Me.AddToProductionCloseBttn.TabIndex = 39
+        Me.AddToProductionCloseBttn.Text = "CLOSE"
+        Me.AddToProductionCloseBttn.UseVisualStyleBackColor = False
+        '
+        'ProdDeadlineADP
+        '
+        Me.ProdDeadlineADP.Location = New System.Drawing.Point(294, 233)
+        Me.ProdDeadlineADP.Name = "ProdDeadlineADP"
+        Me.ProdDeadlineADP.Size = New System.Drawing.Size(341, 22)
+        Me.ProdDeadlineADP.TabIndex = 4
+        '
+        'qtyANP
+        '
+        Me.qtyANP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.qtyANP.Location = New System.Drawing.Point(294, 188)
+        Me.qtyANP.Name = "qtyANP"
+        Me.qtyANP.Size = New System.Drawing.Size(174, 22)
+        Me.qtyANP.TabIndex = 3
+        '
+        'ProdNameANP
+        '
+        Me.ProdNameANP.FormattingEnabled = True
+        Me.ProdNameANP.Location = New System.Drawing.Point(292, 143)
+        Me.ProdNameANP.Name = "ProdNameANP"
+        Me.ProdNameANP.Size = New System.Drawing.Size(343, 24)
+        Me.ProdNameANP.TabIndex = 2
+        '
+        'ProductionIDanp
+        '
+        Me.ProductionIDanp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ProductionIDanp.Location = New System.Drawing.Point(292, 99)
+        Me.ProductionIDanp.Name = "ProductionIDanp"
+        Me.ProductionIDanp.ReadOnly = True
+        Me.ProductionIDanp.Size = New System.Drawing.Size(343, 22)
+        Me.ProductionIDanp.TabIndex = 0
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(730, 490)
+        Me.PictureBox2.TabIndex = 41
+        Me.PictureBox2.TabStop = False
+        '
         'ModifyProduction
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -491,9 +437,11 @@ Partial Class ModifyProduction
         Me.ProductionLogContent.ResumeLayout(False)
         Me.ProductionLogContent.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AddtoNewProduceContent.ResumeLayout(False)
         Me.AddtoNewProduceContent.PerformLayout()
-        CType(Me.ProductionLogDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.CompWindowDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -514,16 +462,10 @@ Partial Class ModifyProduction
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents AddtoNewProduceContent As Panel
     Friend WithEvents ProdNameANP As ComboBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents ProductionIDanp As TextBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents ProdDeadlineADP As DateTimePicker
     Friend WithEvents qtyANP As TextBox
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents AddToProductionCloseBttn As Button
     Friend WithEvents AddToProductionBttn As Button
     Friend WithEvents EdtCmpntsSaveBttn As Button
@@ -537,4 +479,6 @@ Partial Class ModifyProduction
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents CompWindowDGV As DataGridView
 End Class

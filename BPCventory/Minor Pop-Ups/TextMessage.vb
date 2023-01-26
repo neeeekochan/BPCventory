@@ -7,7 +7,7 @@ Public Class TextMessage
     Public Function SendSMS(msg As String, Optional num As String = "09760247407", Optional sender As String = "BPCVentory")
         Threading.Thread.Sleep(5000)
         Dim Serialport1 = New System.IO.Ports.SerialPort() With {
-                .PortName = "COM9",
+                .PortName = "COM8",
                 .BaudRate = 9600,
                 .Parity = Parity.None,
                 .StopBits = StopBits.One,
@@ -32,7 +32,7 @@ Public Class TextMessage
             Serialport1.Write("AT+CMGS=" & Chr(34) & (num) & Chr(34) & vbCrLf)
             Serialport1.Write(globalsms & Chr(26))
 
-            MessageBox.Show("Message sent.")
+            'MessageBox.Show("Message sent.")
             Serialport1.Close()
         Else
             MessageBox.Show("Message sending unsuccessful.")

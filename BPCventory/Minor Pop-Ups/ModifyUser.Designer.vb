@@ -72,7 +72,7 @@ Partial Class ModifyUser
         '
         Me.textpriv.BackColor = System.Drawing.Color.Gold
         Me.textpriv.FormattingEnabled = True
-        Me.textpriv.Items.AddRange(New Object() {"ADMINISTRATOR", "USER", "OWNER"})
+        Me.textpriv.Items.AddRange(New Object() {"ADMINISTRATOR", "USER", "SUPER ADMIN"})
         Me.textpriv.Location = New System.Drawing.Point(140, 522)
         Me.textpriv.Name = "textpriv"
         Me.textpriv.Size = New System.Drawing.Size(273, 24)

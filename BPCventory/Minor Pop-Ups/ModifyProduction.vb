@@ -286,6 +286,14 @@ Public Class ModifyProduction
         Mainsystem.Show()
     End Sub
 
+    Private Sub qtyANP_KeyPress(sender As Object, e As KeyPressEventArgs) Handles qtyANP.KeyPress
+        Mainsystem.AsciiCheck(e, "numbers")
+
+        If qtyANP.Text = "" Then
+            qtyANP.Text = 0
+        End If
+    End Sub
+
     Private Sub ProdNameANP_Changed()
         Try
             cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline
@@ -297,11 +305,34 @@ Public Class ModifyProduction
 
             While reader.Read
                 ProductionIDanp.Text = reader.Item("production_id")
-                qtyANP.Text = reader.Item("quantity")
+                'qtyANP.Text = reader.Item("quantity")
                 ProdDeadlineADP.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
             End While
             reader.Close()
             connToAcc.closeAccDB()
+
+            '//// DISPLAYING OF COMPONENTS _______________________________________________________
+
+            cmd = New MySqlCommand($"SELECT comp.production_id, m.material_name, comp.quantity FROM components comp
+                                    INNER JOIN materials m ON m.material_id = comp.material_id
+                                    WHERE comp.production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
+
+            Dim compdtable As New DataTable
+            Using da = New MySqlDataAdapter(cmd)
+                compdtable.Clear()
+                da.Fill(compdtable)
+            End Using
+            CompWindowDGV.DataSource = compdtable
+
+            With CompWindowDGV
+                .Columns(0).HeaderText = "ID"
+                .Columns(1).HeaderText = "Component Name"
+                .Columns(2).HeaderText = "Required Quantities"
+            End With
+
+            connToAcc.closeAccDB()
+
+            '//// ________________________________________________________________________________
         Catch ex As Exception
             MsgBox(ex.Message)
             connToAcc.closeAccDB()
@@ -313,12 +344,16 @@ Public Class ModifyProduction
             '///////////////////////////
             '// ADDING QUANTITIES TO PRODUCTION
             '//////////////////////////
-            cmd = New MySqlCommand($"Update make Set quantity = '" & qtyANP.Text & "',
+            cmd = New MySqlCommand($"Update make Set quantity = quantity + '" & qtyANP.Text & "',
                             production_deadline = @setdate
                             WHERE production_id = '" & ProductionIDanp.Text & "'", connToAcc.openAccDB)
             cmd.Parameters.Add("@setdate", MySqlDbType.Date).Value = ProdDeadlineADP.Value
             cmd.ExecuteNonQuery()
             connToAcc.closeAccDB()
+
+            'For i As Integer = 0 To CompWindowDGV.Rows.Count - 1
+            '    CompWindowDGV.Rows(i).Cells(2).Value = CompWindowDGV.Rows(i).Cells(2).Value * Val(qtyANP.Text)
+            'Next
 
 
             '///////////////////////////
@@ -342,7 +377,6 @@ Public Class ModifyProduction
             cmd.ExecuteNonQuery()
             connToAcc.closeAccDB()
 
-            LoadProd()
             Mainsystem.Load_Records()
             Me.Close()
 

@@ -37,12 +37,11 @@ Public Class Login
                 OTPPanel.BringToFront()
                 MaskedTextBox1.Focus()
                 OTP = Mainsystem.RandGen(1234567890, 6)
-                Label2.Text = OTP
 
                 otpmsg = OTP & " is your authentication code. For your protection, do not share this code with anyone."
 
                 Try
-                    'SmsSender.SendSMS(otpmsg, mobilenum, )
+                    SmsSender.SendSMS(otpmsg, mobilenum, )
                 Catch ex As Exception
                     MsgBox(ex.Message)
                 End Try
@@ -83,7 +82,6 @@ Public Class Login
     '/////RESENDING OTP
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         OTP = Mainsystem.RandGen(1234567890, 6)
-        Label2.Text = OTP
     End Sub
 
     Private Sub ShowPass_CheckedChanged(sender As Object, e As EventArgs) Handles ShowPass.CheckedChanged

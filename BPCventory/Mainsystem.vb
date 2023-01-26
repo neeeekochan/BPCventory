@@ -14,8 +14,11 @@ Public Class Mainsystem
     Dim count = 0, prodqty = 0, compqty = 0, counting = 0
     Dim datestart, dateend As Date
     Public user_id As Integer
-    Dim GRepBttnChecker As String, prod_id = ""
-    Dim flag As Boolean = False, stockyesno As Boolean = False
+    Public GRepBttnChecker As String
+    Dim prod_id = ""
+    Dim flag As Boolean = False, RMstockyes As Boolean = False, Pstockyes As Boolean = False
+
+
 #End Region
 
     Public Sub AsciiCheck(ByVal e As KeyPressEventArgs, type As String)
@@ -96,22 +99,9 @@ Public Class Mainsystem
         Return returnval
     End Function
 
-    Public Sub ProductionLoadRecords()
-        cmd = New MySqlCommand($"SELECT make.production_id, products.product_name, make.quantity, make.production_deadline, make.status
-                                FROM make 
-                                INNER JOIN products
-                                on make.product_id = products.product_id
-                                ORDER BY make.product_id ASC", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            ProductionID.Items.Add(String.Format("{0}-{1}", reader(0), reader(1)))
-        End While
-        reader.Close()
-        connToAcc.closeAccDB()
-    End Sub
-
     Public Sub Load_Records()
         '****************************** DISPLAYING DASHBOARD VALUES ***************************
+
         '//NUMBER OF USERS
         cmd = New MySqlCommand($"SELECT COUNT(*) FROM users", connToAcc.openAccDB)
         UsersAmount.Text = ExeDashboard(cmd)
@@ -131,7 +121,7 @@ Public Class Mainsystem
                                 ON sales.sales_id = sales_details.sales_id
                                 WHERE YEAR(sales.sales_date) = EXTRACT(YEAR FROM CURRENT_TIMESTAMP)
                                 AND MONTH (sales.sales_date) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)", connToAcc.openAccDB)
-        SalesAmount.Text = "₱ " & ExeDashboard(cmd)
+        SalesAmount.Text = ExeDashboard(cmd)
 
         '///////////////////
         '-------------------
@@ -167,6 +157,18 @@ Public Class Mainsystem
             MsgBox(ex.Message)
         End Try
 
+        '////////////////////////////////////////////
+        '//RECENTLY ADDED PRODUCTS
+        Try
+            CriticalLowStockDGV.Rows.Clear()
+            cmd = New MySqlCommand($"SELECT * FROM materials WHERE in_stock < 100", connToAcc.openAccDB)
+            ExeDGV(cmd, CriticalLowStockDGV)
+
+            cmd = New MySqlCommand($"SELECT * FROM products WHERE in_stock < 50", connToAcc.openAccDB)
+            ExeDGV(cmd, CriticalLowStockDGV)
+        Catch ex As Exception
+
+        End Try
         '*************************** END OF DISPLAYING DASHBOARD VALUES ************************
 
 
@@ -175,26 +177,51 @@ Public Class Mainsystem
         '*****************************************************************************************
         '***************************LOAD ALL DATA*************************************************
 
+        '/// ACCOUNT INFORMATION PAGE PANEL LOADING --------------------
+
+        Try
+            cmd = New MySqlCommand($"SELECT * FROM users where user_id = '" & Login.userID & "'", connToAcc.openAccDB())
+            Using reader = cmd.ExecuteReader()
+                While reader.Read
+                    AccInf_name.Text = reader.Item("lastname").ToString & ", " & reader.Item("firstname").ToString
+                    AccInf_username.Text = reader.Item("username")
+                    AccInf_contno.Text = reader.Item("mobile_number")
+                    AccInf_email.Text = reader.Item("email")
+                    AccInf_priv.Text = reader.Item("privileges")
+                End While
+            End Using
+            connToAcc.closeAccDB()
+            reader.Close()
+
+        Catch ex As Exception
+            connToAcc.closeAccDB()
+            MsgBox(ex.Message)
+        End Try
+
+        '---------------------------------------------------------------
         '________________________________________________________________________________________________________________
         '//USER MANAGEMENT
-        For Each DGV In {UsersDGV, UserGrpDGV, CustomerDGV, SupplierDGV, RawMaterialsDGV, ProductsDGV, SalesDGV, AllSalesDGV}
+        For Each DGV In {UsersDGV, UserGrpDGV, CustomerDGV, SupplierDGV, RawMaterialsDGV, AllProductionsDGV, ProductsDGV, SalesDGV, AllSalesDGV}
             DGV.Rows.Clear()
         Next
 
         cmd = New MySqlCommand($"SELECT lastname,firstname,username,age,email,mobile_number FROM users", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            UsersDGV.Rows.Add(reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("username").ToString,
-                              reader.Item("age").ToString, reader.Item("email").ToString, reader.Item("mobile_number").ToString, "DELETE")
-        End While
+
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                UsersDGV.Rows.Add(reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("username").ToString,
+                                  reader.Item("age").ToString, reader.Item("email").ToString, reader.Item("mobile_number").ToString, "DELETE")
+            End While
+        End Using
         reader.Close()
         connToAcc.closeAccDB()
 
         cmd = New MySqlCommand($"SELECT privileges, count(1) as total_count FROM users GROUP BY privileges", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            UserGrpDGV.Rows.Add(reader.Item("privileges").ToString, reader.Item("total_count").ToString)
-        End While
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                UserGrpDGV.Rows.Add(reader.Item("privileges").ToString, reader.Item("total_count").ToString)
+            End While
+        End Using
         reader.Close()
         connToAcc.closeAccDB()
 
@@ -203,20 +230,22 @@ Public Class Mainsystem
         '//AFFILIATES
         cmd = New MySqlCommand($"SELECT customer_id,company_name,email,contact_no FROM customer", connToAcc.openAccDB)
 
-        reader = cmd.ExecuteReader
-        While reader.Read
-            CustomerDGV.Rows.Add(reader.Item("customer_id").ToString, reader.Item("company_name").ToString,
-                                 reader.Item("email").ToString, reader.Item("contact_no").ToString, "DELETE")
-        End While
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                CustomerDGV.Rows.Add(reader.Item("customer_id").ToString, reader.Item("company_name").ToString,
+                                     reader.Item("email").ToString, reader.Item("contact_no").ToString, "DELETE")
+            End While
+        End Using
         reader.Close()
         connToAcc.closeAccDB()
 
         cmd = New MySqlCommand($"SELECT supplier_id,company_name,email,contact_no FROM supplier", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            SupplierDGV.Rows.Add(reader.Item("supplier_id").ToString, reader.Item("company_name").ToString,
-                                 reader.Item("email").ToString, reader.Item("contact_no").ToString, "DELETE")
-        End While
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                SupplierDGV.Rows.Add(reader.Item("supplier_id").ToString, reader.Item("company_name").ToString,
+                                     reader.Item("email").ToString, reader.Item("contact_no").ToString, "DELETE")
+            End While
+        End Using
         reader.Close()
         connToAcc.closeAccDB()
 
@@ -231,19 +260,38 @@ Public Class Mainsystem
                                  INNER JOIN supplier s
                                  ON m.supplier_id = s.supplier_id", connToAcc.openAccDB)
 
-        reader = cmd.ExecuteReader
-        While reader.Read
-            RawMaterialsDGV.Rows.Add(reader.Item("material_id").ToString, reader.Item("material_name").ToString,
-                                     reader.Item("average_cost").ToString, reader.Item("in_stock").ToString,
-                                     reader.Item("expected").ToString, reader.Item("committed").ToString,
-                                     reader.Item("missing").ToString, reader.Item("company_name").ToString, "DELETE")
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                RawMaterialsDGV.Rows.Add(reader.Item("material_id").ToString, reader.Item("material_name").ToString,
+                                         reader.Item("average_cost").ToString, reader.Item("in_stock").ToString,
+                                         reader.Item("expected").ToString, reader.Item("committed").ToString,
+                                         reader.Item("missing").ToString, reader.Item("company_name").ToString, "EDIT", "DELETE")
 
-            Dim stockQ = reader.Item("in_stock").ToString
-            If stockQ < 100 Then
-                stockcheckstr.Append(reader.Item("material_id").ToString & " -- " & reader.Item("material_name").ToString & " -- " & reader.Item("in_stock").ToString & vbNewLine)
-                stockyesno = True
-            End If
-        End While
+                Dim stockQ = reader.Item("in_stock").ToString
+                If stockQ < 100 Then
+                    stockcheckstr.Append(reader.Item("material_id").ToString & " -- " & reader.Item("material_name").ToString & " -- " & reader.Item("in_stock").ToString & vbNewLine)
+                    RMstockyes = True
+                End If
+            End While
+        End Using
+
+        If RMstockyes = True Then
+            Do While flag = False
+                MessageBox.Show(stockcheckstr.ToString & vbNewLine & "End of List", "Stock Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                flag = True
+
+                DialogResult = MessageBox.Show("Do you want to order now?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                If DialogResult = vbYes Then
+                    AddNewRawMaterials.Show()
+                    AddNewRawMaterials.ORDERFORMPANEL.BringToFront()
+                    AddNewRawMaterials.Refresh()
+
+
+                ElseIf DialogResult = vbNo Then
+                    Exit Do
+                End If
+            Loop
+        End If
 
         reader.Close()
         connToAcc.closeAccDB()
@@ -251,21 +299,27 @@ Public Class Mainsystem
 
         '________________________________________________________________________________________________________________
         '//PRODUCTION
-        '// COMBOBOX OF PRODUCTION
-        ProductionID.Items.Clear()
-        cmd = New MySqlCommand($"SELECT make.production_id, products.product_name, make.quantity, make.production_deadline, make.status
-                                FROM make 
-                                INNER JOIN products
-                                on make.product_id = products.product_id
-                                ORDER BY make.product_id ASC", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            ProductionID.Items.Add(String.Format("{0}-{1}", reader(0), reader(1)))
-            'ProductionStatus.Items.Add(String.Format("{0}", reader(4)))
-            'ComponentsRTB.AppendText(String.Format("{0}-{1}", reader(0), reader(1) + vbNewLine))
-        End While
-        reader.Close()
-        connToAcc.closeAccDB()
+        Try
+            cmd = New MySqlCommand($"SELECT make.production_id, make.product_id, p.product_name, make.quantity, make.production_deadline, make.status
+                                    FROM make 
+                                    RIGHT JOIN products p
+                                    ON make.product_id = p.product_id
+                                    WHERE make.quantity > 0
+                                    ORDER BY make.production_deadline ASC", connToAcc.openAccDB)
+
+            Using reader = cmd.ExecuteReader()
+                While reader.Read
+                    AllProductionsDGV.Rows.Add(reader.Item("production_id").ToString, reader.Item("product_id").ToString, reader.Item("product_name").ToString,
+                                               reader.Item("quantity").ToString, reader.Item("production_deadline").ToString, reader.Item("status").ToString, "COMPLETE")
+                End While
+            End Using
+            reader.Close()
+            connToAcc.closeAccDB()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
         '---------------------------------------=--------------------------
 
 
@@ -275,28 +329,38 @@ Public Class Mainsystem
         cmd = New MySqlCommand($"SELECT product_id,product_name,part_number,product_size,unit_length,
                                 product_dimension,sale_price,average_cost,profit,in_stock,expected,
                                 ordered FROM products", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            ProductsDGV.Rows.Add(reader.Item("product_id").ToString,
-                                 reader.Item("product_name").ToString, reader.Item("part_number").ToString,
-                                 reader.Item("product_size").ToString, reader.Item("unit_length").ToString,
-                                 reader.Item("product_dimension").ToString, reader.Item("sale_price").ToString,
-                                 reader.Item("average_cost").ToString, reader.Item("profit").ToString,
-                                 reader.Item("in_stock").ToString,
-                                 reader.Item("expected").ToString,
-                                 reader.Item("ordered").ToString, "DELETE")
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                ProductsDGV.Rows.Add(reader.Item("product_id").ToString,
+                                     reader.Item("product_name").ToString, reader.Item("part_number").ToString,
+                                     reader.Item("product_size").ToString, reader.Item("unit_length").ToString,
+                                     reader.Item("product_dimension").ToString, reader.Item("sale_price").ToString,
+                                     reader.Item("average_cost").ToString, reader.Item("profit").ToString,
+                                     reader.Item("in_stock").ToString,
+                                     reader.Item("expected").ToString,
+                                     reader.Item("ordered").ToString, "DELETE")
 
-            Dim stockQ = reader.Item("in_stock").ToString
-            If stockQ < 50 Then
-                stockcheckstr.Append(reader.Item("product_id").ToString & " -- " & reader.Item("product_name").ToString & " -- " & reader.Item("in_stock").ToString & vbNewLine)
-                stockyesno = True
+                Dim stockQ = reader.Item("in_stock").ToString
+                If stockQ < 50 Then
+                    stockcheckstr.Append(reader.Item("product_id").ToString & " -- " & reader.Item("product_name").ToString & " -- " & reader.Item("in_stock").ToString & vbNewLine)
+                    Pstockyes = True
+                End If
+            End While
+        End Using
+        If Pstockyes = True Then
+            MessageBox.Show(stockcheckstr.ToString & vbNewLine & "End of List", "Stock Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            flag = True
+
+            DialogResult = MessageBox.Show("Do you want to order now?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If DialogResult = vbYes Then
+                ModifyProduction.Show()
+                ModifyProduction.AddtoNewProduceContent.BringToFront()
+                ModifyProduction.Refresh()
+
+
+            ElseIf DialogResult = vbNo Then
+
             End If
-        End While
-        If stockyesno = True Then
-            Do While flag = False
-                MessageBox.Show(stockcheckstr.ToString & vbNewLine & "End of List", "Stock Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                flag = True
-            Loop
         End If
 
         reader.Close()
@@ -312,11 +376,12 @@ Public Class Mainsystem
                                 INNER JOIN customer c
                                 ON s.customer_id = c.customer_id
                                 ORDER BY sales_date DESC", connToAcc.openAccDB)
-        reader = cmd.ExecuteReader
-        While reader.Read
-            SalesDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
-                                      reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("company_name").ToString, "DELETE")
-        End While
+        Using reader = cmd.ExecuteReader
+            While reader.Read
+                SalesDGV.Rows.Add(reader.Item("sales_id").ToString, reader.Item("sales_date").ToString,
+                                          reader.Item("lastname").ToString, reader.Item("firstname").ToString, reader.Item("company_name").ToString)
+            End While
+        End Using
 
         reader.Close()
         connToAcc.closeAccDB()
@@ -324,8 +389,6 @@ Public Class Mainsystem
         '________________________________________________________________________________________________________________
         '//SALES DETAILS
         LoadingAllSales(DailySaleBttn)
-
-
 
         '***************************END OF LOAD ALL DATA******************************************
         '*****************************************************************************************
@@ -361,8 +424,9 @@ Public Class Mainsystem
         '***********************************************************************************************************************
         '********************************************* DETERMINING PRIVILEGES **************************************************
         '***********************************************************************************************************************
+
         user_icon.Focus()
-        If Login.privileges = "ADMINISTRATOR" Or Login.privileges = "OWNER" Then
+        If Login.privileges = "ADMINISTRATOR" Or Login.privileges = "SUPER ADMIN" Then
             WelcomeLabel.Text = "Welcome! " + Login.privileges + " " + Login.lastname + ", " + Login.firstname + "."
         ElseIf Login.privileges = "USER" Then
             WelcomeLabel.Text = "Welcome! " + Login.privileges + " " + Login.lastname + ", " + Login.firstname + "."
@@ -389,14 +453,6 @@ Public Class Mainsystem
 
 
 #Region "DASHBOARD // NAVBAR // DATE-TIME // CLICK AND TICK"
-    Private Sub DashboardPage_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        ClosingPanel.Enabled = True
-    End Sub
-
-    Private Sub NavBar_Click(sender As Object, e As EventArgs) Handles NavBar.Click
-        ClosingPanel.Enabled = True
-    End Sub
-
     ' ----------------------- DATE AND TIME ----------------------
     Private Sub ClockTimer_Tick(sender As Object, e As EventArgs) Handles ClockTimer.Tick
         TimeLabel.Text = Format(Now, "MM - dd - yyyy    ||    hh:mm:ss")
@@ -409,7 +465,11 @@ Public Class Mainsystem
     '******************************* TRANSITION IN SIDE PANEL **********************************
     ' OPENING PANEL ****************************
     Private Sub user_icon_Click(sender As Object, e As EventArgs) Handles user_icon.Click
-        OpeningPanel.Enabled = True
+        If AccInfoPanel.Visible = True Then
+            AccInfoPanel.Visible = False
+        ElseIf AccInfoPanel.Visible = False Then
+            AccInfoPanel.Visible = True
+        End If
     End Sub
 
     Private Sub user_icon_MouseHover(sender As Object, e As EventArgs) Handles user_icon.MouseHover
@@ -418,30 +478,6 @@ Public Class Mainsystem
 
     Private Sub user_icon_MouseLeave(sender As Object, e As EventArgs) Handles user_icon.MouseLeave
         user_icon.BackColor = Color.DarkOrange
-    End Sub
-
-    Private Sub OpeningPanel_Tick(sender As Object, e As EventArgs) Handles OpeningPanel.Tick
-        SideBar.Width = SideBar.Width + 50
-        If SideBar.Width >= 238 Then
-            OpeningPanel.Enabled = False
-        End If
-    End Sub
-
-    ' CLOSING PANEL *****************************
-    Private Sub BackButtonSIDEBAR_Click(sender As Object, e As EventArgs) Handles BackButtonSIDEBAR.Click
-        ClosingPanel.Enabled = True
-    End Sub
-
-    Private Sub SideBar_MouseLeave(sender As Object, e As EventArgs) Handles SideBar.MouseLeave
-        ClosingPanel.Enabled = True
-    End Sub
-
-    Private Sub ClosingPanel_Tick(sender As Object, e As EventArgs) Handles ClosingPanel.Tick
-        SideBar.Width = SideBar.Width - 50
-        If SideBar.Width < 1 Then
-            ClosingPanel.Enabled = False
-        End If
-
     End Sub
 #End Region
 
@@ -563,17 +599,15 @@ Public Class Mainsystem
         CategoryLabel.Text = "DASHBOARD"
         DashboardContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub UserMngmntBttn_Click(sender As Object, e As EventArgs) Handles UserMngmntBttn.Click
-        If Login.privileges = "OWNER" Then
+        If Login.privileges = "SUPER ADMIN" Then
             CategoryLabel.Text = "USER MANAGEMENT"
             UserManagementContent.BringToFront()
             SideBar.BringToFront()
-            ClosingPanel.Enabled = True
         Else
-            MessageBox.Show("'USER MANAGEMENT' is only accessible to the 'OWNER'.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("'USER MANAGEMENT' is only accessible to the 'SUPER ADMIN'.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 
@@ -581,42 +615,36 @@ Public Class Mainsystem
         CategoryLabel.Text = "AFFILIATES"
         AffiliatesContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub RawMtrlsBttn_Click(sender As Object, e As EventArgs) Handles RawMtrlsBttn.Click
-        CategoryLabel.Text = "RAW MATERIALS"
+        CategoryLabel.Text = "PURCHASE AND RAW MATERIALS"
         RawMaterialsContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub ProductionBttn_Click(sender As Object, e As EventArgs) Handles ProductionBttn.Click
-        CategoryLabel.Text = "PRODUCTION"
+        CategoryLabel.Text = "WORK-IN-PROGRESS"
         ProductionContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub ProdBttn_Click(sender As Object, e As EventArgs) Handles ProdBttn.Click
         CategoryLabel.Text = "PRODUCTS"
         ProductsContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub SalesBttn_Click(sender As Object, e As EventArgs) Handles SalesBttn.Click
-        CategoryLabel.Text = "SALES"
+        CategoryLabel.Text = "ORDER OF CUSTOMER"
         SalesContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     Private Sub SalesRepBttn_Click(sender As Object, e As EventArgs) Handles SalesRepBttn.Click
-        CategoryLabel.Text = "SALES REPORT"
+        CategoryLabel.Text = "REPORTS"
         SalesReportContent.BringToFront()
         SideBar.BringToFront()
-        ClosingPanel.Enabled = True
     End Sub
 
     '------------------------------------------- END OF SIDEBAR BUTTONS -------------------------------------------------------
@@ -894,7 +922,22 @@ Public Class Mainsystem
     Private Sub AddNewRawMaterialsBttn_Click(sender As Object, e As EventArgs) Handles AddNewRawMaterialsBttn.Click
         Me.Opacity = 0.75
         AddNewRawMaterials.Show()
-        AddNewRawMaterials.TextBox1.Focus()
+        AddNewRawMaterials.ADDEDITRAWMATERIALPANEL.BringToFront()
+        Me.Enabled = False
+        AddNewRawMaterials.opt = 1
+    End Sub
+
+    Private Sub ADDSTOCKBTTN_Click(sender As Object, e As EventArgs) Handles ADDSTOCKBTTN.Click
+        Me.Opacity = 0.75
+        AddNewRawMaterials.Show()
+        AddNewRawMaterials.ADDINSTOCKPANEL.BringToFront()
+        Me.Enabled = False
+    End Sub
+
+    Private Sub OrderFRMSupplierBttn_Click(sender As Object, e As EventArgs) Handles OrderFRMSupplierBttn.Click
+        Me.Opacity = 0.75
+        AddNewRawMaterials.Show()
+        AddNewRawMaterials.ORDERFORMPANEL.BringToFront()
         Me.Enabled = False
     End Sub
 
@@ -937,6 +980,8 @@ Public Class Mainsystem
     End Sub
 
     Private Sub RawMaterialsDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles RawMaterialsDGV.CellClick
+        Dim rm As New AddNewRawMaterials
+        rm.opt = 2
         '//DELETING RECORDS
         Try
             Dim RawMaterialsDelete As String = RawMaterialsDGV.Columns(e.ColumnIndex).HeaderText
@@ -949,7 +994,42 @@ Public Class Mainsystem
                     Load_Records()
                     RawMaterialsDGV.ClearSelection()
                 End If
+
+            ElseIf RawMaterialsDelete = "Edit" Then
+                '//retrieving information
+                cmd = New MySqlCommand($"SELECT m.supplier_id, s.company_name, m.material_id, m.material_name, m.in_stock,
+                                            m.average_cost FROM materials m
+                                            INNER JOIN supplier s ON m.supplier_id = s.supplier_id
+                                            WHERE material_id='" & RawMaterialsDGV.CurrentRow.Cells(0).Value & "'", connToAcc.openAccDB)
+                    da = New MySqlDataAdapter(cmd)
+
+                    dtable = New DataTable
+                    da.Fill(dtable)
+
+
+                rm.SupplierName.Text = String.Format("{0}-{1}", dtable.Rows(0).Item("supplier_id"), dtable.Rows(0).Item("company_name"))
+                rm.MaterialName.Text = dtable.Rows(0).Item("material_name")
+                rm.MaterialIDval = dtable.Rows(0).Item("material_id")
+                rm.InStock.Text = dtable.Rows(0).Item("in_stock")
+                rm.AverageCost.Text = dtable.Rows(0).Item("average_cost")
+
+                connToAcc.closeAccDB()
+
+                Me.Opacity = 0.75
+                rm.Show()
+                Me.Enabled = False
+
+                For Each clr In {rm.SupplierName, rm.MaterialName, rm.InStock, rm.AverageCost}
+                    clr.forecolor = Color.Black
+                Next
+                rm.SupplierName.Enabled = False
+                rm.InStock.Enabled = False
+                rm.Label1.Visible = True
+                rm.AddNewMtrlBttn.Text = "Update"
+                rm.ADDEDITRAWMATERIALPANEL.BringToFront()
+                rm.ClearAllBttn.Visible = False
             End If
+
         Catch ex As Exception
             connToAcc.closeAccDB()
             MsgBox(ex.Message)
@@ -1003,7 +1083,15 @@ Public Class Mainsystem
             PRT.Print(sender, e, ProductsDGV)
         ElseIf GRepBttnChecker = "Sales" Then
             PRT.Print(sender, e, SalesDGV)
+        ElseIf GRepBttnChecker = "Order Materials" Then
+            PRT.Print(sender, e, AddNewRawMaterials.OrderDGV)
+        ElseIf GRepBttnChecker = "Production" Then
+            PRT.Print(sender, e, AllProductionsDGV)
+        ElseIf GRepBttnChecker = "Reports" Then
+            e.HasMorePages = True
+            PRT.Print(sender, e, AllSalesDGV)
         End If
+
     End Sub
 
 #End Region
@@ -1014,253 +1102,63 @@ Public Class Mainsystem
 
 
 #Region "PRODUCTION CONTENT"
-#Region "MOUSE CLICK AND LEAVE"
-    '------------------------------------------------------------------------------------------
-    '-------------------------- MOUSE CLICK AND LEAVE -----------------------------------------
-    Private Sub ProductionID_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductionID.MouseClick
-        If ProductionID.Text = "Production ID" Then
-            ProductionID.ForeColor = Color.Black
-        End If
-    End Sub
-
-    Private Sub ProductionID_Leave(sender As Object, e As EventArgs) Handles ProductionID.Leave
-        If ProductionID.Text = "" Then
-            ProductionID.ForeColor = Color.Gray
-            ProductionID.Text = "Production ID"
-        End If
-    End Sub
-    '-------------------------------------------------------------------------------------
-    '-------------------------------------------------------------------------------------
-
-    Private Sub ProductName4Prod_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductName4Prod.MouseClick
-        If ProductName4Prod.Text = "Product Name" Then
-            ProductName4Prod.Clear()
-            ProductionID.ForeColor = Color.Black
-        End If
-    End Sub
-
-    Private Sub ProductName_Leave(sender As Object, e As EventArgs) Handles ProductName4Prod.Leave
-        If ProductName4Prod.Text = "" Then
-            ProductName4Prod.Text = "Product Name"
-            ProductName4Prod.ForeColor = Color.Gray
-        End If
-    End Sub
-    '-------------------------------------------------------------------------------------
-    '-------------------------------------------------------------------------------------
-
-    Private Sub ProductQty_MouseClick(sender As Object, e As EventArgs) Handles ProductQty.MouseClick
-        If ProductQty.Text = "Quantity" Then
-            ProductQty.Clear()
-            ProductQty.ForeColor = Color.Black
-        End If
-    End Sub
-
-    Private Sub ProductQty_Leave(sender As Object, e As EventArgs) Handles ProductQty.Leave
-        If ProductQty.Text = "" Then
-            ProductQty.Text = "Quantity"
-            ProductQty.ForeColor = Color.Gray
-        End If
-    End Sub
-    ''-------------------------------------------------------------------------------------
-    ''-------------------------------------------------------------------------------------
-
-    'Private Sub ProductionDL_MouseClick(sender As Object, e As MouseEventArgs)
-    '    If ProductionDL.Text = "Production Deadline" Then
-    '        ProductionDL.Clear()
-    '        ProductionDL.ForeColor = Color.Black
-    '    End If
-    'End Sub
-
-    'Private Sub ProductionDL_Leave(sender As Object, e As EventArgs)
-    '    If ProductionDL.Text = "" Then
-    '        ProductionDL.Text = "Production Deadline"
-    '        ProductionDL.ForeColor = Color.Gray
-    '    End If
-    'End Sub
-    '-------------------------------------------------------------------------------------
-    '-------------------------------------------------------------------------------------
-
-    Private Sub ProductionStatus_MouseClick(sender As Object, e As MouseEventArgs) Handles ProductionStatus.MouseClick
-        If ProductionStatus.Text = "Status" Then
-            ProductionStatus.ResetText()
-            ProductionStatus.ForeColor = Color.Black
-        End If
-    End Sub
-
-    Private Sub ProductionStatus_Leave(sender As Object, e As EventArgs) Handles ProductionStatus.Leave
-        If ProductionStatus.Text = "" Then
-            ProductionStatus.Text = "Status"
-            ProductionStatus.ForeColor = Color.Gray
-        End If
-    End Sub
-    '-------------------------------------------------------------------------------------
-    '----------------------------END OF MOUSE CLICK AND LEAVE-----------------------------
-
-
-#End Region
-
-
-    Function OverwriteProduction()
-        '// RESETTER FOR PRODUCTION -- COMBOBOXES ----------------------------------------------
-        ProductName4Prod.Text = "Product Name"
-        ProductQty.Text = "Quantity"
-        ProductionDL.Text = DateTime.Now
-        ProductionStatus.Text = "Status"
-
-        For Each fcolor In {ProductionID, ProductName4Prod, ProductQty, ProductionDL, ProductionStatus}
-            fcolor.ForeColor = Color.Gray
-        Next
-        ProductionStatus.Enabled = False
-        Return 0
-    End Function
-
-    Public Function Prod_IDTextChanged()
-        '//////
-        ' FOR PRODUCTION TABLE
-        '//////
-        Try
-            Try
-                Dim names() As String = ProductionID.Text.ToString.Split(New Char() {"-"c})
-                prod_id = names(0)
-            Catch ex As Exception
-                connToAcc.closeAccDB()
-            End Try
-            '// CMD FOR PRODUCTION -- COMBOBOXES -----------------------------------------------------
-            cmd = New MySqlCommand($"SELECT m.production_id, p.product_name, m.quantity, m.production_deadline, m.status
-                                FROM make m
-                                INNER JOIN products p
-                                on m.product_id = p.product_id
-                                WHERE m.production_id =  '" & prod_id & "'", connToAcc.openAccDB)
-            reader = cmd.ExecuteReader()
-
-            While reader.Read
-                ProductName4Prod.Text = reader.Item("product_name")
-                ProductQty.Text = reader.Item("quantity")
-                ProductionDL.Value = reader.GetDateTime(reader.GetOrdinal("production_deadline"))
-            End While
-            ProductionStatus.Text = "incomplete"
-
-            '//get the quantity of product to create
-            prodqty = Val(ProductQty.Text)
-            '///
-
-            For Each fcolor In {ProductionID, ProductName4Prod, ProductQty, ProductionDL, ProductionStatus}
-                fcolor.ForeColor = Color.Black
-            Next
-
-            If prodqty = 0 Then
-                ProductionStatus.Enabled = False
-            ElseIf prodqty > 0 Then
-                ProductionStatus.Enabled = True
-            End If
-            connToAcc.closeAccDB()
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            connToAcc.closeAccDB()
-        End Try
-
-        '/////
-        ' CMD FOR COMPONENTS
-        '/////
-        Try
-            '// CMD FOR COMPONENTS -- RICHTEXTBOX --------------------------------------------------------
-            cmd = New MySqlCommand($"SELECT m.material_name, c.quantity
-                                    FROM components c
-                                    INNER JOIN materials m
-                                    on m.material_id = c.material_id
-                                    INNER JOIN make ma
-                                    on ma.production_id = c.production_id
-                                    WHERE ma.production_id = '" & ProductionID.Text & "'", connToAcc.openAccDB)
-
-            reader = cmd.ExecuteReader
-            ComponentsRTB.Clear()
-            While reader.Read
-                '// get the quantity of component * by product qty
-                compqty = reader(1)
-                '///
-                ComponentsRTB.AppendText(reader(0) & "       ---       " & "QTY: " & compqty * prodqty & vbNewLine)
-            End While
-            reader.Close()
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            connToAcc.closeAccDB()
-        End Try
-        connToAcc.closeAccDB()
-        Return 0
-    End Function
-
-    Private Sub ProductionID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProductionID.SelectedIndexChanged
-        Prod_IDTextChanged()
-    End Sub
-
-    Private Sub ProductionID_TextChanged(sender As Object, e As EventArgs) Handles ProductionID.TextChanged
-        Prod_IDTextChanged()
-    End Sub
-
-    Private Sub ProductionID_TextUpdate(sender As Object, e As EventArgs) Handles ProductionID.TextUpdate
-        Prod_IDTextChanged()
-    End Sub
 
     '/// RENDERING PRODUCTION COMPLETE OR INCOMPLETE
     '///////////////
-    Function ProdCompletion(ByVal txt As String)
-        If txt = "complete" Or txt = "COMPLETE" Then
+    Private Sub AllProductionsDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AllProductionsDGV.CellClick
+        Dim prod_id = AllProductionsDGV.CurrentRow.Cells(0).Value
+
+        Dim statuscompletion As String = AllProductionsDGV.Columns(e.ColumnIndex).HeaderText
+        If statuscompletion = "Finish Work-In-Progress" Then
             DialogResult = MessageBox.Show("Production will be marked as completed. Continue?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
             If DialogResult = vbYes Then
                 Try
-                    cmd = New MySqlCommand($"UPDATE products p
-                                            INNER JOIN make m
-                                            on m.product_id = p.product_id
-                                            SET p.in_stock = p.in_stock + (SELECT m.quantity), p.expected = p.expected - (SELECT m.quantity)
-                                            WHERE m.production_id = '" & ProductionID.Text & "'", connToAcc.openAccDB)
-                    cmd.ExecuteNonQuery()
-                    connToAcc.closeAccDB()
-
-                    Dim cmd1 = New MySqlCommand($"UPDATE materials mat
+                    cmd = New MySqlCommand($"UPDATE materials mat
                                            INNER JOIN components comp
                                            on comp.material_id = mat.material_id
                                            INNER JOIN make
                                            ON make.production_id = comp.production_id
-                                           SET mat.in_stock = mat.in_stock-make.quantity*comp.quantity,
-                                           mat.committed = mat.committed-make.quantity*comp.quantity
-                                           WHERE make.production_id = '" & ProductionID.Text & "'", connToAcc.openAccDB)
+                                           SET mat.in_stock = mat.in_stock-(make.quantity*comp.quantity),
+                                           mat.committed = mat.committed-(make.quantity*comp.quantity)
+                                           WHERE make.production_id = '" & prod_id & "'", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+
+                    Dim cmd1 = New MySqlCommand($"UPDATE products p
+                                            INNER JOIN make m
+                                            on m.product_id = p.product_id
+                                            SET p.in_stock = p.in_stock + (SELECT m.quantity), p.expected = p.expected - (SELECT m.quantity)
+                                            WHERE m.production_id = '" & prod_id & "'", connToAcc.openAccDB)
                     cmd1.ExecuteNonQuery()
                     connToAcc.closeAccDB()
 
                     Dim cmd2 = New MySqlCommand("INSERT INTO production_log (production_id, datetime, quantity)
-                                           VALUES('" & ProductionID.Text & "', @datenow, '" & ProductQty.Text & "')", connToAcc.openAccDB)
+                                           VALUES('" & prod_id & "', @datenow, '" & AllProductionsDGV.CurrentRow.Cells(3).Value & "')", connToAcc.openAccDB)
                     cmd2.Parameters.Add("@datenow", MySqlDbType.DateTime).Value = DateTime.Now
 
                     cmd2.ExecuteNonQuery()
                     connToAcc.closeAccDB()
 
                     Dim cmd3 = New MySqlCommand($"UPDATE make Set quantity = 0, production_deadline = @d1 WHERE production_id = '" & prod_id & "'", connToAcc.openAccDB)
-                    cmd3.Parameters.Add("@d1", MySqlDbType.DateTime).Value = ProductionDL.Value
+                    cmd3.Parameters.Add("@d1", MySqlDbType.DateTime).Value = DateTime.Now
 
                     cmd3.ExecuteNonQuery()
                     connToAcc.closeAccDB()
 
                     MessageBox.Show("Data Update Success", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-                    connToAcc.closeAccDB()
 
                 Catch ex As Exception
-                    MsgBox(ex.Message)
+                    MessageBox.Show("Insufficient Raw Materials!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     connToAcc.closeAccDB()
+                    Exit Sub
                 End Try
-                ProductionID.Text = "Production ID"
-                OverwriteProduction()
+
                 Load_Records()
 
+            ElseIf DialogResult = vbNo Then
+                Exit Sub
             End If
         End If
-
-        Return 0
-    End Function
-
-    Private Sub ProductionStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProductionStatus.SelectedIndexChanged
-        ProdCompletion(ProductionStatus.Text)
     End Sub
 
     '///////////////////////////
@@ -1280,6 +1178,15 @@ Public Class Mainsystem
     Private Sub PrdctnLogBttn_Click(sender As Object, e As EventArgs) Handles PrdctnLogBttn.Click
         ModifyProduction.Show()
         ModifyProduction.ProductionLogContent.BringToFront()
+    End Sub
+
+    Private Sub GenRepProductionBttn_Click(sender As Object, e As EventArgs) Handles GenRepProductionBttn.Click
+        GRepBttnChecker = "Production"
+
+        PrintPreviewDialog1.Document = PrintDocument1
+        PrintDocument1.DefaultPageSettings.Landscape = True
+        PrintPreviewDialog1.PrintPreviewControl.Zoom = 1
+        PrintPreviewDialog1.ShowDialog()
     End Sub
 #End Region
 
@@ -1371,6 +1278,29 @@ Public Class Mainsystem
         PrintPreviewDialog1.ShowDialog()
     End Sub
 
+    Private Sub ProductsDGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles ProductsDGV.CellClick
+        '//DELETING RECORDS
+        Try
+            Dim ProductsDelete As String = ProductsDGV.Columns(e.ColumnIndex).HeaderText
+            If ProductsDelete = "Delete" Then
+                If MsgBox("Delete this record?", vbYesNo + vbQuestion) = vbYes Then
+                    cmd = New MySqlCommand($"DELETE FROM products WHERE products_id = '" & ProductsDGV.CurrentRow.Cells(0).Value & "'", connToAcc.openAccDB)
+                    cmd.ExecuteNonQuery()
+                    connToAcc.closeAccDB()
+                    MsgBox("Record has been successfully deleted.", vbInformation)
+                    Load_Records()
+                    ProductsDGV.ClearSelection()
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+
+        End Try
+
+    End Sub
+
     '_************************************* END OF PRODUCTS CONTENT ********************************************************
     '***********************************************************************************************************************
 #End Region
@@ -1444,45 +1374,46 @@ Public Class Mainsystem
         Dim startdate As Date = Picker_StartDate.Value, enddate As Date = Picker_EndDate.Value
         AllSalesDGV.Rows.Clear()
 
-        'Try
-        If btn Is DailySaleBttn Then
-            cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
+        Try
+            If btn Is DailySaleBttn Then
+                cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
                                 SD.product_id, SD.sale_quantity, SD.total
                                 FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
                                 ORDER BY s.sales_date DESC", connToAcc.openAccDB)
 
-        ElseIf btn Is MonthlySaleBttn Then
-            cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
+            ElseIf btn Is MonthlySaleBttn Then
+                cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
                                 SD.product_id, SD.sale_quantity, SD.total
                                 FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
                                 WHERE YEAR(s.sales_date) = EXTRACT(YEAR from CURRENT_TIMESTAMP)
                                 AND MONTH(CURRENT_TIMESTAMP) = extract(MONTH FROM s.sales_date)
                                 ORDER BY s.sales_date DESC", connToAcc.openAccDB)
 
-        ElseIf btn Is SaleByDateRangeBttn Then
-            cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
+            ElseIf btn Is SaleByDateRangeBttn Then
+                cmd = New MySqlCommand($"SELECT SD.sale_details_id, s.sales_id, s.sales_date,
                                 SD.product_id, SD.sale_quantity, SD.total
                                 FROM sales s RIGHT JOIN sales_details SD ON s.sales_id = SD.sales_id
                                 WHERE s.sales_date >= @picker1 
                                     AND s.sales_date <= @picker2
                                 ORDER BY s.sales_date DESC", connToAcc.openAccDB)
-            cmd.Parameters.AddWithValue("@picker1", startdate)
-            cmd.Parameters.AddWithValue("@picker2", enddate.AddHours(22).AddMinutes(58).AddSeconds(59))
-        End If
+                cmd.Parameters.AddWithValue("@picker1", startdate)
+                cmd.Parameters.AddWithValue("@picker2", enddate.AddHours(22).AddMinutes(58).AddSeconds(59))
+            End If
 
-        reader = cmd.ExecuteReader
-        While reader.Read
-            AllSalesDGV.Rows.Add(reader.Item("sale_details_id").ToString, reader.Item("sales_id").ToString,
-                                   reader.Item("sales_date").ToString, reader.Item("product_id").ToString,
-                                   reader.Item("sale_quantity").ToString, reader.Item("total").ToString, "DELETE")
-        End While
-        reader.Close()
-        connToAcc.closeAccDB()
+            Using reader = cmd.ExecuteReader
+                While reader.Read
+                    AllSalesDGV.Rows.Add(reader.Item("sale_details_id").ToString, reader.Item("sales_id").ToString,
+                                           reader.Item("sales_date").ToString, reader.Item("product_id").ToString,
+                                           reader.Item("sale_quantity").ToString, reader.Item("total").ToString)
+                End While
+            End Using
+            reader.Close()
+            connToAcc.closeAccDB()
 
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        '    connToAcc.closeAccDB()
-        'End Try
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            connToAcc.closeAccDB()
+        End Try
 
     End Sub
 
@@ -1499,14 +1430,16 @@ Public Class Mainsystem
 
     Private Sub DailySaleBttn_Click(sender As Object, e As EventArgs) Handles DailySaleBttn.Click
         LoadingAllSales(DailySaleBttn)
+        HeaderSalesRep.Text = "Daily Reports"
     End Sub
 
     Private Sub SalesPredBttn_Click(sender As Object, e As EventArgs) Handles SalesPredBttn.Click
-        SalesPrediction.ShowDialog()
+        Prediction.ShowDialog()
     End Sub
 
     Private Sub MonthlySaleBttn_Click(sender As Object, e As EventArgs) Handles MonthlySaleBttn.Click
         LoadingAllSales(MonthlySaleBttn)
+        HeaderSalesRep.Text = "Monthly Reports"
     End Sub
 
 
@@ -1514,6 +1447,15 @@ Public Class Mainsystem
     Private Sub DateRangeBttn_Click(sender As Object, e As EventArgs) Handles DateRangeBttn.Click
         LoadingAllSales(SaleByDateRangeBttn)
         DateRangeContent.SendToBack()
+    End Sub
+
+    Private Sub GenRepSRBttn_Click(sender As Object, e As EventArgs) Handles GenRepSRBttn.Click
+        GRepBttnChecker = "Reports"
+
+        PrintPreviewDialog1.Document = PrintDocument1
+        PrintDocument1.DefaultPageSettings.Landscape = True
+        PrintPreviewDialog1.PrintPreviewControl.Zoom = 1
+        PrintPreviewDialog1.ShowDialog()
     End Sub
 
     '*********************************** END OF SALES REPORT CONTENT *******************************************************
@@ -1531,7 +1473,6 @@ Public Class Mainsystem
 
         cmd = New MySqlCommand("SELECT P.product_id
 	                   , P.product_name
-	                   , SUM(SD.sale_quantity) sold_count
 	                FROM products P 
                     LEFT JOIN sales_details SD
     	                ON P.product_id = SD.product_id
@@ -1548,7 +1489,6 @@ Public Class Mainsystem
 
         HighestSellingDGV.Columns(0).HeaderText = "Product ID"
         HighestSellingDGV.Columns(1).HeaderText = "Product Name"
-        HighestSellingDGV.Columns(2).HeaderText = "Sold Quantity"
 
         connToAcc.closeAccDB()
 

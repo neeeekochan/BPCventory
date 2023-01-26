@@ -12,7 +12,7 @@ Public Class ScanQR
 
     Private Sub QRCodeTxt_KeyUp(sender As Object, e As KeyEventArgs) Handles QRCodeTxt.KeyUp
         If QRCodeTxt.Text.Length >= 20 Then
-            cmd = New MySqlCommand($"Select privileges,lastname,firstname FROM users WHERE unique_ID = '" & QRCodeTxt.Text & "'", connToAcc.openAccDB)
+            cmd = New MySqlCommand($"Select user_id, mobile_number, privileges, lastname, firstname FROM users WHERE unique_ID = '" & QRCodeTxt.Text & "'", connToAcc.openAccDB)
             Try
                 Login.TryingLogin(cmd)
                 Hide()

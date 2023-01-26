@@ -24,6 +24,7 @@ Partial Class ModifySales
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.StockCountLabel = New System.Windows.Forms.Label()
         Me.ProdNameCB = New System.Windows.Forms.ComboBox()
         Me.CustNameCB = New System.Windows.Forms.ComboBox()
         Me.AddSaleDGV = New System.Windows.Forms.DataGridView()
@@ -49,6 +50,7 @@ Partial Class ModifySales
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.StockCountLabel)
         Me.Panel1.Controls.Add(Me.ProdNameCB)
         Me.Panel1.Controls.Add(Me.CustNameCB)
         Me.Panel1.Controls.Add(Me.AddSaleDGV)
@@ -61,18 +63,29 @@ Partial Class ModifySales
         Me.Panel1.Controls.Add(Me.ProdQtyTB)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(12, 38)
+        Me.Panel1.Location = New System.Drawing.Point(12, 48)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(755, 281)
+        Me.Panel1.Size = New System.Drawing.Size(958, 479)
         Me.Panel1.TabIndex = 0
+        '
+        'StockCountLabel
+        '
+        Me.StockCountLabel.AutoSize = True
+        Me.StockCountLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
+        Me.StockCountLabel.Location = New System.Drawing.Point(152, 277)
+        Me.StockCountLabel.Name = "StockCountLabel"
+        Me.StockCountLabel.Size = New System.Drawing.Size(95, 18)
+        Me.StockCountLabel.TabIndex = 34
+        Me.StockCountLabel.Text = "Stock Count:"
         '
         'ProdNameCB
         '
         Me.ProdNameCB.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ProdNameCB.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.ProdNameCB.FormattingEnabled = True
-        Me.ProdNameCB.Location = New System.Drawing.Point(31, 107)
+        Me.ProdNameCB.Location = New System.Drawing.Point(31, 165)
         Me.ProdNameCB.Name = "ProdNameCB"
-        Me.ProdNameCB.Size = New System.Drawing.Size(216, 24)
+        Me.ProdNameCB.Size = New System.Drawing.Size(216, 33)
         Me.ProdNameCB.TabIndex = 33
         Me.ToolTip1.SetToolTip(Me.ProdNameCB, "Click here to input/scan desired item barcode.")
         '
@@ -80,10 +93,11 @@ Partial Class ModifySales
         '
         Me.CustNameCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CustNameCB.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.CustNameCB.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.CustNameCB.FormattingEnabled = True
-        Me.CustNameCB.Location = New System.Drawing.Point(31, 44)
+        Me.CustNameCB.Location = New System.Drawing.Point(31, 61)
         Me.CustNameCB.Name = "CustNameCB"
-        Me.CustNameCB.Size = New System.Drawing.Size(216, 24)
+        Me.CustNameCB.Size = New System.Drawing.Size(216, 33)
         Me.CustNameCB.TabIndex = 32
         '
         'AddSaleDGV
@@ -91,12 +105,12 @@ Partial Class ModifySales
         Me.AddSaleDGV.AllowUserToAddRows = False
         Me.AddSaleDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AddSaleDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
-        Me.AddSaleDGV.Location = New System.Drawing.Point(321, 14)
+        Me.AddSaleDGV.Location = New System.Drawing.Point(369, 24)
         Me.AddSaleDGV.Name = "AddSaleDGV"
         Me.AddSaleDGV.RowHeadersVisible = False
         Me.AddSaleDGV.RowTemplate.Height = 24
         Me.AddSaleDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AddSaleDGV.Size = New System.Drawing.Size(417, 150)
+        Me.AddSaleDGV.Size = New System.Drawing.Size(562, 377)
         Me.AddSaleDGV.TabIndex = 31
         '
         'Column1
@@ -135,7 +149,7 @@ Partial Class ModifySales
         Me.AddSaleCloseBttn.FlatAppearance.BorderSize = 2
         Me.AddSaleCloseBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.AddSaleCloseBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddSaleCloseBttn.Location = New System.Drawing.Point(591, 228)
+        Me.AddSaleCloseBttn.Location = New System.Drawing.Point(802, 416)
         Me.AddSaleCloseBttn.Name = "AddSaleCloseBttn"
         Me.AddSaleCloseBttn.Size = New System.Drawing.Size(120, 45)
         Me.AddSaleCloseBttn.TabIndex = 30
@@ -148,7 +162,7 @@ Partial Class ModifySales
         Me.DoneSalesBttn.BackColor = System.Drawing.Color.Gold
         Me.DoneSalesBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.DoneSalesBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DoneSalesBttn.Location = New System.Drawing.Point(591, 177)
+        Me.DoneSalesBttn.Location = New System.Drawing.Point(664, 416)
         Me.DoneSalesBttn.Name = "DoneSalesBttn"
         Me.DoneSalesBttn.Size = New System.Drawing.Size(120, 45)
         Me.DoneSalesBttn.TabIndex = 28
@@ -161,7 +175,7 @@ Partial Class ModifySales
         Me.AddSalesBttn.BackColor = System.Drawing.Color.Gold
         Me.AddSalesBttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOrange
         Me.AddSalesBttn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddSalesBttn.Location = New System.Drawing.Point(408, 177)
+        Me.AddSalesBttn.Location = New System.Drawing.Point(107, 416)
         Me.AddSalesBttn.Name = "AddSalesBttn"
         Me.AddSalesBttn.Size = New System.Drawing.Size(120, 45)
         Me.AddSalesBttn.TabIndex = 27
@@ -173,41 +187,43 @@ Partial Class ModifySales
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.NavajoWhite
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(28, 215)
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Location = New System.Drawing.Point(28, 310)
         Me.Label4.Name = "Label4"
         Me.Label4.Padding = New System.Windows.Forms.Padding(5, 5, 210, 5)
-        Me.Label4.Size = New System.Drawing.Size(265, 27)
+        Me.Label4.Size = New System.Drawing.Size(283, 35)
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "Total:"
         '
         'TotalTB
         '
         Me.TotalTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TotalTB.Location = New System.Drawing.Point(31, 245)
+        Me.TotalTB.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.TotalTB.Location = New System.Drawing.Point(31, 361)
         Me.TotalTB.Name = "TotalTB"
         Me.TotalTB.ReadOnly = True
-        Me.TotalTB.Size = New System.Drawing.Size(109, 22)
+        Me.TotalTB.Size = New System.Drawing.Size(109, 30)
         Me.TotalTB.TabIndex = 6
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.AntiqueWhite
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(28, 147)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Location = New System.Drawing.Point(28, 216)
         Me.Label3.Name = "Label3"
         Me.Label3.Padding = New System.Windows.Forms.Padding(5, 5, 190, 5)
-        Me.Label3.Size = New System.Drawing.Size(269, 27)
+        Me.Label3.Size = New System.Drawing.Size(295, 35)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Quantity:"
         '
         'ProdQtyTB
         '
         Me.ProdQtyTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ProdQtyTB.Location = New System.Drawing.Point(31, 177)
+        Me.ProdQtyTB.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.ProdQtyTB.Location = New System.Drawing.Point(31, 265)
         Me.ProdQtyTB.Name = "ProdQtyTB"
-        Me.ProdQtyTB.Size = New System.Drawing.Size(109, 22)
+        Me.ProdQtyTB.Size = New System.Drawing.Size(109, 30)
         Me.ProdQtyTB.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.ProdQtyTB, "Choose any product again after adding a sale.")
         '
@@ -215,11 +231,11 @@ Partial Class ModifySales
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.AntiqueWhite
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(28, 77)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Location = New System.Drawing.Point(28, 115)
         Me.Label2.Name = "Label2"
         Me.Label2.Padding = New System.Windows.Forms.Padding(5, 5, 150, 5)
-        Me.Label2.Size = New System.Drawing.Size(270, 27)
+        Me.Label2.Size = New System.Drawing.Size(310, 35)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Product Name:"
         '
@@ -227,11 +243,11 @@ Partial Class ModifySales
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.AntiqueWhite
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.Location = New System.Drawing.Point(28, 14)
         Me.Label1.Name = "Label1"
         Me.Label1.Padding = New System.Windows.Forms.Padding(5, 5, 140, 5)
-        Me.Label1.Size = New System.Drawing.Size(272, 27)
+        Me.Label1.Size = New System.Drawing.Size(319, 35)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Customer Name:"
         '
@@ -240,11 +256,11 @@ Partial Class ModifySales
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Roboto Medium", 14.0!, System.Drawing.FontStyle.Bold)
         Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(275, 6)
+        Me.Label5.Location = New System.Drawing.Point(321, 9)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(241, 29)
+        Me.Label5.Size = New System.Drawing.Size(347, 29)
         Me.Label5.TabIndex = 8
-        Me.Label5.Text = "----  ADD SALE  -----"
+        Me.Label5.Text = "----  CUSTOMER ORDER  -----"
         '
         'ToolTip1
         '
@@ -255,7 +271,7 @@ Partial Class ModifySales
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Orange
-        Me.ClientSize = New System.Drawing.Size(779, 331)
+        Me.ClientSize = New System.Drawing.Size(982, 539)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -289,4 +305,5 @@ Partial Class ModifySales
     Friend WithEvents CustNameCB As ComboBox
     Friend WithEvents ProdNameCB As ComboBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents StockCountLabel As Label
 End Class

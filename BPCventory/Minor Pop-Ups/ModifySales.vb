@@ -93,9 +93,14 @@ Public Class ModifySales
         TotalTB.Clear()
         '/////////
 
-        Dim names() As String = ProdNameCB.Text.ToString.Split(New Char() {"-"c})
-        prod_id = names(0)
-        prod_name = names(1)
+        Try
+            Dim names() As String = ProdNameCB.Text.ToString.Split(New Char() {"-"c})
+            prod_id = names(0)
+            prod_name = names(1)
+        Catch ex As Exception
+            Dim names() As String = ProdNameCB.Text.ToString.Split(New Char() {"-"c})
+            prod_id = names(0)
+        End Try
 
         For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
             If ProdNameCB.Text = AddSaleDGV.Rows(i).Cells(0).Value Then
@@ -110,13 +115,25 @@ Public Class ModifySales
             End If
         Next
 
-        cmd = New MySqlCommand($"SELECT sale_price FROM products WHERE product_id = '" & prod_id & "'", connToAcc.openAccDB)
+        cmd = New MySqlCommand($"SELECT sale_price, in_stock FROM products WHERE product_id = '" & prod_id & "'", connToAcc.openAccDB)
         Using reader = cmd.ExecuteReader()
             If reader.Read Then
                 saleprice = reader(0)
+                StockCountLabel.Text = "Stock Count: " & reader(1).ToString
             End If
         End Using
         connToAcc.closeAccDB()
+    End Sub
+
+    Private Sub ProdNameCB_KeyUp(sender As Object, e As KeyEventArgs) Handles ProdNameCB.KeyUp
+        If ProdNameCB.Text.Length = 5 Then
+            For i As Integer = 0 To ProdNameCB.Items.Count - 1
+                If ProdNameCB.Text = Convert.ToString(Val(ProdNameCB.Items(i))) Then
+                    ProdNameCB.SelectedItem = Convert.ToString(ProdNameCB.Items(i))
+                    'MsgBox(ProdNameCB.SelectedItem)
+                End If
+            Next
+        End If
     End Sub
 
     Private Sub ProdNameCB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProdNameCB.SelectedIndexChanged
@@ -153,6 +170,12 @@ Public Class ModifySales
             If DialogResult.Yes Then
 
                 Try
+                    If Val(StockCountLabel.Text) > ProdQtyTB.Text Then
+                        MessageBox.Show("Error proceeding in order. Insufficient stocks of particular item. Please try again later.", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Mainsystem.Load_Records()
+                        Exit Sub
+                        Me.Close()
+                    End If
                     '////////////////////////////////////////
                     '///// INPUTTING IN SALES -- CATCHING THE SALES ID
                     cmd = New MySqlCommand($"INSERT INTO sales ( user_id, customer_id)
@@ -176,13 +199,13 @@ Public Class ModifySales
                     connToAcc.closeAccDB()
                 End Try
 
-                'Try
-                '////////////////////////////////////////
-                '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
-                For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
+                Try
+                    '////////////////////////////////////////
+                    '////// INPUTTING IN SALES REPORT --- UPDATING PRODUCTS
+                    For i As Integer = 0 To AddSaleDGV.Rows.Count - 1
 
 
-                    Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
+                        Dim names() As String = AddSaleDGV.Rows(i).Cells(0).Value.ToString.Split(New Char() {"-"c})
                         prod_id = names(0)
 
                         cmd = New MySqlCommand($"INSERT INTO sales_details(sales_id, product_id, sale_quantity, total)
@@ -203,35 +226,26 @@ Public Class ModifySales
                         '---------------------------------------------------------------------------
                         totalspent += AddSaleDGV.Rows(i).Cells(2).Value
 
-                    MsgBox(textmsgbuild.ToString)
-                    SmsSender.SendSMS(textmsgbuild.ToString, ,)
-                    textmsgbuild.Clear()
-                Next
+                        MsgBox(textmsgbuild.ToString)
+                        SmsSender.SendSMS(textmsgbuild.ToString, ,)
+                        textmsgbuild.Clear()
+                    Next
 
 
-                MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                '// SEPARATING TRANSACTION MESSAGE INTO 150 CHARACTER TEXT -----------------------------
-
-                'Dim strings As New List(Of String)
-                'builtsms = textmsgbuild.ToString
-
-                'For i As Integer = 0 To builtsms.Length Step 120
-                '    strings.Add(builtsms.Substring(i))
-                '    SmsSender.SendSMS(strings.ToString, ,)
-                'Next
-
-                '---------------------------------------------------------------------------------------
+                    MessageBox.Show("Purchase Inserted.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
-                Mainsystem.Load_Records()
+
+                    Mainsystem.Load_Records()
                     Mainsystem.Show()
                     Me.Close()
 
-                'Catch ex As Exception
-                '    MsgBox(ex.Message)
-                '    connToAcc.closeAccDB()
-                'End Try
+                Catch ex As Exception
+                    MessageBox.Show("Error proceeding in order. Insufficient stocks of particular item. Please try again later.", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    connToAcc.closeAccDB()
+                    Mainsystem.Load_Records()
+                    Close()
+                End Try
 
             End If
         End If

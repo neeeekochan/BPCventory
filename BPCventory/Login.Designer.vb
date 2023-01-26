@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Login
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Login
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Login))
         Me.LogoutBttn = New System.Windows.Forms.Label()
@@ -36,7 +36,6 @@ Partial Class Login
         Me.SendOTPBttn = New System.Windows.Forms.Button()
         Me.CancelOTPBttn = New System.Windows.Forms.Button()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.Label2 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OTPPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -136,7 +135,6 @@ Partial Class Login
         Me.OTPPanel.Controls.Add(Me.SendOTPBttn)
         Me.OTPPanel.Controls.Add(Me.CancelOTPBttn)
         Me.OTPPanel.Controls.Add(Me.LinkLabel1)
-        Me.OTPPanel.Controls.Add(Me.Label2)
         Me.OTPPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.OTPPanel.Location = New System.Drawing.Point(268, 188)
         Me.OTPPanel.Margin = New System.Windows.Forms.Padding(7)
@@ -205,16 +203,6 @@ Partial Class Login
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Resend?"
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!)
-        Me.Label2.Location = New System.Drawing.Point(7, 233)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(66, 24)
-        Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Label2"
-        '
         'Login
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -252,5 +240,4 @@ Partial Class Login
     Friend WithEvents SendOTPBttn As Button
     Friend WithEvents CancelOTPBttn As Button
     Friend WithEvents LinkLabel1 As LinkLabel
-    Friend WithEvents Label2 As Label
 End Class

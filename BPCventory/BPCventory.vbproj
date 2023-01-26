@@ -213,10 +213,10 @@
     <Compile Include="Minor Pop-Ups\AddNewRawMaterials.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Minor Pop-Ups\SalesPrediction.Designer.vb">
-      <DependentUpon>SalesPrediction.vb</DependentUpon>
+    <Compile Include="Minor Pop-Ups\Prediction.Designer.vb">
+      <DependentUpon>Prediction.vb</DependentUpon>
     </Compile>
-    <Compile Include="Minor Pop-Ups\SalesPrediction.vb">
+    <Compile Include="Minor Pop-Ups\Prediction.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Minor Pop-Ups\TextMessage.vb" />
@@ -292,8 +292,8 @@
     <EmbeddedResource Include="Minor Pop-Ups\ModifyUser.resx">
       <DependentUpon>ModifyUser.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Minor Pop-Ups\SalesPrediction.resx">
-      <DependentUpon>SalesPrediction.vb</DependentUpon>
+    <EmbeddedResource Include="Minor Pop-Ups\Prediction.resx">
+      <DependentUpon>Prediction.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Minor Pop-Ups\ScanQR.resx">
       <DependentUpon>ScanQR.vb</DependentUpon>
